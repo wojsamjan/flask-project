@@ -1,0 +1,53 @@
+from db import db
+
+
+class ItemModel(db.Model):
+    __tablename__ = 'items'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120))
+    price = db.Column(db.Float(precision=2))
+
+    available = db.Column(db.Integer)
+
+    year = db.Column(db.Integer)
+    item_type = db.Column(db.String(30))
+    vendor = db.Column(db.String(30))
+    model = db.Column(db.String(40))
+
+    # store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
+    # store = db.relationship('StoreModel')
+
+    # def __init__(self, name, price, store_id):
+    def __init__(self, name, price, year, item_type, vendor, model):
+        self.name = name  # ProductName-Manufacturer-Model-Number(first available from 1) ex: narty-atomic-extra-1
+        self.price = price
+        # self.store_id = store_id
+
+        self.available = 1
+
+        self.year = year
+        self.item_type = item_type
+        self.vendor = vendor
+        self.model = model
+
+    def json(self):
+        return {'name': self.name, 'price': self.price, 'available': self.available, 'year': self.year,
+                'item_type': self.item_type, 'vendor': self.vendor, 'model': self.model}
+
+    @classmethod
+    def find_by_name(cls, name):
+        return cls.query.filter_by(name=name).first()  # SELECT * FROM items WHERE name=name LIMIT 1
+
+    @staticmethod
+    def is_item_type(item_type):
+        return item_type in ["ski", "snowboard", "surfing-board", "pedalo", "bike", "rollerblades", "longboard",
+                             "tent", "sleeping-bag", "gps", "caravan", "cool-box", "rucksack"]
+
+    def save_to_db(self):  # updating or upserting data
+        db.session.add(self)  # We can add multiple objects to session and then commit once - more efficient
+        db.session.commit()
+
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
