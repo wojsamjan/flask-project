@@ -26,9 +26,12 @@ class CarModel(db.Model):
     # store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
     # store = db.relationship('StoreModel')
 
+    branch_id = db.Column(db.Integer, db.ForeignKey('branches.id'))
+    branch = db.relationship('BranchModel')
+
     # def __init__(self, name, price, store_id):
     def __init__(self, name, price, year, car_type, vendor, model, colour, seats,
-                 transmission, drive, fuel, engine_power):
+                 transmission, drive, fuel, engine_power, branch_id):
         self.name = name  # Manufacturer-Model-Number(first available from 1) ex: vw-golf3-1994-1
         self.price = price
         # self.store_id = store_id
@@ -51,6 +54,9 @@ class CarModel(db.Model):
         self.fuel = fuel
         # self.engine_size = engine_size
         self.engine_power = engine_power
+
+        self.branch_id = branch_id
+
         #
         # self.name = vendor + "-" + model + "-" + str(year) + "-"
         #
@@ -67,7 +73,7 @@ class CarModel(db.Model):
         return {'name': self.name, 'price': self.price, 'available': self.available, 'year': self.year,
                 'car_type': self.car_type, 'vendor': self.vendor, 'model': self.model, 'colour': self.colour,
                 'seats': self.seats, 'transmission': self.transmission, 'drive': self.drive, 'fuel': self.fuel,
-                'engine_power': self.engine_power}
+                'engine_power': self.engine_power, 'branch_id': self.branch_id}
 
     @classmethod
     def find_by_name(cls, name):
