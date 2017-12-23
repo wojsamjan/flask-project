@@ -7,6 +7,7 @@ from resources.user import UserRegister
 from resources.item import Item, ItemList, ItemReserve
 # from resources.store import Store, StoreList
 from resources.car import Car, CarList, CarReserve
+from resources.branch import Branch, BranchList
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -32,6 +33,10 @@ api.add_resource(Car, '/car/<string:name>')
 api.add_resource(CarList, '/cars',
                  '/cars/<string:param>/<string:value_p>')
 api.add_resource(CarReserve, '/car/reserve/<string:name>')
+
+api.add_resource(Branch, '/branch/<string:name>')
+api.add_resource(BranchList, '/branches',
+                 '/branches/<string:country>')
 
 api.add_resource(UserRegister, '/register')
 
