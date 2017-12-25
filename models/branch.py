@@ -16,11 +16,13 @@ class BranchModel(db.Model):
 
     # items = db.relationship('ItemModel', lazy='dynamic')  # list of items
 
-    # users = db.relationship('UserModel', lazy='dynamic')
+    users = db.relationship('UserModel', lazy='dynamic')
     cars = db.relationship('CarModel', lazy='dynamic')
     items = db.relationship('ItemModel', lazy='dynamic')
 
     def __init__(self, name, country, city, postal_code, street, email, phone):
+        self.id
+
         self.name = name
 
         self.country = country
@@ -32,15 +34,25 @@ class BranchModel(db.Model):
 
     def json(self):
         # return {'name': self.name, 'items': [item.json() for item in self.items.all()]}
-        return {'name': self.name, 'country': self.country, 'city': self.city, 'postal_code': self.postal_code,
-                'street': self.street, 'email': self.email, 'phone': self.phone,
-                # 'users': [user.json() for user in self.users.all()],
+        return {
+                'id': self.id, 'name': self.name, 'country': self.country, 'city': self.city,
+                'postal_code': self.postal_code, 'street': self.street, 'email': self.email, 'phone': self.phone,
+                'users': [user.json() for user in self.users.all()],
                 'cars': [car.json() for car in self.cars.all()],
-                'items': [item.json() for item in self.items.all()]}
+                'items': [item.json() for item in self.items.all()]
+                }
+
+    def short_json(self):
+        return {
+                'id': self.id, 'name': self.name, 'city': self.city, 'street': self.street,
+                'users': [user.short_json() for user in self.users.all()],
+                'cars': [car.short_json() for car in self.cars.all()],
+                'items': [item.short_json() for item in self.items.all()]
+                }
 
     @classmethod
     def find_by_name(cls, name):
-        return cls.query.filter_by(name=name).first()  # SELECT * FROM items WHERE name=name LIMIT 1
+        return cls.query.filter_by(name=name).first()  # SELECT * FROM branches WHERE name=name LIMIT 1
 
     def save_to_db(self):
         db.session.add(self)  # We can add multiple objects to session and then commit once - more efficient
