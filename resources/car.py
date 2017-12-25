@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.car import CarModel
+from models.branch import BranchModel
 
 
 class Car(Resource):
@@ -65,16 +66,23 @@ class Car(Resource):
         required=True,
         help="Every car needs a engine_power!"
     )
+    parser.add_argument('branch_id',
+        type=int,
+        required=True,
+        help="Every car needs a branch_id!"
+    )
 
-    def get(self, name):
-        car = CarModel.find_by_name(name)
+    def get(self, branch_name, name):
+        branch = BranchModel.find_by_name(branch_name)
+        car = CarModel.find_by_name_in_branch(branch.id, name)
         if car:
-            return car.json()
+            return car.short_json()
         return {'message': 'Item not found.'}, 404
 
     @jwt_required()
-    def post(self, name):
-        if CarModel.find_by_name(name):
+    def post(self, branch_name, name):
+        branch = BranchModel.find_by_name(branch_name)
+        if CarModel.find_by_name_in_branch(branch.id, name):
             return {'message': "An item with name '{}' already exists.".format(name)}, 400
 
         data = Car.parser.parse_args()
@@ -89,18 +97,20 @@ class Car(Resource):
         return car.json(), 201
 
     @jwt_required()
-    def delete(self, name):
-        car = CarModel.find_by_name(name)
+    def delete(self, branch_name, name):
+        branch = BranchModel.find_by_name(branch_name)
+        car = CarModel.find_by_name_in_branch(branch.id, name)
         if car:
             car.delete_from_db()
 
         return {'message': 'Item deleted.'}
 
     @jwt_required()
-    def put(self, name):
+    def put(self, branch_name, name):
         data = Car.parser.parse_args()
 
-        car = CarModel.find_by_name(name)
+        branch = BranchModel.find_by_name(branch_name)
+        car = CarModel.find_by_name_in_branch(branch.id, name)
 
         if car is None:
             car = CarModel(name, **data)  # data['price'], data['store_id']
@@ -118,14 +128,17 @@ class Car(Resource):
             car.engine_power = data['engine_power']
             # item.store_id = data['store_id']
 
+            car.branch_id = data['branch_id']
+
         car.save_to_db()
 
         return car.json()
 
 
 class CarReserve(Resource):
-    def put(self, name):
-        car = CarModel.find_by_name(name)
+    def put(self, branch_name, name):
+        branch = BranchModel.find_by_name(branch_name)
+        car = CarModel.find_by_name_in_branch(branch.id, name)
 
         if car is None:
             return {'message': 'Car does not exist.'}
@@ -137,21 +150,27 @@ class CarReserve(Resource):
 
         car.save_to_db()
 
-        return car.json()
+        return car.short_json()
 
 
 class CarList(Resource):
-    def get(self, param="", value_p=""):
+    def get(self, branch_name="", param="", value_p=""):
+        branch = BranchModel.find_by_name(branch_name)
+        if not branch:
+            return {'message': 'Branch not found.'}, 404
         # if param == "car-type" and (value_p == "delivery" or value_p == "van" or value_p == "sedan" or value_p == "estate" or value_p == "hatch" or value_p == "coupe"):
         if param == "car-type" and CarModel.is_car_type(value_p):
-            return {'cars': [car.json() for car in CarModel.query.filter_by(car_type=value_p)]}
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(car_type=value_p, branch_id=branch.id)]}
         elif param == "transmission" and value_p == "automatic":
-            return {'cars': [car.json() for car in CarModel.query.filter_by(transmission=value_p)]}
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(transmission=value_p, branch_id=branch.id)]}
         elif param == "drive" and value_p == "4wd":
-            return {'cars': [car.json() for car in CarModel.query.filter_by(drive=value_p)]}
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(drive=value_p, branch_id=branch.id)]}
+        elif not param:
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(branch_id=branch.id)]}
+            # return {'cars': [car.json() for car in CarModel.query.all()]}  # list comprehension
+            # return {'cars': list(map(lambda x: x.json(), CarModel.query.all()))}  # lambda, mapping func() to elements
         else:
-            return {'cars': [car.json() for car in CarModel.query.all()]}  # list comprehension
-            # return {'items': list(map(lambda x: x.json(), ItemModel.query.all()))}  # lambda, mapping func() to elements
+            return {'message': 'Wrong parameters of request!'}
 
 
 #       return cls.query.filter_by(name=name).first()
