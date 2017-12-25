@@ -23,7 +23,8 @@ class ItemModel(db.Model):
 
     # def __init__(self, name, price, store_id):
     def __init__(self, name, price, year, item_type, vendor, model, branch_id):
-        self.name = name  # ProductName-Manufacturer-Model-Number(first available from 1) ex: narty-atomic-extra-1
+        self.id
+        self.name = name  # ItemType-Vendor-Model-Number(first available from 1) ex: narty-atomic-extra-1
         self.price = price
         # self.store_id = store_id
 
@@ -37,12 +38,24 @@ class ItemModel(db.Model):
         self.branch_id = branch_id
 
     def json(self):
-        return {'name': self.name, 'price': self.price, 'available': self.available, 'year': self.year,
-                'item_type': self.item_type, 'vendor': self.vendor, 'model': self.model, 'branch_id': self.branch_id}
+        return {
+                'id': self.id, 'name': self.name, 'price': self.price, 'available': self.available, 'year': self.year,
+                'item_type': self.item_type, 'vendor': self.vendor, 'model': self.model, 'branch_id': self.branch_id
+                }
+
+    def short_json(self):
+        return {
+                'id': self.id, 'name': self.name, 'price': self.price, 'available': self.available,
+                'item_type': self.item_type, 'branch_id': self.branch_id
+                }
 
     @classmethod
     def find_by_name(cls, name):
         return cls.query.filter_by(name=name).first()  # SELECT * FROM items WHERE name=name LIMIT 1
+
+    @classmethod
+    def find_by_name_in_branch(cls, branch_id, name):
+        return cls.query.filter_by(branch_id=branch_id, name=name).first()
 
     @staticmethod
     def is_item_type(item_type):
