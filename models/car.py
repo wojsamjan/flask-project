@@ -32,7 +32,8 @@ class CarModel(db.Model):
     # def __init__(self, name, price, store_id):
     def __init__(self, name, price, year, car_type, vendor, model, colour, seats,
                  transmission, drive, fuel, engine_power, branch_id):
-        self.name = name  # Manufacturer-Model-Number(first available from 1) ex: vw-golf3-1994-1
+        self.id
+        self.name = name  # CarType-Vendor-Model-Number(first available from 1) ex: hatch-vw-golf3-1994-1
         self.price = price
         # self.store_id = store_id
 
@@ -70,14 +71,27 @@ class CarModel(db.Model):
         #         break
 
     def json(self):
-        return {'name': self.name, 'price': self.price, 'available': self.available, 'year': self.year,
+        return {
+                'id': self.id, 'name': self.name, 'price': self.price, 'available': self.available, 'year': self.year,
                 'car_type': self.car_type, 'vendor': self.vendor, 'model': self.model, 'colour': self.colour,
                 'seats': self.seats, 'transmission': self.transmission, 'drive': self.drive, 'fuel': self.fuel,
-                'engine_power': self.engine_power, 'branch_id': self.branch_id}
+                'engine_power': self.engine_power, 'branch_id': self.branch_id
+                }
+
+    def short_json(self):
+        return {
+                'id': self.id, 'name': self.name, 'price': self.price, 'available': self.available,
+                'car_type': self.car_type, 'transmission': self.transmission, 'drive': self.drive,
+                'branch_id': self.branch_id
+                }
 
     @classmethod
     def find_by_name(cls, name):
-        return cls.query.filter_by(name=name).first()  # SELECT * FROM items WHERE name=name LIMIT 1
+        return cls.query.filter_by(name=name).first()  # SELECT * FROM cars WHERE name=name LIMIT 1
+
+    @classmethod
+    def find_by_name_in_branch(cls, branch_id, name):
+        return cls.query.filter_by(branch_id=branch_id, name=name).first()
 
     @staticmethod
     def is_car_type(car_type):
