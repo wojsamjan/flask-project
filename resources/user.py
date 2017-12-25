@@ -8,12 +8,27 @@ class UserRegister(Resource):
     parser.add_argument('username',
         type=str,
         required=True,
-        help="This field cannot be blank."
+        help="Every user needs a username!"
     )
     parser.add_argument('password',
         type=str,
         required=True,
-        help="This field cannot be blank."
+        help="Every user needs a password!"
+    )
+    parser.add_argument('branch_id',
+        type=int,
+        required=True,
+        help="Every user needs a branch_id!"
+    )
+    parser.add_argument('position_id',
+        type=int,
+        required=True,
+        help="Every user needs a position_id!"
+    )
+    parser.add_argument('salary',
+        type=int,
+        required=True,
+        help="Every user needs a salary!"
     )
 
     def post(self):
