@@ -95,7 +95,8 @@ class CarModel(db.Model):
 
     @staticmethod
     def is_car_type(car_type):
-        return car_type in ["delivery", "van", "sedan", "estate", "hatch", "coupe"]
+        # return car_type in ["delivery", "van", "sedan", "estate", "hatch", "coupe"]
+        return car_type in ["car", "van"]
 
     def save_to_db(self):  # updating or upserting data
         db.session.add(self)  # We can add multiple objects to session and then commit once - more efficient
