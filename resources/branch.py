@@ -39,7 +39,7 @@ class Branch(Resource):
     def get(self, name):
         branch = BranchModel.find_by_name(name)
         if branch:
-            return branch.json()
+            return branch.short_json()
         return {'message': 'Branch not found'}, 404
 
     @jwt_required()
@@ -90,9 +90,9 @@ class Branch(Resource):
 class BranchList(Resource):
     def get(self, country=""):
         if country:
-            return {'branches': [branch.json() for branch in BranchModel.query.filter_by(country=country)]}
+            return {'branches': [branch.short_json() for branch in BranchModel.query.filter_by(country=country)]}
         else:
-            return {'branches': [branch.json() for branch in BranchModel.query.all()]}
+            return {'branches': [branch.short_json() for branch in BranchModel.query.all()]}
 
 
 # class Store(Resource):
