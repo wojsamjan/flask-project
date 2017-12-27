@@ -19,8 +19,14 @@ class PositionModel(db.Model):
         # return {'name': self.name, 'salary': self.salary, 'users': [user.json() for user in self.users.all()]}
         return {'id': self.id, 'name': self.name, 'users': [user.json() for user in self.users.all()]}
 
-    def short_json(self):
-        return {'id': self.id, 'name': self.name, 'users': [user.short_json() for user in self.users.all()]}
+    # def short_json(self):
+    #     return {'id': self.id, 'name': self.name, 'users': [user.short_json() for user in self.users.all()]}
+
+    def branch_json(self, branch_id):
+        return {'id': self.id, 'name': self.name, 'users': [user.json() for user in self.users.filter_by(branch_id=branch_id)]}
+
+    # def branch_short_json(self, branch_id):
+    #     return {'id': self.id, 'name': self.name, 'users': [user.short_json() for user in self.users.filter_by(branch_id=branch_id)]}
 
     @classmethod
     def find_by_name(cls, name):
