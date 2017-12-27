@@ -32,7 +32,9 @@ api.add_resource(ItemList, '/<string:branch_name>/items',
 api.add_resource(ItemReserve, '/<string:branch_name>/item/reserve/<string:name>')
 
 api.add_resource(Car, '/<string:branch_name>/car/<string:name>')
-api.add_resource(CarList, '/<string:branch_name>/cars',
+api.add_resource(CarList, '/cars',
+                 '/cars/<string:param>/<string:value_p>',
+                 '/<string:branch_name>/cars',
                  '/<string:branch_name>/cars/<string:param>/<string:value_p>')
 api.add_resource(CarReserve, '/<string:branch_name>/car/reserve/<string:name>')
 
