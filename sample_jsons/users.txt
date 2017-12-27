@@ -1,0 +1,92 @@
+GDANSK
+{
+	"username": "stan",
+	"password": "asdf",
+	"branch_id": 1,
+	"position_id": 1,
+	"salary": 8000
+}
+
+{
+	"username": "gedek",
+	"password": "asdf",
+	"branch_id": 1,
+	"position_id": 2,
+	"salary": 3000
+}
+
+{
+	"username": "gela",
+	"password": "asdf",
+	"branch_id": 1,
+	"position_id": 4,
+	"salary": 2000
+}
+
+{
+	"username": "gola",
+	"password": "asdf",
+	"branch_id": 1,
+	"position_id": 4,
+	"salary": 2000
+}
+
+
+KRAKOW
+{
+	"username": "wedek",
+	"password": "asdf",
+	"branch_id": 2,
+	"position_id": 2,
+	"salary": 3500
+}
+
+{
+	"username": "winfol",
+	"password": "asdf",
+	"branch_id": 2,
+	"position_id": 3,
+	"salary": 5000
+}
+
+{
+	"username": "wela",
+	"password": "asdf",
+	"branch_id": 2,
+	"position_id": 4,
+	"salary": 2200
+}
+
+{
+	"username": "wola",
+	"password": "asdf",
+	"branch_id": 2,
+	"position_id": 4,
+	"salary": 2200
+}
+
+{
+	"username": "wewa",
+	"password": "asdf",
+	"branch_id": 2,
+	"position_id": 4,
+	"salary": 2000
+}
+
+
+PRAGA
+{
+	"username": "czedek",
+	"password": "asdf",
+	"branch_id": 3,
+	"position_id": 2,
+	"salary": 3000
+}
+
+{
+	"username": "czela",
+	"password": "asdf",
+	"branch_id": 3,
+	"position_id": 4,
+	"salary": 2000
+}

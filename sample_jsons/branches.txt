@@ -1,0 +1,26 @@
+{
+	"country": "poland",
+	"city": "gdansk",
+	"postal_code": "80-398",
+	"street": "obroncow wybrzeza 2",
+	"email": "gdansk@rentcars.pl",
+	"phone": "123 456 789"
+}
+
+{
+	"country": "poland",
+	"city": "krakow",
+	"postal_code": "31-864",
+	"street": "al jana pawla II 39 a",
+	"email": "krakow@rentcars.pl",
+	"phone": "444 444 444"
+}
+
+{
+	"country": "czech_republic",
+	"city": "praga",
+	"postal_code": "99-999",
+	"street": "praska 2",
+	"email": "praga@rentcars.pl",
+	"phone": "999 999 999"
+}
