@@ -64,5 +64,9 @@ class PositionList(Resource):
         if not branch:
             return {'message': 'Branch not found.'}, 404
 
+        # return {'id of br': branch.id}  # gdansk => 1 GOOD
         positions_id = {user.position_id for user in UserModel.query.filter_by(branch_id=branch.id)}
-        return {'positions': [position.json() for position in PositionModel.query.filter_by(id in positions_id)]}
+        # return {'ids': [num for num in positions_id]}  # gdansk => [1, 2, 4] GOOD
+        # return {'end': 'end'}
+        # return {'positions': [position.json() for position in PositionModel.query.filter_by(id in positions_id)]}
+        return {'positions': [position.branch_json(branch.id) for position in PositionModel.query.filter(PositionModel.id.in_(positions_id)).all()]}
