@@ -1,9 +1,7 @@
 from db import db
 
 
-# class ItemModel(db.Model):
 class CarModel(db.Model):
-    # __tablename__ = 'items'
     __tablename__ = 'cars'
 
     id = db.Column(db.Integer, primary_key=True)
