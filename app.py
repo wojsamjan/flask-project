@@ -27,7 +27,9 @@ jwt = JWT(app, authenticate, identity)  # /auth
 # api.add_resource(StoreList, '/stores')
 
 api.add_resource(Item, '/<string:branch_name>/item/<string:name>')  # http://127.0.0.1:5000/branch_namr/item/item_name
-api.add_resource(ItemList, '/<string:branch_name>/items',
+api.add_resource(ItemList, '/items',
+                 '/items/<string:param>/<string:value_p>'
+                 '/<string:branch_name>/items',
                  '/<string:branch_name>/items/<string:param>/<string:value_p>')
 api.add_resource(ItemReserve, '/<string:branch_name>/item/reserve/<string:name>')
 
