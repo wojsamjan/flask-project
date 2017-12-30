@@ -1,177 +1,7 @@
 DELIVERY   VAN   SEDAN   ESTATE   HATCH   COUPE
 CAR   VAN
 
-VW
-{
-	"price": 55,
-	"year": 2012,
-	"car_type": "car",
-	"vendor": "vw",
-	"model": "golf vi",
-	"colour": "white",
-	"seats": 5,
-	"transmission": "manual",
-	"drive": "4wd",
-	"fuel": "petrol",
-	"engine_power": 270,
-	"branch_id": 2
-}
-
-{
-	"price": 55,
-	"year": 2003,
-	"car_type": "car",
-	"vendor": "vw",
-	"model": "golf v",
-	"colour": "black",
-	"seats": 5,
-	"transmission": "manual",
-	"drive": "fwd",
-	"fuel": "diesel",
-	"engine_power": 105,
-	"branch_id": 2
-}
-
-{
-	"price": 55,
-	"year": 2009,
-	"car_type": "car",
-	"vendor": "vw",
-	"model": "passat b6",
-	"colour": "black",
-	"seats": 5,
-	"transmission": "manual",
-	"drive": "fwd",
-	"fuel": "diesel",
-	"engine_power": 110,
-	"branch_id": 2
-}
-
-{
-	"price": 55,
-	"year": 2007,
-	"car_type": "car",
-	"vendor": "vw",
-	"model": "golf plus",
-	"colour": "blue",
-	"seats": 5,
-	"transmission": "manual",
-	"drive": "fwd",
-	"fuel": "petrol",
-	"engine_power": 102,
-	"branch_id": 2
-}
-
-
-OPEL
-{
-	"price": 55,
-	"year": 2007,
-	"car_type": "car",
-	"vendor": "opel",
-	"model": "vectra c",
-	"colour": "blue",
-	"seats": 5,
-	"transmission": "manual",
-	"drive": "fwd",
-	"fuel": "diesel",
-	"engine_power": 120,
-	"branch_id": 2
-}
-
-{
-	"price": 55,
-	"year": 2013,
-	"car_type": "car",
-	"vendor": "opel",
-	"model": "astra j",
-	"colour": "black",
-	"seats": 5,
-	"transmission": "manual",
-	"drive": "fwd",
-	"fuel": "diesel",
-	"engine_power": 125,
-	"branch_id": 2
-}
-
-{
-	"price": 55,
-	"year": 2006,
-	"car_type": "car",
-	"vendor": "opel",
-	"model": "zafira b",
-	"colour": "black",
-	"seats": 7,
-	"transmission": "manual",
-	"drive": "fwd",
-	"fuel": "petrol",
-	"engine_power": 200,
-	"branch_id": 2
-}
-
-{
-	"price": 55,
-	"year": 2004,
-	"car_type": "car",
-	"vendor": "opel",
-	"model": "astra h",
-	"colour": "black",
-	"seats": 5,
-	"transmission": "manual",
-	"drive": "fwd",
-	"fuel": "petrol",
-	"engine_power": 220,
-	"branch_id": 2
-}
-
-
-AUDI
-{
-	"price": 120,
-	"year": 2005,
-	"car_type": "car",
-	"vendor": "audi",
-	"model": "a6 c6",
-	"colour": "silver",
-	"seats": 5,
-	"transmission": "automatic",
-	"drive": "4wd",
-	"fuel": "diesel",
-	"engine_power": 224,
-	"branch_id": 2
-}
-
-{
-	"price": 140,
-	"year": 2006,
-	"car_type": "car",
-	"vendor": "audi",
-	"model": "q7 i",
-	"colour": "black",
-	"seats": 5,
-	"transmission": "automatic",
-	"drive": "4wd",
-	"fuel": "diesel",
-	"engine_power": 233,
-	"branch_id": 2
-}
-
-{
-	"price": 200,
-	"year": 2015,
-	"car_type": "car",
-	"vendor": "audi",
-	"model": "a6 c7",
-	"colour": "black",
-	"seats": 5,
-	"transmission": "automatic",
-	"drive": "4wd",
-	"fuel": "diesel",
-	"engine_power": 245,
-	"branch_id": 2
-}
-
-
+GDANSK
 FORD
 {
 	"price": 55,
@@ -233,68 +63,145 @@ FORD
 	"branch_id": 2
 }
 
-
-SKODA
+AUDI
 {
-	"price": 55,
-	"year": 2016,
+	"price": 120,
+	"year": 2005,
 	"car_type": "car",
-	"vendor": "skoda",
-	"model": "octavia iii",
+	"vendor": "audi",
+	"model": "a6 c6",
 	"colour": "silver",
 	"seats": 5,
+	"transmission": "automatic",
+	"drive": "4wd",
+	"fuel": "diesel",
+	"engine_power": 224,
+	"branch_id": 2
+}
+
+{
+	"price": 140,
+	"year": 2006,
+	"car_type": "car",
+	"vendor": "audi",
+	"model": "q7 i",
+	"colour": "black",
+	"seats": 5,
+	"transmission": "automatic",
+	"drive": "4wd",
+	"fuel": "diesel",
+	"engine_power": 233,
+	"branch_id": 2
+}
+
+{
+	"price": 200,
+	"year": 2015,
+	"car_type": "car",
+	"vendor": "audi",
+	"model": "a6 c7",
+	"colour": "black",
+	"seats": 5,
+	"transmission": "automatic",
+	"drive": "4wd",
+	"fuel": "diesel",
+	"engine_power": 245,
+	"branch_id": 2
+}
+
+
+KRAKOW
+FIAT
+{
+	"price": 55,
+	"year": 2012,
+	"car_type": "car",
+	"vendor": "fiat",
+	"model": "panda iii",
+	"colour": "white",
+	"seats": 4,
 	"transmission": "manual",
 	"drive": "fwd",
 	"fuel": "petrol",
-	"engine_power": 150,
+	"engine_power": 69,
 	"branch_id": 2
 }
 
 {
 	"price": 55,
-	"year": 2011,
+	"year": 2006,
 	"car_type": "car",
-	"vendor": "skoda",
-	"model": "octavia ii",
-	"colour": "black",
-	"seats": 5,
+	"vendor": "fiat",
+	"model": "grande punto",
+	"colour": "blue",
+	"seats": 4,
 	"transmission": "manual",
 	"drive": "fwd",
-	"fuel": "diesel",
-	"engine_power": 140,
+	"fuel": "petrol",
+	"engine_power": 77,
 	"branch_id": 2
 }
 
+OPEL
 {
 	"price": 55,
-	"year": 2014,
+	"year": 2007,
 	"car_type": "car",
-	"vendor": "skoda",
-	"model": "fabia ii",
+	"vendor": "opel",
+	"model": "vectra c",
 	"colour": "blue",
 	"seats": 5,
 	"transmission": "manual",
 	"drive": "fwd",
 	"fuel": "diesel",
-	"engine_power": 75,
+	"engine_power": 120,
 	"branch_id": 2
 }
 
 {
 	"price": 55,
-	"year": 2014,
+	"year": 2013,
 	"car_type": "car",
-	"vendor": "skoda",
-	"model": "superb ii",
-	"colour": "brown",
+	"vendor": "opel",
+	"model": "astra j",
+	"colour": "black",
 	"seats": 5,
-	"transmission": "automatic",
-	"drive": "4wd",
+	"transmission": "manual",
+	"drive": "fwd",
 	"fuel": "diesel",
-	"engine_power": 170,
+	"engine_power": 125,
 	"branch_id": 2
 }
 
+{
+	"price": 55,
+	"year": 2006,
+	"car_type": "car",
+	"vendor": "opel",
+	"model": "zafira b",
+	"colour": "black",
+	"seats": 7,
+	"transmission": "manual",
+	"drive": "fwd",
+	"fuel": "petrol",
+	"engine_power": 200,
+	"branch_id": 2
+}
+
+{
+	"price": 55,
+	"year": 2004,
+	"car_type": "car",
+	"vendor": "opel",
+	"model": "astra h",
+	"colour": "black",
+	"seats": 5,
+	"transmission": "manual",
+	"drive": "fwd",
+	"fuel": "petrol",
+	"engine_power": 220,
+	"branch_id": 2
+}
 
 RENAULT
 {
@@ -358,33 +265,125 @@ RENAULT
 }
 
 
-FIAT
+PRAGA
+VW
 {
 	"price": 55,
 	"year": 2012,
 	"car_type": "car",
-	"vendor": "fiat",
-	"model": "panda iii",
+	"vendor": "vw",
+	"model": "golf vi",
 	"colour": "white",
-	"seats": 4,
+	"seats": 5,
 	"transmission": "manual",
-	"drive": "fwd",
+	"drive": "4wd",
 	"fuel": "petrol",
-	"engine_power": 69,
+	"engine_power": 270,
 	"branch_id": 2
 }
 
 {
 	"price": 55,
-	"year": 2006,
+	"year": 2003,
 	"car_type": "car",
-	"vendor": "fiat",
-	"model": "grande punto",
+	"vendor": "vw",
+	"model": "golf v",
+	"colour": "black",
+	"seats": 5,
+	"transmission": "manual",
+	"drive": "fwd",
+	"fuel": "diesel",
+	"engine_power": 105,
+	"branch_id": 2
+}
+
+{
+	"price": 55,
+	"year": 2009,
+	"car_type": "car",
+	"vendor": "vw",
+	"model": "passat b6",
+	"colour": "black",
+	"seats": 5,
+	"transmission": "manual",
+	"drive": "fwd",
+	"fuel": "diesel",
+	"engine_power": 110,
+	"branch_id": 2
+}
+
+{
+	"price": 55,
+	"year": 2007,
+	"car_type": "car",
+	"vendor": "vw",
+	"model": "golf plus",
 	"colour": "blue",
-	"seats": 4,
+	"seats": 5,
 	"transmission": "manual",
 	"drive": "fwd",
 	"fuel": "petrol",
-	"engine_power": 77,
+	"engine_power": 102,
+	"branch_id": 2
+}
+
+SKODA
+{
+	"price": 55,
+	"year": 2016,
+	"car_type": "car",
+	"vendor": "skoda",
+	"model": "octavia iii",
+	"colour": "silver",
+	"seats": 5,
+	"transmission": "manual",
+	"drive": "fwd",
+	"fuel": "petrol",
+	"engine_power": 150,
+	"branch_id": 2
+}
+
+{
+	"price": 55,
+	"year": 2011,
+	"car_type": "car",
+	"vendor": "skoda",
+	"model": "octavia ii",
+	"colour": "black",
+	"seats": 5,
+	"transmission": "manual",
+	"drive": "fwd",
+	"fuel": "diesel",
+	"engine_power": 140,
+	"branch_id": 2
+}
+
+{
+	"price": 55,
+	"year": 2014,
+	"car_type": "car",
+	"vendor": "skoda",
+	"model": "fabia ii",
+	"colour": "blue",
+	"seats": 5,
+	"transmission": "manual",
+	"drive": "fwd",
+	"fuel": "diesel",
+	"engine_power": 75,
+	"branch_id": 2
+}
+
+{
+	"price": 55,
+	"year": 2014,
+	"car_type": "car",
+	"vendor": "skoda",
+	"model": "superb ii",
+	"colour": "brown",
+	"seats": 5,
+	"transmission": "automatic",
+	"drive": "4wd",
+	"fuel": "diesel",
+	"engine_power": 170,
 	"branch_id": 2
 }
