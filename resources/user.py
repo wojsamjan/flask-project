@@ -40,4 +40,5 @@ class UserRegister(Resource):
         user = UserModel(**data)  # UserModel(data['username'], data['password'])
         user.save_to_db()
 
+        # return {'user': user.fake_json()}, 201
         return {"message": "User created successfully."}, 201
