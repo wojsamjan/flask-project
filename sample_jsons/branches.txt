@@ -17,7 +17,7 @@
 }
 
 {
-	"country": "czech_republic",
+	"country": "czech republic",
 	"city": "praga",
 	"postal_code": "99-999",
 	"street": "praska 2",
