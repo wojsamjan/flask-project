@@ -167,10 +167,10 @@ class CarList(Resource):
         branch = BranchModel.find_by_name(branch_name)
 
         # /<non existent branch>/cars
+        # /<non existent branch>/cars/<param>/<value_p>
         if not branch and branch_name:
             return {'message': 'Branch not found.'}, 404
 
-        # if param == "car-type" and (value_p == "delivery" or value_p == "van" or value_p == "sedan" or value_p == "estate" or value_p == "hatch" or value_p == "coupe"):
         if param == "car-type" and CarModel.is_car_type(value_p):
             if branch:
                 return {'cars': [car.short_json() for car in CarModel.query.filter_by(car_type=value_p, branch_id=branch.id)]}
@@ -184,9 +184,7 @@ class CarList(Resource):
                 return {'cars': [car.short_json() for car in CarModel.query.filter_by(drive=value_p, branch_id=branch.id)]}
             return {'cars': [car.short_json() for car in CarModel.query.filter_by(drive=value_p)]}
         elif not param:
-            if branch:
-                return {'cars': [car.short_json() for car in CarModel.query.filter_by(branch_id=branch.id)]}
-            return {'cars': [car.short_json() for car in CarModel.query.all()]}
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(branch_id=branch.id)]}
             # return {'cars': [car.json() for car in CarModel.query.all()]}  # list comprehension
             # return {'cars': list(map(lambda x: x.json(), CarModel.query.all()))}  # lambda, mapping func() to elements
         else:
