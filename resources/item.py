@@ -119,15 +119,25 @@ class ItemReserve(Resource):
 
 class ItemList(Resource):
     def get(self, branch_name="", param="", value_p=""):
+        # /items
+        if not branch_name and not param and not value_p:
+            return {'items': [item.short_json() for item in ItemModel.query.all()]}
+
         branch = BranchModel.find_by_name(branch_name)
-        if not branch:
+
+        # /<non existent branch>/items
+        # /<non existent branch>/items/<param>/<value_p>
+        if not branch and branch_name:
             return {'message': 'Branch not found.'}, 404
+
         # if param == "item-type" and (value_p == "ski" or value_p == "snowboard" or value_p == "surfing-board" or value_p == "pedalo" or value_p == "bike" or value_p == "rollerblades" or value_p == "longboard" or value_p == "tent" or value_p == "sleeping-bag" or value_p == "gps" or value_p == "caravan" or value_p == "cool-box" or value_p == "rucksack"):
         if param == "item-type" and ItemModel.is_item_type(value_p):
-            return {'items': [item.short_json() for item in ItemModel.query.filter_by(item_type=value_p, branch_id=branch.id)]}
+            if branch:
+                return {'items': [item.short_json() for item in ItemModel.query.filter_by(item_type=value_p, branch_id=branch.id)]}
+            return {'items': [item.short_json() for item in ItemModel.query.filter_by(item_type=value_p)]}
         elif not param:
             return {'items': [item.short_json() for item in ItemModel.query.filter_by(branch_id=branch.id)]}
             # return {'items': [item.json() for item in ItemModel.query.all()]}  # list comprehension
         else:
-            return {'message': 'Wrong parameters of request!'}
+            return {'message': 'Wrong parameters of request!'}, 400
             # return {'items': list(map(lambda x: x.json(), ItemModel.query.all()))}  # lambda, mapping func() to elements
