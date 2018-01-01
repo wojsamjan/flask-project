@@ -3,6 +3,7 @@ from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from flask import g
 from models.user import UserModel
+from models.customer import CustomerModel
 from models.position import PositionModel
 
 
@@ -18,11 +19,6 @@ class UserRegister(Resource):
         required=True,
         help="Every user needs a password!"
     )
-    # parser.add_argument('admin_password',
-    #     type=str,
-    #     required=True,
-    #     help="You must type admin password to register new user!"
-    # )
     parser.add_argument('branch_id',
         type=int,
         required=True,
@@ -44,18 +40,21 @@ class UserRegister(Resource):
     #     try:
     #         user = g.user
     #     except:
-    #         return {'message': "You are not privileged to delete this account!"}
+    #         return {'message': "You are not privileged to continue!"}, 400
     #
     #     data = UserRegister.parser.parse_args()
     #     position = PositionModel.find_by_id(user.position_id)
     #
-    #     if position.name != 'admin' or not user.verify_password(data['admin_password']):
-    #         return {'message': "You are not privileged to delete user's account!"}
+    #     if position.name != 'admin':
+    #         return {'message': "You are not privileged to delete user's account!"}, 400
     #
     #     if UserModel.find_by_username(data['username']):
     #         return {"message": "A user with that username already exists"}, 400
     #
-    #     user = UserModel(data['username'], data['password'], data['branch_id'], data['position.id'], data['salary'])
+    #     if CustomerModel.find_by_username(data['username']):
+    #         return {"message": "A customer with that username already exists"}, 400
+    #
+    #     user = UserModel(**data)
     #     user.save_to_db()
     #
     #     # return {'user': user.fake_json()}, 201
@@ -67,7 +66,10 @@ class UserRegister(Resource):
         if UserModel.find_by_username(data['username']):
             return {"message": "A user with that username already exists"}, 400
 
-        user = UserModel(data['username'], data['password'], data['branch_id'], data['position_id'], data['salary'])
+        if CustomerModel.find_by_username(data['username']):
+            return {"message": "A customer with that username already exists"}, 400
+
+        user = UserModel(**data)
         user.save_to_db()
 
         # return {'user': user.fake_json()}, 201
