@@ -3,9 +3,8 @@ from flask_restful import Api
 from flask_jwt import JWT
 
 from security import authenticate, identity
-from resources.user import UserRegister
+from resources.user import UserRegister, UserChangePassword, UserDelete
 from resources.item import Item, ItemList, ItemReserve
-# from resources.store import Store, StoreList
 from resources.car import Car, CarList, CarReserve
 from resources.branch import Branch, BranchList
 from resources.position import Position, PositionList
@@ -50,6 +49,8 @@ api.add_resource(PositionList, '/positions',
                  '/<string:branch_name>/positions')
 
 api.add_resource(UserRegister, '/register-user')
+api.add_resource(UserChangePassword, '/change-password-user')
+api.add_resource(UserDelete, '/delete-user')
 
 api.add_resource(CustomerRegister, '/register')
 api.add_resource(CustomerChangePassword, '/change-password')
