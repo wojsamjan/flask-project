@@ -31,7 +31,7 @@ class CustomerRegister(Resource):
         customer.save_to_db()
 
         # return {'customer': customer.fake_json()}, 201
-        return {'customers': [customer.short_json() for customer in CustomerModel.query.all()]}
+        # return {'customers': [customer.short_json() for customer in CustomerModel.query.all()]}
         return {"message": "Customer created successfully."}, 201
 
 
