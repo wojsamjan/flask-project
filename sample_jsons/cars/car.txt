@@ -15,7 +15,7 @@ FORD
 	"drive": "4wd",
 	"fuel": "diesel",
 	"engine_power": 150,
-	"branch_id": 2
+	"branch_id": 1
 }
 
 {
@@ -30,7 +30,7 @@ FORD
 	"drive": "fwd",
 	"fuel": "diesel",
 	"engine_power": 140,
-	"branch_id": 2
+	"branch_id": 1
 }
 
 {
@@ -45,7 +45,7 @@ FORD
 	"drive": "fwd",
 	"fuel": "diesel",
 	"engine_power": 95,
-	"branch_id": 2
+	"branch_id": 1
 }
 
 {
@@ -60,7 +60,7 @@ FORD
 	"drive": "fwd",
 	"fuel": "petrol",
 	"engine_power": 115,
-	"branch_id": 2
+	"branch_id": 1
 }
 
 AUDI
@@ -76,7 +76,7 @@ AUDI
 	"drive": "4wd",
 	"fuel": "diesel",
 	"engine_power": 224,
-	"branch_id": 2
+	"branch_id": 1
 }
 
 {
@@ -91,7 +91,7 @@ AUDI
 	"drive": "4wd",
 	"fuel": "diesel",
 	"engine_power": 233,
-	"branch_id": 2
+	"branch_id": 1
 }
 
 {
@@ -106,7 +106,7 @@ AUDI
 	"drive": "4wd",
 	"fuel": "diesel",
 	"engine_power": 245,
-	"branch_id": 2
+	"branch_id": 1
 }
 
 
@@ -279,7 +279,7 @@ VW
 	"drive": "4wd",
 	"fuel": "petrol",
 	"engine_power": 270,
-	"branch_id": 2
+	"branch_id": 3
 }
 
 {
@@ -294,7 +294,7 @@ VW
 	"drive": "fwd",
 	"fuel": "diesel",
 	"engine_power": 105,
-	"branch_id": 2
+	"branch_id": 3
 }
 
 {
@@ -309,7 +309,7 @@ VW
 	"drive": "fwd",
 	"fuel": "diesel",
 	"engine_power": 110,
-	"branch_id": 2
+	"branch_id": 3
 }
 
 {
@@ -324,7 +324,7 @@ VW
 	"drive": "fwd",
 	"fuel": "petrol",
 	"engine_power": 102,
-	"branch_id": 2
+	"branch_id": 3
 }
 
 SKODA
@@ -340,7 +340,7 @@ SKODA
 	"drive": "fwd",
 	"fuel": "petrol",
 	"engine_power": 150,
-	"branch_id": 2
+	"branch_id": 3
 }
 
 {
@@ -355,7 +355,7 @@ SKODA
 	"drive": "fwd",
 	"fuel": "diesel",
 	"engine_power": 140,
-	"branch_id": 2
+	"branch_id": 3
 }
 
 {
@@ -370,7 +370,7 @@ SKODA
 	"drive": "fwd",
 	"fuel": "diesel",
 	"engine_power": 75,
-	"branch_id": 2
+	"branch_id": 3
 }
 
 {
@@ -385,5 +385,5 @@ SKODA
 	"drive": "4wd",
 	"fuel": "diesel",
 	"engine_power": 170,
-	"branch_id": 2
+	"branch_id": 3
 }
