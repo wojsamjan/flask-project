@@ -4,3 +4,4 @@ __pycache__/
 .idea/
 hashing.py
 trash/**
+data.db
