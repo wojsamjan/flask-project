@@ -11,28 +11,26 @@ class CustomerRegister(Resource):
     parser.add_argument('username',
         type=str,
         required=True,
-        help="Every customer needs a username!"
+        help="Every account needs a username!"
     )
     parser.add_argument('password',
         type=str,
         required=True,
-        help="Every customer needs a password!"
+        help="Every account needs a password!"
     )
 
     def post(self):
         data = CustomerRegister.parser.parse_args()
 
-        if CustomerModel.find_by_username(data['username']):
-            return {"message": "A customer with that username already exists"}, 400
-        if UserModel.find_by_username(data['username']):
+        if CustomerModel.find_by_username(data['username']) or UserModel.find_by_username(data['username']):
             return {"message": "An account with that username already exists"}, 400
 
         customer = CustomerModel(**data)  # CustomerModel(data['username'], data['password'])
         customer.save_to_db()
 
         # return {'customer': customer.fake_json()}, 201
-        # return {'customers': [customer.short_json() for customer in CustomerModel.query.all()]}
-        return {"message": "Customer created successfully."}, 201
+        # return {'customers': [customer.short_json() for customer in CustomerModel.query.all()]}, 201
+        return {"message": "Account created successfully."}, 201
 
 
 class CustomerChangePassword(Resource):
@@ -50,8 +48,12 @@ class CustomerChangePassword(Resource):
 
     @jwt_required()
     def put(self):
-        # if g.user:
-        #     print('user here')
+        try:
+            if g.user:
+                return {'message': 'You are not privileged to continue!'}
+        except:
+            pass
+
         data = CustomerChangePassword.parser.parse_args()
         customer = g.customer
 
@@ -66,15 +68,15 @@ class CustomerChangePassword(Resource):
 
 class CustomerDelete(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('username',  # customer username
+    parser.add_argument('username',  # customer.username
         type=str,
         required=True,
-        help="To delete customer account you need to type the customer username!"
+        help="To delete an account you need to type the username!"
     )
-    parser.add_argument('password',  # user or customer password
+    parser.add_argument('password',  # user.password or customer.password
         type=str,
         required=True,
-        help="To delete customer account you need to type the your password!"
+        help="To delete an account you need to type the password!"
     )
 
     @jwt_required()
@@ -93,13 +95,18 @@ class CustomerDelete(Resource):
             position = PositionModel.find_by_id(user.position_id)
 
             if position.name != 'admin' or not user.verify_password(data['password']):
-                return {'message': "You are not privileged to delete customer's account!"}
+                return {'message': "You are not privileged to delete customer's account!"}, 400
+
             customer = CustomerModel.find_by_username(data['username'])
             customer.delete_from_db()
 
             return {'message': "Customer's account deleted."}
         else:
             customer = g.customer
+
+            if customer.username != data['username']:
+                return {'message': 'You can not delete your account because you have typed wrong username!'}, 400
+
             if not customer.verify_password(data['password']):
                 return {'message': 'You can not delete your account because you have typed wrong password!'}, 400
 
