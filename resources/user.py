@@ -1,4 +1,3 @@
-import sqlite3
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from flask import g
@@ -58,6 +57,7 @@ class UserRegister(Resource):
     #     user.save_to_db()
     #
     #     # return {'user': user.fake_json()}, 201
+    #     # return {'users': [user.short_json() for user in UserModel.query.all()]}, 201
     #     return {"message": "User created successfully."}, 201
 
     def post(self):
@@ -73,6 +73,7 @@ class UserRegister(Resource):
         user.save_to_db()
 
         # return {'user': user.fake_json()}, 201
+        # return {'users': [user.short_json() for user in UserModel.query.all()]}, 201
         return {"message": "User created successfully."}, 201
 
 
@@ -93,10 +94,10 @@ class UserChangePassword(Resource):
     def put(self):
         try:
             if g.customer:
-                return {'message': 'You are not privileged to continue!'}
+                return {'message': 'You are not privileged to continue!'}, 400
         except:
             pass
-        
+
         data = UserChangePassword.parser.parse_args()
         user = g.user
 
@@ -107,3 +108,49 @@ class UserChangePassword(Resource):
         user.save_to_db()
 
         return {'message': 'Your password has been changed successfully!'}
+
+
+class UserDelete(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('username',  # user.username
+        type=str,
+        required=True,
+        help="To delete an account you need to type the username!"
+    )
+    parser.add_argument('password',  # user.password or [admin]user.password
+        type=str,
+        required=True,
+        help="To delete an account you need to type the password!"
+    )
+
+    @jwt_required()
+    def delete(self):
+        try:
+            if g.customer:
+                return {'message': 'You are not privileged to continue!'}, 400
+        except:
+            pass
+
+        data = UserDelete.parser.parse_args()
+
+        user = g.user
+        position = PositionModel.find_by_id(user.position_id)
+        if position.name == 'admin':
+            if not user.verify_password(data['password']):
+                return {'message': "You are not privileged to delete user's account!"}, 400
+
+            user_delete = CustomerModel.find_by_username(data['username'])
+            user_delete.delete_from_db()
+
+            return {'message': "User's account deleted."}
+        else:
+
+            if user.username != data['username']:
+                return {'message': 'You can not delete your account because you have typed wrong username!'}, 400
+
+            if not user.verify_password(data['password']):
+                return {'message': 'You can not delete your account because you have typed wrong password!'}, 400
+
+        user.delete_from_db()
+
+        return {'message': 'Your account is deleted.'}
