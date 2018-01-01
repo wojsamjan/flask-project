@@ -1,6 +1,9 @@
 import sqlite3
 from flask_restful import Resource, reqparse
+from flask_jwt import jwt_required
+from flask import g
 from models.user import UserModel
+from models.position import PositionModel
 
 
 class UserRegister(Resource):
@@ -15,6 +18,11 @@ class UserRegister(Resource):
         required=True,
         help="Every user needs a password!"
     )
+    # parser.add_argument('admin_password',
+    #     type=str,
+    #     required=True,
+    #     help="You must type admin password to register new user!"
+    # )
     parser.add_argument('branch_id',
         type=int,
         required=True,
@@ -31,14 +39,63 @@ class UserRegister(Resource):
         help="Every user needs a salary!"
     )
 
+    # @jwt_required()
+    # def post(self):
+    #     try:
+    #         user = g.user
+    #     except:
+    #         return {'message': "You are not privileged to delete this account!"}
+    #
+    #     data = UserRegister.parser.parse_args()
+    #     position = PositionModel.find_by_id(user.position_id)
+    #
+    #     if position.name != 'admin' or not user.verify_password(data['admin_password']):
+    #         return {'message': "You are not privileged to delete user's account!"}
+    #
+    #     if UserModel.find_by_username(data['username']):
+    #         return {"message": "A user with that username already exists"}, 400
+    #
+    #     user = UserModel(data['username'], data['password'], data['branch_id'], data['position.id'], data['salary'])
+    #     user.save_to_db()
+    #
+    #     # return {'user': user.fake_json()}, 201
+    #     return {"message": "User created successfully."}, 201
+
     def post(self):
         data = UserRegister.parser.parse_args()
 
         if UserModel.find_by_username(data['username']):
             return {"message": "A user with that username already exists"}, 400
 
-        user = UserModel(**data)  # UserModel(data['username'], data['password'])
+        user = UserModel(data['username'], data['password'], data['branch_id'], data['position_id'], data['salary'])
         user.save_to_db()
 
         # return {'user': user.fake_json()}, 201
         return {"message": "User created successfully."}, 201
+
+
+class UserChangePassword(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('old_password',
+        type=str,
+        required=True,
+        help="To change your password you need to type the current one!"
+    )
+    parser.add_argument('new_password',
+        type=str,
+        required=True,
+        help="To change your password you need to type the new one!"
+    )
+
+    @jwt_required()
+    def put(self):
+        data = UserChangePassword.parser.parse_args()
+        user = g.user
+
+        if not user.verify_password(data['old_password']):
+            return {'message': 'You can not change your password because you have typed wrong current one!'}, 400
+
+        user.password_hash = user.hash_password(data['new_password'])
+        user.save_to_db()
+
+        return {'message': 'Your password has been changed successfully!'}
