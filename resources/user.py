@@ -91,6 +91,12 @@ class UserChangePassword(Resource):
 
     @jwt_required()
     def put(self):
+        try:
+            if g.customer:
+                return {'message': 'You are not privileged to continue!'}
+        except:
+            pass
+        
         data = UserChangePassword.parser.parse_args()
         user = g.user
 
