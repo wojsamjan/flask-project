@@ -32,6 +32,10 @@ class PositionModel(db.Model):
     def find_by_name(cls, name):
         return cls.query.filter_by(name=name).first()  # SELECT * FROM positions WHERE name=name LIMIT 1
 
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
+
     def save_to_db(self):
         db.session.add(self)  # We can add multiple objects to session and then commit once - more efficient
         db.session.commit()
