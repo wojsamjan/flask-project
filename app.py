@@ -9,6 +9,7 @@ from resources.item import Item, ItemList, ItemReserve
 from resources.car import Car, CarList, CarReserve
 from resources.branch import Branch, BranchList
 from resources.position import Position, PositionList
+from resources.customer import CustomerRegister, CustomerChangePassword, CustomerDelete
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -48,7 +49,11 @@ api.add_resource(Position, '/position/<string:name>')
 api.add_resource(PositionList, '/positions',
                  '/<string:branch_name>/positions')
 
-api.add_resource(UserRegister, '/register')
+api.add_resource(UserRegister, '/register-user')
+
+api.add_resource(CustomerRegister, '/register')
+api.add_resource(CustomerChangePassword, '/change-password')
+api.add_resource(CustomerDelete, '/delete')
 
 
 if __name__ == '__main__':
