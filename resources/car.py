@@ -138,6 +138,9 @@ class Car(Resource):
         if CarModel.find_by_name_in_branch(branch.id, name):
             return {'message': "An car with name '{}' already exists.".format(name)}, 400
 
+        if g.user.branch_id != branch.id:
+            return {'message': 'You are not privileged to continue!'}, 400
+
         car = CarModel(name, **data)  # data['price'], data['store_id']
 
         try:
