@@ -148,17 +148,33 @@ class Position(Resource):
 
 
 class PositionList(Resource):
+    @jwt_required()
     def get(self, branch_name=""):
+        is_admin = Position.is_admin()
+        is_manager = Position.is_manager()
+
+        if not is_admin and not is_manager:
+            return {'message': 'You are not privileged to continue!'}, 400
+
+        data = Position.parser.parse_args()
+        user = g.user
+
+        if not user.verify_password(data['password']):
+            return {'message': 'You can not continue because you have typed a wrong password!'}, 400
+
+        # all branches
         if not branch_name:
+            if not is_admin:
+                return {'message': 'You are not privileged to continue!'}, 400
             return {'positions': [position.json() for position in PositionModel.query.all()]}
 
+        # specific branch
         branch = BranchModel.find_by_name(branch_name)
         if not branch:
             return {'message': 'Branch not found.'}, 404
 
-        # return {'id of br': branch.id}  # gdansk => 1 GOOD
         positions_id = {user.position_id for user in UserModel.query.filter_by(branch_id=branch.id)}
-        # return {'ids': [num for num in positions_id]}  # gdansk => [1, 2, 4] GOOD
-        # return {'end': 'end'}
         # return {'positions': [position.json() for position in PositionModel.query.filter_by(id in positions_id)]}
+        if not is_admin:
+            return {'positions': [position.branch_short_json(branch.id) for position in PositionModel.query.filter(PositionModel.id.in_(positions_id)).all()]}
         return {'positions': [position.branch_json(branch.id) for position in PositionModel.query.filter(PositionModel.id.in_(positions_id)).all()]}
