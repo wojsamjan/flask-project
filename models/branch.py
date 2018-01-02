@@ -45,7 +45,7 @@ class BranchModel(db.Model):
     def short_json(self):
         return {
                 'id': self.id, 'name': self.name, 'country': self.country, 'city': self.city, 'street': self.street,
-                'users': [user.short_json() for user in self.users.all()],
+                'users': [user.short_json() for user in self.users.all()],  # short_json fake_json
                 'cars': [car.short_json() for car in self.cars.all()],
                 'items': [item.short_json() for item in self.items.all()]
                 }
