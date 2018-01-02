@@ -57,6 +57,10 @@ class Branch(Resource):
 
     @jwt_required()
     def get(self, name):
+        is_admin = Branch.is_admin()
+        if not is_admin:
+            return {'message': 'You are not privileged to continue!'}, 400
+
         branch = BranchModel.find_by_name(name)
         if branch:
             return branch.short_json()
@@ -64,6 +68,10 @@ class Branch(Resource):
 
     @jwt_required()
     def post(self, name):
+        is_admin = Branch.is_admin()
+        if not is_admin:
+            return {'message': 'You are not privileged to continue!'}, 400
+
         if BranchModel.find_by_name(name):
             return {'message': "A branch with name '{} already exists.".format(name)}, 400
 
@@ -80,14 +88,22 @@ class Branch(Resource):
 
     @jwt_required()
     def delete(self, name):
+        is_admin = Branch.is_admin()
+        if not is_admin:
+            return {'message': 'You are not privileged to continue!'}, 400
+
         branch = BranchModel.find_by_name(name)
         if branch:
-            branch.delete_from_db
+            branch.delete_from_db()
 
         return {'message': 'Branch deleted.'}
 
     @jwt_required()
     def put(self, name):
+        is_admin = Branch.is_admin()
+        if not is_admin:
+            return {'message': 'You are not privileged to continue!'}, 400
+
         data = Branch.parser.parse_args()
 
         branch = BranchModel.find_by_name(name)
@@ -108,7 +124,12 @@ class Branch(Resource):
 
 
 class BranchList(Resource):
+    @jwt_required()
     def get(self, country=""):
+        is_admin = Branch.is_admin()
+        if not is_admin:
+            return {'message': 'You are not privileged to continue!'}, 400
+
         if country:
             return {'branches': [branch.short_json() for branch in BranchModel.query.filter_by(country=country)]}
         else:
