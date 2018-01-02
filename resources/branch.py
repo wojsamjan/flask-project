@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.branch import BranchModel
+from models.position import PositionModel
 
 
 class Branch(Resource):
@@ -36,6 +37,25 @@ class Branch(Resource):
         help="Every branch needs a phone!"
     )
 
+    admin = 'admin'
+
+    @staticmethod
+    def is_admin():
+        try:
+            if g.customer:
+                return False
+        except:
+            pass
+
+        user = g.user
+        user_position = PositionModel.find_by_id(user.position_id)
+
+        if user_position.name != Branch.admin:
+            return False
+
+        return True
+
+    @jwt_required()
     def get(self, name):
         branch = BranchModel.find_by_name(name)
         if branch:
