@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
+from flask import g
 from models.branch import BranchModel
 from models.position import PositionModel
 
@@ -131,6 +132,7 @@ class BranchList(Resource):
             return {'message': 'You are not privileged to continue!'}, 400
 
         if country:
+            country = country.capitalize()
             return {'branches': [branch.short_json() for branch in BranchModel.query.filter_by(country=country)]}
         else:
             return {'branches': [branch.short_json() for branch in BranchModel.query.all()]}
