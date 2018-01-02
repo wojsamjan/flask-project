@@ -6,8 +6,18 @@ class UserModel(db.Model):  # db.Model -> tells SQLAlchemy about relation
     __tablename__ = 'users'  # where to save our UserModel in database using SQLAlchemy
 
     id = db.Column(db.Integer, primary_key=True)  # specifies columns in database for our UserModel
-    username = db.Column(db.String(80))
+    username = db.Column(db.String(40))
     password_hash = db.Column(db.String(128))
+
+    first_name = db.Column(db.String(40))
+    last_name = db.Column(db.String(40))
+
+    country = db.Column(db.String(40))
+    city = db.Column(db.String(40))
+    postal_code = db.Column(db.String(16))
+    street = db.Column(db.String(40))
+    email = db.Column(db.String(320))
+    phone = db.Column(db.String(40))
 
     branch_id = db.Column(db.Integer, db.ForeignKey('branches.id'))
     branch = db.relationship('BranchModel')
@@ -17,11 +27,20 @@ class UserModel(db.Model):  # db.Model -> tells SQLAlchemy about relation
 
     salary = db.Column(db.Integer)
 
-    def __init__(self, username, password, branch_id, position_id, salary):
+    def __init__(self, username, password, first_name, last_name,
+                 country, city, postal_code, street, email, phone, branch_id, position_id, salary):
         self.username = username
-        # self.password = password
-
         self.password_hash = self.hash_password(password)
+
+        self.first_name = first_name
+        self.last_name = last_name
+
+        self.country = country
+        self.city = city
+        self.postal_code = postal_code
+        self.street = street
+        self.email = email
+        self.phone = phone
 
         self.branch_id = branch_id
         self.position_id = position_id
