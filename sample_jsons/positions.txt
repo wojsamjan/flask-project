@@ -1,4 +1,4 @@
 admin
-boss
+manager
 it specialist
 customer service
