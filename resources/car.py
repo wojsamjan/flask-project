@@ -119,8 +119,14 @@ class Car(Resource):
 
     @jwt_required()
     def post(self, branch_name, name):
+        is_admin = Car.is_admin()
+        is_manager = Car.is_manager()
+
+        if not is_admin and not is_manager:
+            return {'message': 'You are not privileged to continue!'}, 400
+
         branch = BranchModel.find_by_name(branch_name)
-        # return {'brid': branch.id}
+
         if not branch:
             return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
 
