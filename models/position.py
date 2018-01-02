@@ -6,17 +6,14 @@ class PositionModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60))
-    # salary = db.Column(db.Integer)
 
     users = db.relationship('UserModel', lazy='dynamic')
 
     def __init__(self, name):
         self.id
         self.name = name
-        # self.salary = salary
 
     def json(self):
-        # return {'name': self.name, 'salary': self.salary, 'users': [user.json() for user in self.users.all()]}
         return {'id': self.id, 'name': self.name, 'users': [user.json() for user in self.users.all()]}
 
     # def short_json(self):
@@ -25,8 +22,8 @@ class PositionModel(db.Model):
     def branch_json(self, branch_id):
         return {'id': self.id, 'name': self.name, 'users': [user.json() for user in self.users.filter_by(branch_id=branch_id)]}
 
-    # def branch_short_json(self, branch_id):
-    #     return {'id': self.id, 'name': self.name, 'users': [user.short_json() for user in self.users.filter_by(branch_id=branch_id)]}
+    def branch_short_json(self, branch_id):
+        return {'name': self.name, 'users': [user.short_json() for user in self.users.filter_by(branch_id=branch_id)]}
 
     @classmethod
     def find_by_name(cls, name):
