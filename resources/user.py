@@ -18,6 +18,49 @@ class UserRegister(Resource):
         required=True,
         help="Every user needs a password!"
     )
+
+    parser.add_argument('first_name',
+        type=str,
+        required=True,
+        help="Every user needs a first_name!"
+    )
+    parser.add_argument('last_name',
+        type=str,
+        required=True,
+        help="Every user needs a last_name!"
+    )
+
+    parser.add_argument('country',
+        type=str,
+        required=True,
+        help="Every user needs a country!"
+    )
+    parser.add_argument('city',
+        type=str,
+        required=True,
+        help="Every user needs a city!"
+    )
+    parser.add_argument('postal_code',
+        type=str,
+        required=True,
+        help="Every user needs a postal code!"
+    )
+    parser.add_argument('street',
+        type=str,
+        required=True,
+        help="Every user needs a street!"
+    )
+    parser.add_argument('email',
+        type=str,
+        required=True,
+        help="Every user needs a email!"
+    )
+    parser.add_argument('phone',
+        type=str,
+        required=True,
+        help="Every user needs a phone!"
+    )
+
     parser.add_argument('branch_id',
         type=int,
         required=True,
