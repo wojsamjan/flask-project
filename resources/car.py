@@ -2,6 +2,8 @@ from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.car import CarModel
 from models.branch import BranchModel
+from models.position import PositionModel
+from flask import g
 
 
 class Car(Resource):
@@ -67,11 +69,52 @@ class Car(Resource):
         help="Every car needs a branch_id!"
     )
 
+    admin = 'admin'
+    manager = 'manager'
+
+    @staticmethod
+    def is_user():
+        try:
+            if g.customer:
+                return False
+        except:
+            return True
+
+    @staticmethod
+    def is_manager():
+        is_user = Car.is_user()
+        if not is_user:
+            return False
+
+        user = g.user
+        user_position = PositionModel.find_by_id(user.position_id)
+
+        if user_position.name != Car.manager:
+            return False
+
+        return True
+
+    @staticmethod
+    def is_admin():
+        is_user = Car.is_user()
+        if not is_user:
+            return False
+
+        user = g.user
+        user_position = PositionModel.find_by_id(user.position_id)
+
+        if user_position.name != Car.admin:
+            return False
+
+        return True
+
     def get(self, branch_name, name):
         branch = BranchModel.find_by_name(branch_name)
         car = CarModel.find_by_name_in_branch(branch.id, name)
+
         if car:
             return car.short_json()
+
         return {'message': 'Car not found.'}, 404
 
     @jwt_required()
