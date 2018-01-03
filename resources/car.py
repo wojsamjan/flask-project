@@ -91,7 +91,6 @@ class Car(Resource):
 
         if user_position.name != Car.manager:
             return False
-
         return True
 
     @staticmethod
@@ -105,11 +104,13 @@ class Car(Resource):
 
         if user_position.name != Car.admin:
             return False
-
         return True
 
     def get(self, branch_name, name):
         branch = BranchModel.find_by_name(branch_name)
+        if not branch:
+            return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
+
         car = CarModel.find_by_name_in_branch(branch.id, name)
 
         if car:
