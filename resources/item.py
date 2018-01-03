@@ -2,6 +2,8 @@ from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.item import ItemModel
 from models.branch import BranchModel
+from models.position import PositionModel
+from flask import g
 
 
 class Item(Resource):
@@ -11,11 +13,6 @@ class Item(Resource):
         required=True,
         help="Every item needs a price!"
     )
-    # parser.add_argument('store_id',
-    #     type=int,
-    #     required=True,
-    #     help="Every item needs a store id!"
-    # )
     parser.add_argument('year',
         type=int,
         required=True,
@@ -42,8 +39,48 @@ class Item(Resource):
         help="Every item needs a branch_id!"
     )
 
+    admin = 'admin'
+    manager = 'manager'
+
+    @staticmethod
+    def is_user():
+        try:
+            if g.customer:
+                return False
+        except:
+            return True
+
+    @staticmethod
+    def is_manager():
+        is_user = Item.is_user()
+        if not is_user:
+            return False
+
+        user = g.user
+        user_position = PositionModel.find_by_id(user.position_id)
+
+        if user_position.name != Item.manager:
+            return False
+        return True
+
+    @staticmethod
+    def is_admin():
+        is_user = Item.is_user()
+        if not is_user:
+            return False
+
+        user = g.user
+        user_position = PositionModel.find_by_id(user.position_id)
+
+        if user_position.name != Item.admin:
+            return False
+        return True
+
     def get(self, branch_name, name):
         branch = BranchModel.find_by_name(branch_name)
+        if not branch:
+            return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
+
         item = ItemModel.find_by_name_in_branch(branch.id, name)
         if item:
             return item.short_json()
@@ -57,7 +94,7 @@ class Item(Resource):
 
         data = Item.parser.parse_args()
 
-        item = ItemModel(name, **data)  # data['price'], data['store_id']
+        item = ItemModel(name, **data)  # data['price'], ..., data['branch_id']
 
         try:
             item.save_to_db()
@@ -83,14 +120,13 @@ class Item(Resource):
         item = ItemModel.find_by_name_in_branch(branch.id, name)
 
         if item is None:
-            item = ItemModel(name, **data)  # data['price'], data['store_id']
+            item = ItemModel(name, **data)
         else:
             item.price = data['price']
             item.year = data['year']
             item.item_type = data['item_type']
             item.vendor = data['vendor']
             item.model = data['model']
-            # item.store_id = data['store_id']
 
             item.branch_id = data['branch_id']
 
