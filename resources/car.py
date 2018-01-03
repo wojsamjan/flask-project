@@ -131,7 +131,7 @@ class Car(Resource):
         if not branch:
             return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
 
-        if g.user.branch_id != branch.id:
+        if g.user.branch_id != branch.id and not is_admin:
             return {'message': 'You are not privileged to continue!'}, 400
 
         data = Car.parser.parse_args()
@@ -142,7 +142,7 @@ class Car(Resource):
         if CarModel.find_by_name_in_branch(branch.id, name):
             return {'message': "An car with name '{}' already exists.".format(name)}, 400
 
-        car = CarModel(name, **data)  # data['price'], data['store_id']
+        car = CarModel(name, **data)
 
         try:
             car.save_to_db()
@@ -158,6 +158,9 @@ class Car(Resource):
             return {'message': 'You are not privileged to continue!'}, 400
 
         branch = BranchModel.find_by_name(branch_name)
+        if not branch:
+            return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
+
         car = CarModel.find_by_name_in_branch(branch.id, name)
         if car:
             car.delete_from_db()
@@ -178,7 +181,7 @@ class Car(Resource):
         car = CarModel.find_by_name_in_branch(branch.id, name)
 
         if car is None:
-            car = CarModel(name, **data)  # data['price'], data['store_id']
+            car = CarModel(name, **data)
         else:
             car.price = data['price']
             car.year = data['year']
