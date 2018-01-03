@@ -13,6 +13,7 @@ class Position(Resource):
         required=True,
         help="To work with positions you need to type your password!"
     )
+
     admin = 'admin'
     manager = 'manager'
 
@@ -54,27 +55,9 @@ class Position(Resource):
 
     @jwt_required()
     def get(self, name):
-        # try:
-        #     if g.customer:
-        #         return {'message': 'You are not privileged to continue!'}, 400
-        # except:
-        #     pass
-        #
-        # user = g.user
-        # user_position = PositionModel.find_by_id(user.position_id)
-        #
-        # if user_position.name != Position.admin:
-        #     return {'message': 'You are not privileged user to continue!'}, 400
-
         is_admin = Position.is_admin()
         if not is_admin:
             return {'message': 'You are not privileged to continue!'}, 400
-
-        data = Position.parser.parse_args()
-        user = g.user
-
-        if not user.verify_password(data['password']):
-            return {'message': 'You can not check a position because you have typed a wrong password!'}, 400
 
         position = PositionModel.find_by_name(name)
         if position:
@@ -121,7 +104,7 @@ class Position(Resource):
         if position:
             position.delete_from_db()
 
-        return {'message': 'Position deleted'}
+        return {'message': 'Position deleted.'}
 
     @jwt_required()
     def put(self, name):
@@ -139,8 +122,8 @@ class Position(Resource):
 
         if position is None:
             position = PositionModel(name)
-        else:
-            position.name = name
+        # else:
+        #     position.name = name
 
         position.save_to_db()
 
@@ -156,12 +139,6 @@ class PositionList(Resource):
         if not is_admin and not is_manager:
             return {'message': 'You are not privileged to continue!'}, 400
 
-        data = Position.parser.parse_args()
-        user = g.user
-
-        if not user.verify_password(data['password']):
-            return {'message': 'You can not continue because you have typed a wrong password!'}, 400
-
         # all branches
         if not branch_name:
             if not is_admin:
@@ -176,5 +153,7 @@ class PositionList(Resource):
         positions_id = {user.position_id for user in UserModel.query.filter_by(branch_id=branch.id)}
         # return {'positions': [position.json() for position in PositionModel.query.filter_by(id in positions_id)]}
         if not is_admin:
+            if g.user.branch_id != branch.id:
+                return {'message': 'You are not privileged to continue!'}, 400
             return {'positions': [position.branch_short_json(branch.id) for position in PositionModel.query.filter(PositionModel.id.in_(positions_id)).all()]}
         return {'positions': [position.branch_json(branch.id) for position in PositionModel.query.filter(PositionModel.id.in_(positions_id)).all()]}
