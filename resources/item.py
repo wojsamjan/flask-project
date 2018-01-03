@@ -89,6 +89,9 @@ class Item(Resource):
     @jwt_required()
     def post(self, branch_name, name):
         branch = BranchModel.find_by_name(branch_name)
+        if not branch:
+            return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
+
         if ItemModel.find_by_name_in_branch(branch.id, name):
             return {'message': "An item with name '{}' already exists.".format(name)}, 400
 
@@ -106,6 +109,9 @@ class Item(Resource):
     @jwt_required()
     def delete(self, branch_name, name):
         branch = BranchModel.find_by_name(branch_name)
+        if not branch:
+            return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
+
         item = ItemModel.find_by_name_in_branch(branch.id, name)
         if item:
             item.delete_from_db()
@@ -115,6 +121,9 @@ class Item(Resource):
     @jwt_required()
     def put(self, branch_name, name):
         branch = BranchModel.find_by_name(branch_name)
+        if not branch:
+            return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
+
         data = Item.parser.parse_args()
 
         item = ItemModel.find_by_name_in_branch(branch.id, name)
