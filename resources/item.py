@@ -84,18 +84,31 @@ class Item(Resource):
         item = ItemModel.find_by_name_in_branch(branch.id, name)
         if item:
             return item.short_json()
+
         return {'message': 'Item not found.'}, 404
 
     @jwt_required()
     def post(self, branch_name, name):
+        is_admin = Item.is_admin()
+        is_manager = Item.is_manager()
+
+        if not is_admin and not is_manager:
+            return {'message': 'You are not privileged to continue!'}, 400
+
         branch = BranchModel.find_by_name(branch_name)
         if not branch:
             return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
 
-        if ItemModel.find_by_name_in_branch(branch.id, name):
-            return {'message': "An item with name '{}' already exists.".format(name)}, 400
+        if g.user.branch_id != branch.id and not is_admin:
+            return {'message': 'You are not privileged to continue!'}, 400
 
         data = Item.parser.parse_args()
+
+        if branch.id != data['branch_id']:
+            return {'message': "Branch: '{}' and id: '{}' does not suit with each other.".format(branch_name, data['branch_id'])}
+
+        if ItemModel.find_by_name_in_branch(branch.id, name):
+            return {'message': "An item with name '{}' already exists.".format(name)}, 400
 
         item = ItemModel(name, **data)  # data['price'], ..., data['branch_id']
 
@@ -108,6 +121,10 @@ class Item(Resource):
 
     @jwt_required()
     def delete(self, branch_name, name):
+        is_admin = Item.is_admin()
+        if not is_admin:
+            return {'message': 'You are not privileged to continue!'}, 400
+
         branch = BranchModel.find_by_name(branch_name)
         if not branch:
             return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
@@ -120,12 +137,15 @@ class Item(Resource):
 
     @jwt_required()
     def put(self, branch_name, name):
+        is_admin = Item.is_admin()
+        if not is_admin:
+            return {'message': 'You are not privileged to continue!'}, 400
+
         branch = BranchModel.find_by_name(branch_name)
         if not branch:
             return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
 
         data = Item.parser.parse_args()
-
         item = ItemModel.find_by_name_in_branch(branch.id, name)
 
         if item is None:
