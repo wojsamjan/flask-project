@@ -198,7 +198,7 @@ class Car(Resource):
         return car.json()
 
 
-class CarReserve(Resource):  # SPRAWDZAJ branch zanim na nim operujesz!
+class CarReserve(Resource):
     def put(self, branch_name, name):
         branch = BranchModel.find_by_name(branch_name)
         if not branch:
@@ -219,7 +219,7 @@ class CarReserve(Resource):  # SPRAWDZAJ branch zanim na nim operujesz!
         return car.short_json()
 
 
-class CarCancelReservation(Resource):  # SPRAWDZAJ branch zanim na nim operujesz!
+class CarCancelReservation(Resource):
     def put(self, branch_name, name):
         is_user = Car.is_user()
         if not is_user:
@@ -228,7 +228,7 @@ class CarCancelReservation(Resource):  # SPRAWDZAJ branch zanim na nim operujesz
         branch = BranchModel.find_by_name(branch_name)
         if not branch:
             return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
-        
+
         car = CarModel.find_by_name_in_branch(branch.id, name)
 
         if car is None:
@@ -247,9 +247,12 @@ class CarCancelReservation(Resource):  # SPRAWDZAJ branch zanim na nim operujesz
 class CarList(Resource):
     def get(self, branch_name="", param="", value_p=""):
         # return {'b': branch_name, 'p': param, 'v': value_p}
+        is_admin = Car.is_admin()
 
         # /cars
         if not branch_name and not param and not value_p:
+            if not is_admin:
+                return {'message': 'You are not privileged to continue!'}, 400
             return {'cars': [car.short_json() for car in CarModel.query.all()]}
 
         branch = BranchModel.find_by_name(branch_name)
@@ -262,14 +265,20 @@ class CarList(Resource):
         if param == "car-type" and CarModel.is_car_type(value_p):
             if branch:
                 return {'cars': [car.short_json() for car in CarModel.query.filter_by(car_type=value_p, branch_id=branch.id)]}
+            if not is_admin:
+                return {'message': 'You are not privileged to continue!'}, 400
             return {'cars': [car.short_json() for car in CarModel.query.filter_by(car_type=value_p)]}
         elif param == "transmission" and value_p == "automatic":
             if branch:
                 return {'cars': [car.short_json() for car in CarModel.query.filter_by(transmission=value_p, branch_id=branch.id)]}
+            if not is_admin:
+                return {'message': 'You are not privileged to continue!'}, 400
             return {'cars': [car.short_json() for car in CarModel.query.filter_by(transmission=value_p)]}
         elif param == "drive" and value_p == "4wd":
             if branch:
                 return {'cars': [car.short_json() for car in CarModel.query.filter_by(drive=value_p, branch_id=branch.id)]}
+            if not is_admin:
+                return {'message': 'You are not privileged to continue!'}, 400
             return {'cars': [car.short_json() for car in CarModel.query.filter_by(drive=value_p)]}
         elif not param:
             return {'cars': [car.short_json() for car in CarModel.query.filter_by(branch_id=branch.id)]}
