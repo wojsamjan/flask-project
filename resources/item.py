@@ -212,8 +212,12 @@ class ItemCancelReservation(Resource):
 
 class ItemList(Resource):
     def get(self, branch_name="", param="", value_p=""):
+        is_admin = Item.is_admin()
+
         # /items
         if not branch_name and not param and not value_p:
+            if not is_admin:
+                return {'message': 'You are not privileged to continue!'}, 400
             return {'items': [item.short_json() for item in ItemModel.query.all()]}
 
         branch = BranchModel.find_by_name(branch_name)
@@ -226,6 +230,8 @@ class ItemList(Resource):
         if param == "item-type" and ItemModel.is_item_type(value_p):
             if branch:
                 return {'items': [item.short_json() for item in ItemModel.query.filter_by(item_type=value_p, branch_id=branch.id)]}
+            if not is_admin:
+                return {'message': 'You are not privileged to continue!'}, 400
             return {'items': [item.short_json() for item in ItemModel.query.filter_by(item_type=value_p)]}
         elif not param:
             return {'items': [item.short_json() for item in ItemModel.query.filter_by(branch_id=branch.id)]}
