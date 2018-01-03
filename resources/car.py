@@ -201,6 +201,9 @@ class Car(Resource):
 class CarReserve(Resource):  # SPRAWDZAJ branch zanim na nim operujesz!
     def put(self, branch_name, name):
         branch = BranchModel.find_by_name(branch_name)
+        if not branch:
+            return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
+
         car = CarModel.find_by_name_in_branch(branch.id, name)
 
         if car is None:
@@ -223,6 +226,9 @@ class CarCancelReservation(Resource):  # SPRAWDZAJ branch zanim na nim operujesz
             return {'message': 'You are not privileged to continue!'}, 400
 
         branch = BranchModel.find_by_name(branch_name)
+        if not branch:
+            return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
+        
         car = CarModel.find_by_name_in_branch(branch.id, name)
 
         if car is None:
