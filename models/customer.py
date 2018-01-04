@@ -1,7 +1,7 @@
 from db import db
-from sqlalchemy.sql.expression import func
+# from sqlalchemy.sql.expression import func
 from passlib.apps import custom_app_context as pwd_context
-import itertools
+# import itertools
 
 
 class CustomerModel(db.Model):  # db.Model -> tells SQLAlchemy about relation
@@ -15,8 +15,6 @@ class CustomerModel(db.Model):  # db.Model -> tells SQLAlchemy about relation
         self.username = username
         self.password_hash = self.hash_password(password)
 
-
-
     def hash_password(self, password):
         return pwd_context.encrypt(password)
 
@@ -27,7 +25,7 @@ class CustomerModel(db.Model):  # db.Model -> tells SQLAlchemy about relation
     #     return {'username': self.username, 'password_hash': self.password_hash}
 
     # def json(self):
-    #     return {'username': self.username}
+    #     return {'id': self.id, 'username': self.username}
 
     def short_json(self):
         return {'id': self.id, 'username': self.username}
