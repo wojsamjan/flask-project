@@ -17,7 +17,7 @@ class PositionModel(db.Model):
         return {'id': self.id, 'name': self.name, 'users': [user.json() for user in self.users.all()]}
 
     # def short_json(self):
-    #     return {'id': self.id, 'name': self.name, 'users': [user.short_json() for user in self.users.all()]}
+    #     return {'name': self.name, 'users': [user.short_json() for user in self.users.all()]}
 
     def branch_json(self, branch_id):
         return {'id': self.id, 'name': self.name, 'users': [user.json() for user in self.users.filter_by(branch_id=branch_id)]}
@@ -27,14 +27,14 @@ class PositionModel(db.Model):
 
     @classmethod
     def find_by_name(cls, name):
-        return cls.query.filter_by(name=name).first()  # SELECT * FROM positions WHERE name=name LIMIT 1
+        return cls.query.filter_by(name=name).first()
 
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
 
     def save_to_db(self):
-        db.session.add(self)  # We can add multiple objects to session and then commit once - more efficient
+        db.session.add(self)
         db.session.commit()
 
     def delete_from_db(self):
