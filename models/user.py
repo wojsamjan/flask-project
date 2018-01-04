@@ -58,12 +58,14 @@ class UserModel(db.Model):  # db.Model -> tells SQLAlchemy about relation
     #             'position_id': self.position_id, 'salary': self.salary}
 
     def json(self):
-        return {'username': self.username, 'branch_id': self.branch_id, 'position_id': self.position_id,
+        return {'username': self.username, 'first_name': self.first_name, 'last_name': self.last_name,
+                'country': self.country, 'city': self.city, 'postal_code': self.postal_code, 'street': self.street,
+                'email': self.email, 'phone': self.phone, 'branch_id': self.branch_id, 'position_id': self.position_id,
                 'salary': self.salary}
 
     def short_json(self):
-        return {'username': self.username, 'branch_id': self.branch_id, 'position_id': self.position_id,
-                'salary': self.salary}
+        return {'first_name': self.first_name, 'last_name': self.last_name, 'city': self.city, 'street': self.street,
+                'email': self.email, 'phone': self.phone}
 
     def save_to_db(self):
         db.session.add(self)
