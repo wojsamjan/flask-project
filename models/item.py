@@ -15,18 +15,13 @@ class ItemModel(db.Model):
     vendor = db.Column(db.String(30))
     model = db.Column(db.String(40))
 
-    # store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
-    # store = db.relationship('StoreModel')
-
     branch_id = db.Column(db.Integer, db.ForeignKey('branches.id'))
     branch = db.relationship('BranchModel')
 
-    # def __init__(self, name, price, store_id):
     def __init__(self, name, price, year, item_type, vendor, model, branch_id):
         self.id
         self.name = name  # ItemType-Vendor-Model-Number(first available from 1) ex: narty-atomic-extra-1
         self.price = price
-        # self.store_id = store_id
 
         self.available = 1
 
@@ -38,16 +33,12 @@ class ItemModel(db.Model):
         self.branch_id = branch_id
 
     def json(self):
-        return {
-                'id': self.id, 'name': self.name, 'price': self.price, 'available': self.available, 'year': self.year,
-                'item_type': self.item_type, 'vendor': self.vendor, 'model': self.model, 'branch_id': self.branch_id
-                }
+        return {'id': self.id, 'name': self.name, 'price': self.price, 'available': self.available, 'year': self.year,
+                'item_type': self.item_type, 'vendor': self.vendor, 'model': self.model, 'branch_id': self.branch_id}
 
     def short_json(self):
-        return {
-                'id': self.id, 'name': self.name, 'price': self.price, 'available': self.available,
-                'item_type': self.item_type, 'branch_id': self.branch_id
-                }
+        return {'price': self.price, 'available': self.available, 'year': self.year, 'item_type': self.item_type,
+                'vendor': self.vendor, 'model': self.model}
 
     @classmethod
     def find_by_name(cls, name):
@@ -59,8 +50,8 @@ class ItemModel(db.Model):
 
     @staticmethod
     def is_item_type(item_type):
-        return item_type in ["ski", "snowboard", "surfing-board", "pedalo", "bike", "rollerblades", "longboard",
-                             "tent", "sleeping-bag", "gps", "caravan", "cool-box", "rucksack"]
+        return item_type in ["ski", "snowboard", "surfing-board", "bike", "rollerblades", "longboard",
+                             "tent", "sleeping-bag", "gps", "caravan", "cool-box", "rucksack"]  # "pedalo",
 
     def save_to_db(self):  # updating or upserting data
         db.session.add(self)  # We can add multiple objects to session and then commit once - more efficient
