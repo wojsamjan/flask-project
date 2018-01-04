@@ -1,5 +1,5 @@
-from db import db
 from passlib.apps import custom_app_context as pwd_context
+from db import db
 
 
 class UserModel(db.Model):  # db.Model -> tells SQLAlchemy about relation
@@ -64,8 +64,8 @@ class UserModel(db.Model):  # db.Model -> tells SQLAlchemy about relation
                 'salary': self.salary}
 
     def short_json(self):
-        return {'first_name': self.first_name, 'last_name': self.last_name, 'city': self.city, 'street': self.street,
-                'email': self.email, 'phone': self.phone}
+        return {'first_name': self.first_name, 'last_name': self.last_name, 'city': self.city,
+                'postal_code': self.postal_code, 'street': self.street, 'email': self.email, 'phone': self.phone}
 
     def save_to_db(self):
         db.session.add(self)
