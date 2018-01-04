@@ -1,11 +1,11 @@
-from db import db
-# from sqlalchemy.sql.expression import func
 from passlib.apps import custom_app_context as pwd_context
+# from sqlalchemy.sql.expression import func
 # import itertools
+from db import db
 
 
-class CustomerModel(db.Model):  # db.Model -> tells SQLAlchemy about relation
-    __tablename__ = 'customers'  # where to save our UserModel in database using SQLAlchemy
+class CustomerModel(db.Model):
+    __tablename__ = 'customers'
     id = db.Column(db.String(40), primary_key=True)
     username = db.Column(db.String(40))
     password_hash = db.Column(db.String(128))
@@ -27,8 +27,8 @@ class CustomerModel(db.Model):  # db.Model -> tells SQLAlchemy about relation
     # def json(self):
     #     return {'id': self.id, 'username': self.username}
 
-    def short_json(self):
-        return {'id': self.id, 'username': self.username}
+    # def short_json(self):
+    #     return {'username': self.username}
 
     def save_to_db(self):
         db.session.add(self)
