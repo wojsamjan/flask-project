@@ -21,19 +21,15 @@ class CarModel(db.Model):
     fuel = db.Column(db.String(20))
     engine_power = db.Column(db.Integer)
 
-    # store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
-    # store = db.relationship('StoreModel')
-
     branch_id = db.Column(db.Integer, db.ForeignKey('branches.id'))
     branch = db.relationship('BranchModel')
 
-    # def __init__(self, name, price, store_id):
     def __init__(self, name, price, year, car_type, vendor, model, colour, seats,
                  transmission, drive, fuel, engine_power, branch_id):
         self.id
-        self.name = name  # CarType-Vendor-Model-Number(first available from 1) ex: hatch-vw-golf3-1994-1
+        # CarType-Vendor-Model-Number(first available from 1) ex: hatch-vw-golf3-1994-1, car-vw-golf-vi-2012-1
+        self.name = name
         self.price = price
-        # self.store_id = store_id
 
         self.available = 1
 
@@ -56,18 +52,6 @@ class CarModel(db.Model):
 
         self.branch_id = branch_id
 
-        #
-        # self.name = vendor + "-" + model + "-" + str(year) + "-"
-        #
-        # self.number = 1
-        #
-        # while True:
-        #     if CarModel.query.filter_by(name=(self.name + str(self.number))).first():
-        #         self.number += 1
-        #     else:
-        #         self.name += str(self.number)
-        #         break
-
     def json(self):
         return {
                 'id': self.id, 'name': self.name, 'price': self.price, 'available': self.available, 'year': self.year,
@@ -78,14 +62,14 @@ class CarModel(db.Model):
 
     def short_json(self):
         return {
-                'id': self.id, 'name': self.name, 'price': self.price, 'available': self.available,
-                'car_type': self.car_type, 'transmission': self.transmission, 'drive': self.drive,
-                'branch_id': self.branch_id
+                'price': self.price, 'available': self.available, 'year': self.year, 'car_type': self.car_type,
+                'vendor': self.vendor, 'model': self.model, 'seats': self.seats, 'transmission': self.transmission,
+                'drive': self.drive, 'fuel': self.fuel
                 }
 
     @classmethod
     def find_by_name(cls, name):
-        return cls.query.filter_by(name=name).first()  # SELECT * FROM cars WHERE name=name LIMIT 1
+        return cls.query.filter_by(name=name).first()
 
     @classmethod
     def find_by_name_in_branch(cls, branch_id, name):
@@ -96,8 +80,8 @@ class CarModel(db.Model):
         # return car_type in ["delivery", "van", "sedan", "estate", "hatch", "coupe"]
         return car_type in ["car", "van"]
 
-    def save_to_db(self):  # updating or upserting data
-        db.session.add(self)  # We can add multiple objects to session and then commit once - more efficient
+    def save_to_db(self):
+        db.session.add(self)
         db.session.commit()
 
     def delete_from_db(self):
