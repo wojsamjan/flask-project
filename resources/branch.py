@@ -64,7 +64,7 @@ class Branch(Resource):
 
         branch = BranchModel.find_by_name(name)
         if branch:
-            return branch.short_json()
+            return branch.json()
         return {'message': 'Branch not found'}, 404
 
     @jwt_required()
@@ -133,6 +133,6 @@ class BranchList(Resource):
 
         if country:
             country = country.capitalize()
-            return {'branches': [branch.short_json() for branch in BranchModel.query.filter_by(country=country)]}
+            return {'branches': [branch.json() for branch in BranchModel.query.filter_by(country=country)]}
         else:
-            return {'branches': [branch.short_json() for branch in BranchModel.query.all()]}
+            return {'branches': [branch.json() for branch in BranchModel.query.all()]}
