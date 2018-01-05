@@ -151,7 +151,7 @@ class PositionList(Resource):
             return {'message': 'Branch not found.'}, 404
 
         positions_id = {user.position_id for user in UserModel.query.filter_by(branch_id=branch.id)}
-        # return {'positions': [position.json() for position in PositionModel.query.filter_by(id in positions_id)]}
+
         if not is_admin:
             if g.user.branch_id != branch.id:
                 return {'message': 'You are not privileged to continue!'}, 400
