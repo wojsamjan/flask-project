@@ -1,9 +1,9 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
+from flask import g
 from models.item import ItemModel
 from models.branch import BranchModel
 from models.position import PositionModel
-from flask import g
 
 
 class Item(Resource):
@@ -82,8 +82,12 @@ class Item(Resource):
             return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
 
         item = ItemModel.find_by_name_in_branch(branch.id, name)
+        is_admin = Item.is_admin()
+
         if item:
-            return item.short_json()
+            if not is_admin:
+                return item.short_json()
+            return item.json()
 
         return {'message': 'Item not found.'}, 404
 
@@ -117,6 +121,8 @@ class Item(Resource):
         except:
             return {"message": "An error occurred inserting the item."}, 500  # Internal Server Error
 
+        if not is_admin:
+            return item.short_json(), 201
         return item.json(), 201
 
     @jwt_required()
@@ -182,7 +188,8 @@ class ItemReserve(Resource):
 
         item.save_to_db()
 
-        return item.short_json()
+        # return item.short_json()
+        return {"message": "Item reserved."}
 
 
 class ItemCancelReservation(Resource):
@@ -207,7 +214,8 @@ class ItemCancelReservation(Resource):
 
         item.save_to_db()
 
-        return item.short_json()
+        # return item.short_json()
+        return {'message': 'Item reservation canceled.'}
 
 
 class ItemList(Resource):
@@ -218,7 +226,7 @@ class ItemList(Resource):
         if not branch_name and not param and not value_p:
             if not is_admin:
                 return {'message': 'You are not privileged to continue!'}, 400
-            return {'items': [item.short_json() for item in ItemModel.query.all()]}
+            return {'items': [item.json() for item in ItemModel.query.all()]}
 
         branch = BranchModel.find_by_name(branch_name)
 
@@ -229,12 +237,16 @@ class ItemList(Resource):
 
         if param == "item-type" and ItemModel.is_item_type(value_p):
             if branch:
-                return {'items': [item.short_json() for item in ItemModel.query.filter_by(item_type=value_p, branch_id=branch.id)]}
+                if not is_admin:
+                    return {'items': [item.short_json() for item in ItemModel.query.filter_by(item_type=value_p, branch_id=branch.id)]}
+                return {'items': [item.json() for item in ItemModel.query.filter_by(item_type=value_p, branch_id=branch.id)]}
             if not is_admin:
                 return {'message': 'You are not privileged to continue!'}, 400
-            return {'items': [item.short_json() for item in ItemModel.query.filter_by(item_type=value_p)]}
+            return {'items': [item.json() for item in ItemModel.query.filter_by(item_type=value_p)]}
         elif not param:
-            return {'items': [item.short_json() for item in ItemModel.query.filter_by(branch_id=branch.id)]}
+            if not is_admin:
+                return {'items': [item.short_json() for item in ItemModel.query.filter_by(branch_id=branch.id)]}
+            return {'items': [item.json() for item in ItemModel.query.filter_by(branch_id=branch.id)]}
             # return {'items': [item.json() for item in ItemModel.query.all()]}  # list comprehension
         else:
             return {'message': 'Wrong parameters of request!'}, 400
