@@ -1,9 +1,9 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
+from flask import g
 from models.car import CarModel
 from models.branch import BranchModel
 from models.position import PositionModel
-from flask import g
 
 
 class Car(Resource):
@@ -112,9 +112,12 @@ class Car(Resource):
             return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
 
         car = CarModel.find_by_name_in_branch(branch.id, name)
+        is_admin = Car.is_admin()
 
         if car:
-            return car.short_json()
+            if not is_admin:
+                return car.short_json()
+            return car.json()
 
         return {'message': 'Car not found.'}, 404
 
@@ -127,7 +130,6 @@ class Car(Resource):
             return {'message': 'You are not privileged to continue!'}, 400
 
         branch = BranchModel.find_by_name(branch_name)
-
         if not branch:
             return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
 
@@ -149,6 +151,8 @@ class Car(Resource):
         except:
             return {"message": "An error occurred inserting the car."}, 500  # Internal Server Error
 
+        if not is_admin:
+            return car.short_json(), 201
         return car.json(), 201
 
     @jwt_required()
@@ -220,7 +224,8 @@ class CarReserve(Resource):
 
         car.save_to_db()
 
-        return car.short_json()
+        # return car.short_json()
+        return {"message": "Car reserved."}
 
 
 class CarCancelReservation(Resource):
@@ -245,7 +250,8 @@ class CarCancelReservation(Resource):
 
         car.save_to_db()
 
-        return car.short_json()
+        # return car.short_json()
+        return {'message': 'Car reservation canceled.'}
 
 
 class CarList(Resource):
@@ -257,7 +263,7 @@ class CarList(Resource):
         if not branch_name and not param and not value_p:
             if not is_admin:
                 return {'message': 'You are not privileged to continue!'}, 400
-            return {'cars': [car.short_json() for car in CarModel.query.all()]}
+            return {'cars': [car.json() for car in CarModel.query.all()]}
 
         branch = BranchModel.find_by_name(branch_name)
 
@@ -268,28 +274,33 @@ class CarList(Resource):
 
         if param == "car-type" and CarModel.is_car_type(value_p):
             if branch:
-                return {'cars': [car.short_json() for car in CarModel.query.filter_by(car_type=value_p, branch_id=branch.id)]}
+                if not is_admin:
+                    return {'cars': [car.short_json() for car in CarModel.query.filter_by(car_type=value_p, branch_id=branch.id)]}
+                return {'cars': [car.json() for car in CarModel.query.filter_by(car_type=value_p, branch_id=branch.id)]}
             if not is_admin:
                 return {'message': 'You are not privileged to continue!'}, 400
-            return {'cars': [car.short_json() for car in CarModel.query.filter_by(car_type=value_p)]}
+            return {'cars': [car.json() for car in CarModel.query.filter_by(car_type=value_p)]}
         elif param == "transmission" and value_p == "automatic":
             if branch:
-                return {'cars': [car.short_json() for car in CarModel.query.filter_by(transmission=value_p, branch_id=branch.id)]}
+                if not is_admin:
+                    return {'cars': [car.short_json() for car in CarModel.query.filter_by(transmission=value_p, branch_id=branch.id)]}
+                return {'cars': [car.json() for car in CarModel.query.filter_by(transmission=value_p, branch_id=branch.id)]}
             if not is_admin:
                 return {'message': 'You are not privileged to continue!'}, 400
-            return {'cars': [car.short_json() for car in CarModel.query.filter_by(transmission=value_p)]}
+            return {'cars': [car.json() for car in CarModel.query.filter_by(transmission=value_p)]}
         elif param == "drive" and value_p == "4wd":
             if branch:
-                return {'cars': [car.short_json() for car in CarModel.query.filter_by(drive=value_p, branch_id=branch.id)]}
+                if not is_admin:
+                    return {'cars': [car.short_json() for car in CarModel.query.filter_by(drive=value_p, branch_id=branch.id)]}
+                return {'cars': [car.json() for car in CarModel.query.filter_by(drive=value_p, branch_id=branch.id)]}
             if not is_admin:
                 return {'message': 'You are not privileged to continue!'}, 400
-            return {'cars': [car.short_json() for car in CarModel.query.filter_by(drive=value_p)]}
+            return {'cars': [car.json() for car in CarModel.query.filter_by(drive=value_p)]}
         elif not param:
-            return {'cars': [car.short_json() for car in CarModel.query.filter_by(branch_id=branch.id)]}
+            if not is_admin:
+                return {'cars': [car.short_json() for car in CarModel.query.filter_by(branch_id=branch.id)]}
+            return {'cars': [car.json() for car in CarModel.query.filter_by(branch_id=branch.id)]}
             # return {'cars': [car.json() for car in CarModel.query.all()]}  # list comprehension
             # return {'cars': list(map(lambda x: x.json(), CarModel.query.all()))}  # lambda, mapping func() to elements
         else:
             return {'message': 'Wrong parameters of request!'}, 400
-
-
-#       return cls.query.filter_by(name=name).first()
