@@ -5,3 +5,4 @@ __pycache__/
 hashing.py
 trash/**
 data.db
+/sample_jsons/**
