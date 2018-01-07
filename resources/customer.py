@@ -98,9 +98,11 @@ class CustomerDelete(Resource):
                 return {'message': "You are not privileged to delete customer's account!"}, 400
 
             customer = CustomerModel.find_by_username(data['username'])
-            customer.delete_from_db()
+            if customer:
+                customer.delete_from_db()
+                return {'message': "Customer's account deleted."}
 
-            return {'message': "Customer's account deleted."}
+            return {'message': "Customer '{}' account does not exist.".format(data['username'])}
         else:
             customer = g.customer
 
