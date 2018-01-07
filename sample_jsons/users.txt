@@ -28,7 +28,7 @@ GDANSK
 	"phone": "123 456 789",
 	"branch_id": 1,
 	"position_id": 2,
-	"salary": 3000
+	"salary": 3300
 }
 
 {
@@ -78,7 +78,7 @@ KRAKOW
 	"phone": "444 444 444",
 	"branch_id": 2,
 	"position_id": 2,
-	"salary": 3500
+	"salary": 3700
 }
 
 {
@@ -94,7 +94,7 @@ KRAKOW
 	"phone": "444 444 444",
 	"branch_id": 2,
 	"position_id": 3,
-	"salary": 5000
+	"salary": 3500
 }
 
 {
