@@ -1,3 +1,4 @@
+import string
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from flask import g
@@ -65,7 +66,7 @@ class Branch(Resource):
         branch = BranchModel.find_by_name(name)
         if branch:
             return branch.json()
-        return {'message': 'Branch not found'}, 404
+        return {'message': 'Branch not found.'}, 404
 
     @jwt_required()
     def post(self, name):
@@ -132,7 +133,7 @@ class BranchList(Resource):
             return {'message': 'You are not privileged to continue!'}, 400
 
         if country:
-            country = country.capitalize()
+            country = string.capwords(country)
             return {'branches': [branch.json() for branch in BranchModel.query.filter_by(country=country)]}
         else:
             return {'branches': [branch.json() for branch in BranchModel.query.all()]}
