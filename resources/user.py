@@ -184,10 +184,12 @@ class UserDelete(Resource):
             if not user.verify_password(data['password']):
                 return {'message': "You are not privileged to delete user's account!"}, 400
 
-            user_delete = CustomerModel.find_by_username(data['username'])
-            user_delete.delete_from_db()
+            user_delete = UserModel.find_by_username(data['username'])
+            if user_delete:
+                user_delete.delete_from_db()
+                return {'message': "User's account deleted."}
 
-            return {'message': "User's account deleted."}
+            return {'message': "User '{}' account does not exist.".format(data['username'])}
         else:
 
             if user.username != data['username']:
