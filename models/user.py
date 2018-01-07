@@ -29,6 +29,8 @@ class UserModel(db.Model):  # db.Model -> tells SQLAlchemy about relation
 
     def __init__(self, username, password, first_name, last_name,
                  country, city, postal_code, street, email, phone, branch_id, position_id, salary):
+        self.id
+
         self.username = username
         self.password_hash = self.hash_password(password)
 
@@ -58,7 +60,7 @@ class UserModel(db.Model):  # db.Model -> tells SQLAlchemy about relation
     #             'position_id': self.position_id, 'salary': self.salary}
 
     def json(self):
-        return {'username': self.username, 'first_name': self.first_name, 'last_name': self.last_name,
+        return {'id': self.id, 'username': self.username, 'first_name': self.first_name, 'last_name': self.last_name,
                 'country': self.country, 'city': self.city, 'postal_code': self.postal_code, 'street': self.street,
                 'email': self.email, 'phone': self.phone, 'branch_id': self.branch_id, 'position_id': self.position_id,
                 'salary': self.salary}
