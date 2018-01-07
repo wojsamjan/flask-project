@@ -75,10 +75,10 @@ class Car(Resource):
     @staticmethod
     def is_user():
         try:
-            if g.customer:
-                return False
-        except:
-            return True
+            if g.user:
+                return True
+        except 'not a user':
+            return False
 
     @staticmethod
     def is_manager():
@@ -142,7 +142,7 @@ class Car(Resource):
             return {'message': "Branch: '{}' and id: '{}' does not suit with each other.".format(branch_name, data['branch_id'])}
 
         if CarModel.find_by_name_in_branch(branch.id, name):
-            return {'message': "An car with name '{}' already exists.".format(name)}, 400
+            return {'message': "A car with name '{}' already exists.".format(name)}, 400
 
         car = CarModel(name, **data)
 
@@ -207,6 +207,7 @@ class Car(Resource):
 
 
 class CarReserve(Resource):
+    @jwt_required()
     def put(self, branch_name, name):
         branch = BranchModel.find_by_name(branch_name)
         if not branch:
@@ -229,6 +230,7 @@ class CarReserve(Resource):
 
 
 class CarCancelReservation(Resource):
+    @jwt_required()
     def put(self, branch_name, name):
         is_user = Car.is_user()
         if not is_user:
@@ -244,7 +246,7 @@ class CarCancelReservation(Resource):
             return {'message': 'Car does not exist.'}
 
         if car.available == 1:
-            return {"message": "Car is not reserved."}, 400
+            return {"message": "Car is not reserved yet."}, 400
 
         car.available = 1
 

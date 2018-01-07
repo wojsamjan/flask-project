@@ -45,10 +45,10 @@ class Item(Resource):
     @staticmethod
     def is_user():
         try:
-            if g.customer:
-                return False
-        except:
-            return True
+            if g.user:
+                return True
+        except 'not a user':
+            return False
 
     @staticmethod
     def is_manager():
@@ -171,6 +171,7 @@ class Item(Resource):
 
 
 class ItemReserve(Resource):
+    @jwt_required()
     def put(self, branch_name, name):
         branch = BranchModel.find_by_name(branch_name)
         if not branch:
@@ -193,6 +194,7 @@ class ItemReserve(Resource):
 
 
 class ItemCancelReservation(Resource):
+    @jwt_required()
     def put(self, branch_name, name):
         is_user = Item.is_user()
         if not is_user:
@@ -208,7 +210,7 @@ class ItemCancelReservation(Resource):
             return {'message': 'Item does not exist.'}
 
         if item.available == 1:
-            return {"message": "Item is not reserved."}, 400
+            return {"message": "Item is not reserved yet."}, 400
 
         item.available = 1
 
