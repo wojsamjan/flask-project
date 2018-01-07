@@ -2,6 +2,7 @@ DELIVERY   VAN   SEDAN   ESTATE   HATCH   COUPE
 CAR   VAN
 
 GDANSK
+van-ford-transit-v-2005-1
 {
 	"price": 60,
 	"year": 2005,
@@ -19,6 +20,7 @@ GDANSK
 
 
 KRAKOW
+van-mercedes-sprinter-2007-1
 {
 	"price": 70,
 	"year": 2007,
@@ -34,6 +36,7 @@ KRAKOW
 	"branch_id": 2
 }
 
+van-ford-transit-v-2004-1
 {
 	"price": 60,
 	"year": 2004,
@@ -51,6 +54,7 @@ KRAKOW
 
 
 PRAGA
+van-vw-crafter-2012-1
 {
 	"price": 55,
 	"year": 2012,
