@@ -67,9 +67,9 @@ class Position(Resource):
     @jwt_required()
     def post(self, name):
         # begin
-        is_admin = Position.is_admin()
-        if not is_admin:
-            return {'message': 'You are not privileged to continue!'}, 400
+        # is_admin = Position.is_admin()
+        # if not is_admin:
+        #     return {'message': 'You are not privileged to continue!'}, 400
         # end
 
         data = Position.parser.parse_args()

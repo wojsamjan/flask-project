@@ -77,36 +77,20 @@ class UserRegister(Resource):
         help="Every user needs a salary!"
     )
 
-    @jwt_required()
-    def post(self):
-        try:
-            user = g.user
-        except:
-            return {'message': "You are not privileged to continue!"}, 400
-
-        data = UserRegister.parser.parse_args()
-        position = PositionModel.find_by_id(user.position_id)
-
-        print(position)
-
-        if position.name != 'admin':
-            return {'message': "You are not privileged to create user's account!"}, 400
-
-        if UserModel.find_by_username(data['username']):
-            return {"message": "A user with that username already exists."}, 400
-
-        if CustomerModel.find_by_username(data['username']):
-            return {"message": "A customer with that username already exists."}, 400
-
-        user = UserModel(**data)
-        user.save_to_db()
-
-        # return {'user': user.fake_json()}, 201
-        # return {'users': [user.short_json() for user in UserModel.query.all()]}, 201
-        return {"message": "User created successfully."}, 201
-
+    # @jwt_required()
     # def post(self):
+    #     try:
+    #         user = g.user
+    #     except:
+    #         return {'message': "You are not privileged to continue!"}, 400
+    #
     #     data = UserRegister.parser.parse_args()
+    #     position = PositionModel.find_by_id(user.position_id)
+    #
+    #     print(position)
+    #
+    #     if position.name != 'admin':
+    #         return {'message': "You are not privileged to create user's account!"}, 400
     #
     #     if UserModel.find_by_username(data['username']):
     #         return {"message": "A user with that username already exists."}, 400
@@ -120,6 +104,22 @@ class UserRegister(Resource):
     #     # return {'user': user.fake_json()}, 201
     #     # return {'users': [user.short_json() for user in UserModel.query.all()]}, 201
     #     return {"message": "User created successfully."}, 201
+
+    def post(self):
+        data = UserRegister.parser.parse_args()
+
+        if UserModel.find_by_username(data['username']):
+            return {"message": "A user with that username already exists."}, 400
+
+        if CustomerModel.find_by_username(data['username']):
+            return {"message": "A customer with that username already exists."}, 400
+
+        user = UserModel(**data)
+        user.save_to_db()
+
+        # return {'user': user.fake_json()}, 201
+        # return {'users': [user.short_json() for user in UserModel.query.all()]}, 201
+        return {"message": "User created successfully."}, 201
 
 
 class UserChangePassword(Resource):
