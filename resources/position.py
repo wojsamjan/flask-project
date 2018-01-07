@@ -20,10 +20,10 @@ class Position(Resource):
     @staticmethod
     def is_user():
         try:
-            if g.customer:
-                return False
-        except:
-            return True
+            if g.user:
+                return True
+        except 'not a user':
+            return False
 
     @staticmethod
     def is_manager():
@@ -62,13 +62,15 @@ class Position(Resource):
         position = PositionModel.find_by_name(name)
         if position:
             return position.json()
-        return {'message': 'Position not found'}, 404
+        return {'message': 'Position not found.'}, 404
 
     @jwt_required()
     def post(self, name):
+        # begin
         is_admin = Position.is_admin()
         if not is_admin:
             return {'message': 'You are not privileged to continue!'}, 400
+        # end
 
         data = Position.parser.parse_args()
         user = g.user
