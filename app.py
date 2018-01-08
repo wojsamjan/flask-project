@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
@@ -11,12 +13,14 @@ from resources.position import Position, PositionList
 from resources.customer import CustomerRegister, CustomerChangePassword, CustomerDelete
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # It turns off Flask SQLAlchemy Tracker, no SQLAlchemy Tracker
 app.secret_key = 'stan'
 api = Api(app)
 
 
+# development:
 # @app.before_first_request
 # def create_tables():
 #     db.create_all()
