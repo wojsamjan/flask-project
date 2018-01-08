@@ -22,7 +22,7 @@ class Position(Resource):
         try:
             if g.user:
                 return True
-        except 'not a user':
+        except:
             return False
 
     @staticmethod
