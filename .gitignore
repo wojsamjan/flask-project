@@ -6,3 +6,4 @@ hashing.py
 trash/**
 data.db
 /sample_jsons/**
+endpoints_info
