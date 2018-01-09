@@ -1,5 +1,9 @@
 # REST API with Flask
 
+
+## HOST
+[Here](https://wojsamjan-flask-project.herokuapp.com/)
+
 ## Installation
 
 ```
@@ -16,4 +20,4 @@ pip install passlib
 
 ## Implementation
 
-This project is implemented using Flask and is a simple REST API.
+This project is implemented using Flask and is a REST API project.
