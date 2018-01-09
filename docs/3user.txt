@@ -1,0 +1,21 @@
+user == PRACOWNIK
+
+{
+	"username": "stan",
+	"password": "user",
+	"first_name": "Stan",
+	"last_name": "DeePaQ",
+	"country": "Poland",
+	"city": "Gdansk",
+	"postal_code": "80-398",
+	"street": "Obroncow Wybrzeza 1",
+	"email": "gdansk@rentcars.pl",
+	"phone": "123 456 789",
+	"branch_id": 1,
+	"position_id": 1,
+	"salary": 8000
+}
+
+api.add_resource(CustomerRegister, '/register')  ADMIN
+api.add_resource(CustomerChangePassword, '/change-password')  właściciel konta
+api.add_resource(CustomerDelete, '/delete')  ADMIN/właściciel konta

@@ -1,0 +1,63 @@
+{{url}} = https://wojsamjan-flask-project.herokuapp.com
+
+Item:
+{{url}}/<string:branch_name>/item/<string:name>
+EX: {{url}}/gdansk/item/bike-trek-marlin-7-1 [GET, POST, DELETE, PUT]
+bike-trek-marlin-7-1 => typ_rzeczy-producent-model-cyfra (cyfra zaczynamy od 1 i dodajemy do egz tego samego modelu, numer egzemplarza)
+
+GET:
+Jeśli nie istnieje:
+  branch_name => {'message': "Branch '{}' does not exist.".format(branch_name)}, zarówno jak pusty jak i nieistniejący
+  name => {'message': 'Item not found.'}, zarówno jak pusty jak i nieistniejący
+
+POST:
+Tylko admin i manager może dodawać (role)
+Podobnie jak GET w przypadku pustych/fałszywych branch_name i name
+Admin może dodawać rzeczy do każdej filii, manager tylko w filii, w której pracuje
+Ex json:
+{
+	"price": 9.99,
+	"year": 2016,
+	"item_type": "bike",
+	"vendor": "trek",
+	"model": "marlin 7",
+	"branch_id": 1
+}
+UWAGA: branch_id (w jsonie) i id filii branch_name => muszą się zgadzać, czyli:
+{{url}}/gdansk/item/bike-trek-marlin-7-1 => gdańsk ma id=1 i w jsonie branch_id=1 CZYLI OK
+
+DELETE:
+Tylko admin
+Jeśli błędna nazwa filii => {'message': "Branch '{}' does not exist.".format(branch_name)}
+
+PUT:
+Tylko admin
+Jeśli błędna nazwa filii => {'message': "Branch '{}' does not exist.".format(branch_name)}
+Jeśli rzecz nie istnieje => tworzy, inaczej update danej rzeczy
+
+
+ItemReserve:
+{{url}}/<string:branch_name>/item/reserve/<string:name>
+EX: {{url}}/gdansk/item/reserve/bike-trek-marlin-7-1
+
+Każdy pracownik i zalogowany klient, inaczej mówiąc każdy kto zalogowany
+Jeśli już zarezerwowane to odpowiedni komunikat (json)
+branch_name i name muszą istnieć i być prawidłowe, pusty/fake => komunikat(tj message w jsonie)
+
+
+ItemCancelReservation:
+{{url}}/<string:branch_name>/item/cancel-reservation/<string:name>
+EX: {{url}}/gdansk/item/cancel-reservation/bike-trek-marlin-7-1
+
+Każdy pracownik może usuwać rezerwacje
+Próba cancelowania rezerwacji nie zarezerwowanego przedmiotu => 'message' w jsonie
+branch_name i name => muszą być prawdziwe/istniejące => inaczej komunikat
+
+
+ItemList:
+{{url}}/items  => wszystkie przedmioty z wszystkich możliwych filii, tylko ADMIN
+{{url}}/items/<string:param>/<string:value_p>  => jak powyżej ale:
+param: item-type
+value_p: ["ski", "snowboard", "surfing-board", "bike", "rollerblades", "longboard", "tent", "sleeping-bag", "gps", "caravan", "cool-box", "rucksack"]
+{{url}}/<string:branch_name>/items  => wszystkie przedmioty z danej filii, KAŻDY
+{{url}}/<string:branch_name>/items/<string:param>/<string:value_p>  => jak wyżej ale przefiltrowane param/value_p

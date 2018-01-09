@@ -1,0 +1,10 @@
+user == KLIENT
+
+{
+	"username": "customer1",
+	"password": "cust"
+}
+
+api.add_resource(UserRegister, '/register-user')  KAŻDY
+api.add_resource(UserChangePassword, '/change-password-user')  klient będący właścicielem konta
+api.add_resource(UserDelete, '/delete-user')  ADMIN/właściciel konta(klient)

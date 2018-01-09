@@ -1,0 +1,71 @@
+DELIVERY   VAN   SEDAN   ESTATE   HATCH   COUPE
+CAR   VAN
+
+GDANSK
+van-ford-transit-v-2005-1
+{
+	"price": 60,
+	"year": 2005,
+	"car_type": "van",
+	"vendor": "ford",
+	"model": "transit v",
+	"colour": "blue",
+	"seats": 9,
+	"transmission": "manual",
+	"drive": "fwd",
+	"fuel": "diesel",
+	"engine_power": 90,
+	"branch_id": 1
+}
+
+
+KRAKOW
+van-mercedes-sprinter-2007-1
+{
+	"price": 70,
+	"year": 2007,
+	"car_type": "van",
+	"vendor": "mercedes",
+	"model": "sprinter",
+	"colour": "white",
+	"seats": 3,
+	"transmission": "manual",
+	"drive": "rwd",
+	"fuel": "diesel",
+	"engine_power": 109,
+	"branch_id": 2
+}
+
+van-ford-transit-v-2004-1
+{
+	"price": 60,
+	"year": 2004,
+	"car_type": "van",
+	"vendor": "ford",
+	"model": "transit v",
+	"colour": "white",
+	"seats": 9,
+	"transmission": "manual",
+	"drive": "rwd",
+	"fuel": "diesel",
+	"engine_power": 90,
+	"branch_id": 2
+}
+
+
+PRAGA
+van-vw-crafter-2012-1
+{
+	"price": 55,
+	"year": 2012,
+	"car_type": "van",
+	"vendor": "vw",
+	"model": "crafter",
+	"colour": "blue",
+	"seats": 9,
+	"transmission": "manual",
+	"drive": "rwd",
+	"fuel": "diesel",
+	"engine_power": 136,
+	"branch_id": 3
+}

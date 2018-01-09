@@ -1,0 +1,15 @@
+TYLKO admin
+branch == filia (Gdansk, Krakow, Praga)
+
+api.add_resource(Branch, '/branch/<string:name>')  filia o podanej nazwie(pusta/fake => error message)
+api.add_resource(BranchList, '/branches',  wszystkie filie
+                 '/branches/<string:country>')  wszystkie filie wg kraju wyszukiwania
+
+{
+  "country": "Poland",
+  "city": "Gdansk",
+  "postal_code": "80-398",
+  "street": "Obroncow Wybrzeza 7",
+  "email": "gdansk@rentcars.pl",
+  "phone": "123 456 789"
+}

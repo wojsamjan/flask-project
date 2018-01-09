@@ -1,0 +1,17 @@
+JAK item.txt
+{{url}}/<string:branch_name>/car/<string:name>
+EX: {{url}}/praga/car/car-vw-golf-vi-2012-1
+{
+	"price": 55,
+	"year": 2012,
+	"car_type": "car",
+	"vendor": "vw",
+	"model": "golf vi",
+	"colour": "white",
+	"seats": 5,
+	"transmission": "manual",
+	"drive": "4wd",
+	"fuel": "petrol",
+	"engine_power": 270,
+	"branch_id": 3
+}
