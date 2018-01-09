@@ -5,5 +5,6 @@ __pycache__/
 hashing.py
 trash/**
 data.db
-/sample_jsons/**
+# /sample_jsons/**
 endpoints_info
+# docs/**
