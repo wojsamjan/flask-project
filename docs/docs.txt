@@ -1,2 +1,7 @@
 WSZYSTKIE: przykładowe jsony w katalogu: sample_jsons
 jsony items'ow są do update'u !!! ale payload json'ow jest OK
+
+wszystkie routy w pliku app.py !!!
+waymagane payloady w odpowiednich plikach katalogu resources/
+
+/auth => routing logowania, {'username', 'password'}
