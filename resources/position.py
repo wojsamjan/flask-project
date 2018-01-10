@@ -73,10 +73,12 @@ class Position(Resource):
         # end
 
         data = Position.parser.parse_args()
-        user = g.user
+        # user = g.user  # this
 
-        if not user.verify_password(data['password']):
-            return {'message': 'You can not add a new position because you have typed a wrong password!'}, 400
+        # start
+        # if not user.verify_password(data['password']):
+        #     return {'message': 'You can not add a new position because you have typed a wrong password!'}, 400
+        # end
 
         if PositionModel.find_by_name(name):
             return {'message': "A position with name '{}' already exists.".format(name)}, 400

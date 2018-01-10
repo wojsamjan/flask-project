@@ -71,9 +71,9 @@ class Branch(Resource):
     # @jwt_required()  # this too
     def post(self, name):
         # begin
-        is_admin = Branch.is_admin()
-        if not is_admin:
-            return {'message': 'You are not privileged to continue!'}, 400
+        # is_admin = Branch.is_admin()
+        # if not is_admin:
+        #     return {'message': 'You are not privileged to continue!'}, 400
         # end
 
         if BranchModel.find_by_name(name):
