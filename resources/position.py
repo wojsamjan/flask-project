@@ -64,20 +64,20 @@ class Position(Resource):
             return position.json()
         return {'message': 'Position not found.'}, 404
 
-    # @jwt_required()  # this too
+    @jwt_required()  # this too
     def post(self, name):
         # begin
-        # is_admin = Position.is_admin()
-        # if not is_admin:
-        #     return {'message': 'You are not privileged to continue!'}, 400
+        is_admin = Position.is_admin()
+        if not is_admin:
+            return {'message': 'You are not privileged to continue!'}, 400
         # end
 
         data = Position.parser.parse_args()
-        # user = g.user  # this
+        user = g.user  # this
 
         # start
-        # if not user.verify_password(data['password']):
-        #     return {'message': 'You can not add a new position because you have typed a wrong password!'}, 400
+        if not user.verify_password(data['password']):
+            return {'message': 'You can not add a new position because you have typed a wrong password!'}, 400
         # end
 
         if PositionModel.find_by_name(name):
