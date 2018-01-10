@@ -64,7 +64,7 @@ class Position(Resource):
             return position.json()
         return {'message': 'Position not found.'}, 404
 
-    @jwt_required()
+    # @jwt_required()  # this too
     def post(self, name):
         # begin
         # is_admin = Position.is_admin()
