@@ -259,50 +259,44 @@ class CarCancelReservation(Resource):
 class CarList(Resource):
     def get(self, branch_name="", param="", value_p=""):
         # return {'b': branch_name, 'p': param, 'v': value_p}
-        is_admin = Car.is_admin()
-
-        # /cars
-        if not branch_name and not param and not value_p:
-            if not is_admin:
-                return {'message': 'You are not privileged to continue!'}, 400
-            return {'cars': [car.json() for car in CarModel.query.all()]}
-
         branch = BranchModel.find_by_name(branch_name)
 
         # /<non existent branch>/cars
         # /<non existent branch>/cars/<param>/<value_p>
-        if not branch and branch_name:
+        if not branch:
             return {'message': 'Branch not found.'}, 404
 
         if param == "car-type" and CarModel.is_car_type(value_p):
-            if branch:
-                if not is_admin:
-                    return {'cars': [car.short_json() for car in CarModel.query.filter_by(car_type=value_p, branch_id=branch.id)]}
-                return {'cars': [car.json() for car in CarModel.query.filter_by(car_type=value_p, branch_id=branch.id)]}
-            if not is_admin:
-                return {'message': 'You are not privileged to continue!'}, 400
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(car_type=value_p, branch_id=branch.id)]}
+        elif param == "transmission" and value_p == "automatic":
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(transmission=value_p, branch_id=branch.id)]}
+        elif param == "drive" and value_p == "4wd":
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(drive=value_p, branch_id=branch.id)]}
+        elif not param:
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(branch_id=branch.id)]}
+        else:
+            return {'message': 'Wrong parameters of request!'}, 400
+
+
+class CarListAdmin(Resource):
+    @jwt_required()
+    def get(self, param="", value_p=""):
+        # return {'b': branch_name, 'p': param, 'v': value_p}
+        is_admin = Car.is_admin()
+
+        print('ADMIN CARS LIST')
+
+        if not is_admin:
+            return {'message': 'You are not privileged to continue!'}, 400
+
+        if param == "car-type" and CarModel.is_car_type(value_p):
             return {'cars': [car.json() for car in CarModel.query.filter_by(car_type=value_p)]}
         elif param == "transmission" and value_p == "automatic":
-            if branch:
-                if not is_admin:
-                    return {'cars': [car.short_json() for car in CarModel.query.filter_by(transmission=value_p, branch_id=branch.id)]}
-                return {'cars': [car.json() for car in CarModel.query.filter_by(transmission=value_p, branch_id=branch.id)]}
-            if not is_admin:
-                return {'message': 'You are not privileged to continue!'}, 400
             return {'cars': [car.json() for car in CarModel.query.filter_by(transmission=value_p)]}
         elif param == "drive" and value_p == "4wd":
-            if branch:
-                if not is_admin:
-                    return {'cars': [car.short_json() for car in CarModel.query.filter_by(drive=value_p, branch_id=branch.id)]}
-                return {'cars': [car.json() for car in CarModel.query.filter_by(drive=value_p, branch_id=branch.id)]}
-            if not is_admin:
-                return {'message': 'You are not privileged to continue!'}, 400
             return {'cars': [car.json() for car in CarModel.query.filter_by(drive=value_p)]}
         elif not param:
-            if not is_admin:
-                return {'cars': [car.short_json() for car in CarModel.query.filter_by(branch_id=branch.id)]}
-            return {'cars': [car.json() for car in CarModel.query.filter_by(branch_id=branch.id)]}
-            # return {'cars': [car.json() for car in CarModel.query.all()]}  # list comprehension
-            # return {'cars': list(map(lambda x: x.json(), CarModel.query.all()))}  # lambda, mapping func() to elements
+            # /cars
+            return {'cars': [car.json() for car in CarModel.query.all()]}
         else:
             return {'message': 'Wrong parameters of request!'}, 400
