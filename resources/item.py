@@ -230,8 +230,7 @@ class ItemList(Resource):
             return {'message': 'Branch not found.'}, 404
 
         if param == "item-type" and ItemModel.is_item_type(value_p):
-            if branch:
-                return {'items': [item.short_json() for item in ItemModel.query.filter_by(item_type=value_p, branch_id=branch.id)]}
+            return {'items': [item.short_json() for item in ItemModel.query.filter_by(item_type=value_p, branch_id=branch.id)]}
         elif not param:
             return {'items': [item.short_json() for item in ItemModel.query.filter_by(branch_id=branch.id)]}
             # return {'items': [item.json() for item in ItemModel.query.all()]}  # list comprehension
