@@ -6,7 +6,7 @@ from flask_jwt import JWT
 
 from security import authenticate, identity
 from resources.user import UserRegister, UserChangePassword, UserDelete
-from resources.item import Item, ItemList, ItemReserve, ItemCancelReservation
+from resources.item import Item, ItemList, ItemReserve, ItemCancelReservation, ItemListAdmin
 from resources.car import Car, CarList, CarReserve, CarCancelReservation
 from resources.branch import Branch, BranchList
 from resources.position import Position, PositionList
@@ -19,19 +19,20 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # It turns off Flask SQLAl
 app.secret_key = 'stan'
 api = Api(app)
 
-
+# start global comment
 # development:
-# @app.before_first_request
-# def create_tables():
-#     db.create_all()
+@app.before_first_request
+def create_tables():
+    db.create_all()
+# end global comment
 
 jwt = JWT(app, authenticate, identity)  # /auth
 
 api.add_resource(Item, '/<string:branch_name>/item/<string:name>')  # http://127.0.0.1:5000/branch_namr/item/item_name
-api.add_resource(ItemList, '/items',
-                 '/items/<string:param>/<string:value_p>'
-                 '/<string:branch_name>/items',
+api.add_resource(ItemList, '/<string:branch_name>/items',
                  '/<string:branch_name>/items/<string:param>/<string:value_p>')
+api.add_resource(ItemListAdmin, '/items',
+                 '/items/<string:param>/<string:value_p>')
 
 api.add_resource(ItemReserve, '/<string:branch_name>/item/reserve/<string:name>')
 api.add_resource(ItemCancelReservation, '/<string:branch_name>/item/cancel-reservation/<string:name>')
