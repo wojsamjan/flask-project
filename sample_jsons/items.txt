@@ -1,3 +1,4 @@
+bike-trek-marlin-7-1
 {
 	"price": 9.99,
 	"year": 2016,
@@ -581,9 +582,3 @@
 	"model": "rucker",
 	"branch_id": 1
 }
-
-
-
-
-
-
