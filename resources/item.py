@@ -222,34 +222,38 @@ class ItemCancelReservation(Resource):
 
 class ItemList(Resource):
     def get(self, branch_name="", param="", value_p=""):
-        is_admin = Item.is_admin()
-
-        # /items
-        if not branch_name and not param and not value_p:
-            if not is_admin:
-                return {'message': 'You are not privileged to continue!'}, 400
-            return {'items': [item.json() for item in ItemModel.query.all()]}
-
         branch = BranchModel.find_by_name(branch_name)
 
         # /<non existent branch>/items
         # /<non existent branch>/items/<param>/<value_p>
-        if not branch and branch_name:
+        if not branch:
             return {'message': 'Branch not found.'}, 404
 
         if param == "item-type" and ItemModel.is_item_type(value_p):
             if branch:
-                if not is_admin:
-                    return {'items': [item.short_json() for item in ItemModel.query.filter_by(item_type=value_p, branch_id=branch.id)]}
-                return {'items': [item.json() for item in ItemModel.query.filter_by(item_type=value_p, branch_id=branch.id)]}
-            if not is_admin:
-                return {'message': 'You are not privileged to continue!'}, 400
-            return {'items': [item.json() for item in ItemModel.query.filter_by(item_type=value_p)]}
+                return {'items': [item.short_json() for item in ItemModel.query.filter_by(item_type=value_p, branch_id=branch.id)]}
         elif not param:
-            if not is_admin:
-                return {'items': [item.short_json() for item in ItemModel.query.filter_by(branch_id=branch.id)]}
-            return {'items': [item.json() for item in ItemModel.query.filter_by(branch_id=branch.id)]}
+            return {'items': [item.short_json() for item in ItemModel.query.filter_by(branch_id=branch.id)]}
             # return {'items': [item.json() for item in ItemModel.query.all()]}  # list comprehension
         else:
             return {'message': 'Wrong parameters of request!'}, 400
             # return {'items': list(map(lambda x: x.json(), ItemModel.query.all()))}  # lambda, map func() to elements
+
+
+class ItemListAdmin(Resource):
+    @jwt_required()
+    def get(self, param="", value_p=""):
+        is_admin = Item.is_admin()
+
+        print('ADMIN ITEMS LIST')
+
+        if not is_admin:
+            return {'message': 'You are not privileged to continue!'}, 400
+
+        if param == "item-type" and ItemModel.is_item_type(value_p):
+            return {'items': [item.json() for item in ItemModel.query.filter_by(item_type=value_p)]}
+        elif not param:
+            # /items
+            return {'items': [item.json() for item in ItemModel.query.all()]}
+        else:
+            return {'message': 'Wrong parameters of request!'}, 400
