@@ -21,9 +21,9 @@ api = Api(app)
 
 # start global comment
 # development:
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 # end global comment
 
 jwt = JWT(app, authenticate, identity)  # /auth
