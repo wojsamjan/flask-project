@@ -7,7 +7,7 @@ from flask_jwt import JWT
 from security import authenticate, identity
 from resources.user import UserRegister, UserChangePassword, UserDelete
 from resources.item import Item, ItemList, ItemReserve, ItemCancelReservation, ItemListAdmin
-from resources.car import Car, CarList, CarReserve, CarCancelReservation
+from resources.car import Car, CarList, CarReserve, CarCancelReservation, CarListAdmin
 from resources.branch import Branch, BranchList
 from resources.position import Position, PositionList
 from resources.customer import CustomerRegister, CustomerChangePassword, CustomerDelete
@@ -38,10 +38,10 @@ api.add_resource(ItemReserve, '/<string:branch_name>/item/reserve/<string:name>'
 api.add_resource(ItemCancelReservation, '/<string:branch_name>/item/cancel-reservation/<string:name>')
 
 api.add_resource(Car, '/<string:branch_name>/car/<string:name>')
-api.add_resource(CarList, '/cars',
-                 '/cars/<string:param>/<string:value_p>',
-                 '/<string:branch_name>/cars',
+api.add_resource(CarList, '/<string:branch_name>/cars',
                  '/<string:branch_name>/cars/<string:param>/<string:value_p>')
+api.add_resource(CarListAdmin, '/cars',
+                 '/cars/<string:param>/<string:value_p>')
 
 api.add_resource(CarReserve, '/<string:branch_name>/car/reserve/<string:name>')
 api.add_resource(CarCancelReservation, '/<string:branch_name>/car/cancel-reservation/<string:name>')
