@@ -216,8 +216,8 @@ car-opel-astra-h-2004-1
 	"branch_id": 2
 }
 
-car-renault-laguna-iii-2008-1
 RENAULT
+car-renault-laguna-iii-2008-1
 {
 	"price": 55,
 	"year": 2008,
