@@ -1,0 +1,28 @@
+API:
+/auth:
+    czy wymaga bycia zalogwanym: NIE
+    dostaje: "username": "", "password": ""
+    zwraca: "access_token": "" LUB "description": "", "error": "", "status_code": ""
+
+### comment
+/continue:
+    czy wymaga bycia zalogwanym: TAK
+###
+
+/continue:
+    czy wymaga bycia zalogwanym: TAK
+    dostaje: brak
+    zwraca: (po weryfikacji tokena) "role": "" (customer,user,manager,admin - w zależności od weryfikacji) LUB "message": ""
+
+/dashboard
+    czy wymaga bycia zalogwanym: TAK
+    dostaje: "role": ""
+    zwraca: "message": "passed" LUB "message": "failed"
+
+
+Sugestie na front:
+1. pod adresem /auth zrobić formularz, którego wysłanie atakuje API: /auth
+2. Jeśli w kroku 1. zwracany jest "access_token", przekieruj na /continue, który atakuje API: /continue (wymagający "access_tokena"/zalogowania i zwracający "role" (success) bądź "message" (fail))
+3. Jeśli w kroku 2. otrzymujemy "role" (success) to przekieruj na adres /dashboard, /dashboard-user, /dashboard-manager, /dashboard-admin.
+4. Każde przekierowanie na jeden z czterech adresów w kroku 3. atakuje API: /dashboard (wymagający zalogowania, oczekujący roli i zwracający "passed" LUB "failed" po weryfikacji podanej roli)
+UWAGA: czyli przed krokiem 3. występuje 4. i jeśli zwracany jest "message": "passed" to wyświetlasz odpowiedni panel (/dashboard, /dashboard-user, etc...)
