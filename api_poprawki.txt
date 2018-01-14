@@ -12,12 +12,12 @@ API:
 /continue:
     czy wymaga bycia zalogwanym: TAK
     dostaje: brak
-    zwraca: (po weryfikacji tokena) "role": "" (customer,user,manager,admin - w zależności od weryfikacji) LUB "message": ""
+    zwraca: (po weryfikacji tokena) "role": "" (customer,user,manager,admin - w zależności od weryfikacji) LUB "description": "", "error": "", "status_code": ""
 
 /dashboard
     czy wymaga bycia zalogwanym: TAK
     dostaje: "role": ""
-    zwraca: "message": "passed" LUB "message": "failed"
+    zwraca: "message": "passed" LUB "message": "failed" (jeśli podana rola nie zgadza się z rolą zalogowanego usera/customera) LUB "description": "", "error": "", "status_code": ""
 
 
 Sugestie na front:
