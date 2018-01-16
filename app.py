@@ -4,6 +4,8 @@ from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
 
+from flask_cors import CORS
+
 from security import authenticate, identity
 from resources.user import UserRegister, UserChangePassword, UserDelete
 from resources.item import Item, ItemList, ItemReserve, ItemCancelReservation, ItemListAdmin
@@ -11,8 +13,10 @@ from resources.car import Car, CarList, CarReserve, CarCancelReservation, CarLis
 from resources.branch import Branch, BranchList
 from resources.position import Position, PositionList
 from resources.customer import CustomerRegister, CustomerChangePassword, CustomerDelete
+from resources.auth import Continue, Dashboard
 
 app = Flask(__name__)
+CORS(app)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # It turns off Flask SQLAlchemy Tracker, no SQLAlchemy Tracker
@@ -21,9 +25,9 @@ api = Api(app)
 
 # start global comment
 # development:
-# @app.before_first_request
-# def create_tables():
-#     db.create_all()
+@app.before_first_request
+def create_tables():
+    db.create_all()
 # end global comment
 
 jwt = JWT(app, authenticate, identity)  # /auth
@@ -61,6 +65,9 @@ api.add_resource(UserDelete, '/delete-user')
 api.add_resource(CustomerRegister, '/register')
 api.add_resource(CustomerChangePassword, '/change-password')
 api.add_resource(CustomerDelete, '/delete')
+
+api.add_resource(Continue, '/continue')
+api.add_resource(Dashboard, '/dashboard')
 
 
 if __name__ == '__main__':
