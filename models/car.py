@@ -56,17 +56,17 @@ class CarModel(db.Model):
 
     def json(self):
         return {
-                'id': self.id, 'name': self.name, 'price': self.price, 'available': self.available, 'year': self.year,
-                'car_type': self.car_type, 'vendor': self.vendor, 'model': self.model, 'colour': self.colour,
-                'seats': self.seats, 'transmission': self.transmission, 'drive': self.drive, 'fuel': self.fuel,
-                'engine_power': self.engine_power, 'branch_id': self.branch_id
+                'id': self.id, 'name': self.name, 'price': self.price, 'available': self.available,
+                'reserved_by': self.reserved_by, 'year': self.year, 'car_type': self.car_type, 'vendor': self.vendor,
+                'model': self.model, 'colour': self.colour, 'seats': self.seats, 'transmission': self.transmission,
+                'drive': self.drive, 'fuel': self.fuel, 'engine_power': self.engine_power, 'branch_id': self.branch_id
                 }
 
     def short_json(self):
         return {
-                'name': self.name, 'price': self.price, 'available': self.available, 'year': self.year,
-                'car_type': self.car_type, 'vendor': self.vendor, 'model': self.model, 'seats': self.seats,
-                'transmission': self.transmission, 'drive': self.drive, 'fuel': self.fuel
+                'name': self.name, 'price': self.price, 'available': self.available, 'reserved_by': self.reserved_by,
+                'year': self.year, 'car_type': self.car_type, 'vendor': self.vendor, 'model': self.model,
+                'seats': self.seats, 'transmission': self.transmission, 'drive': self.drive, 'fuel': self.fuel
                 }
 
     @classmethod
