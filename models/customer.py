@@ -34,8 +34,9 @@ class CustomerModel(db.Model):
     # def fake_json(self):
     #     return {'username': self.username, 'password_hash': self.password_hash}
 
-    # def json(self):
-    #     return {'id': self.id, 'username': self.username}
+    def json(self):
+        return {'id': self.id, 'username': self.username, 'first_name': self.first_name, 'last_name': self.last_name,
+                'email': self.email, 'phone': self.phone}
 
     # def short_json(self):
     #     return {'username': self.username}
