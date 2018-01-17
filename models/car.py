@@ -62,9 +62,9 @@ class CarModel(db.Model):
 
     def short_json(self):
         return {
-                'price': self.price, 'available': self.available, 'year': self.year, 'car_type': self.car_type,
-                'vendor': self.vendor, 'model': self.model, 'seats': self.seats, 'transmission': self.transmission,
-                'drive': self.drive, 'fuel': self.fuel
+                'name': self.name, 'price': self.price, 'available': self.available, 'year': self.year,
+                'car_type': self.car_type, 'vendor': self.vendor, 'model': self.model, 'seats': self.seats,
+                'transmission': self.transmission, 'drive': self.drive, 'fuel': self.fuel
                 }
 
     @classmethod
