@@ -9,6 +9,7 @@ class ItemModel(db.Model):
     price = db.Column(db.Float(precision=2))
 
     available = db.Column(db.Integer)
+    reserved_by = db.Column(db.String(40))
 
     year = db.Column(db.Integer)
     item_type = db.Column(db.String(30))
@@ -24,6 +25,7 @@ class ItemModel(db.Model):
         self.price = price
 
         self.available = 1
+        self.reserved_by = None
 
         self.year = year
         self.item_type = item_type
