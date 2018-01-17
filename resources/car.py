@@ -222,6 +222,11 @@ class CarReserve(Resource):
             return {"message": "Car is already reserved."}, 400
 
         car.available = 0
+        is_user = Car.is_user()
+        if is_user:
+            car.reserved_by = g.user.username
+        else:
+            car.reserved_by = g.customer.username
 
         car.save_to_db()
 
@@ -233,8 +238,6 @@ class CarCancelReservation(Resource):
     @jwt_required()
     def put(self, branch_name, name):
         is_user = Car.is_user()
-        if not is_user:
-            return {'message': 'You are not privileged to continue!'}, 400
 
         branch = BranchModel.find_by_name(branch_name)
         if not branch:
@@ -248,7 +251,24 @@ class CarCancelReservation(Resource):
         if car.available == 1:
             return {"message": "Car is not reserved yet."}, 400
 
+        if not is_user:
+            if not g.customer.username == car.reserved_by:
+                return {'message': 'You are not privileged to continue!'}, 400
+
+        # branch = BranchModel.find_by_name(branch_name)
+        # if not branch:
+        #     return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
+        #
+        # car = CarModel.find_by_name_in_branch(branch.id, name)
+        #
+        # if car is None:
+        #     return {'message': 'Car does not exist.'}
+        #
+        # if car.available == 1:
+        #     return {"message": "Car is not reserved yet."}, 400
+
         car.available = 1
+        car.reserved_by = None
 
         car.save_to_db()
 
