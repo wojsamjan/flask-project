@@ -186,6 +186,11 @@ class ItemReserve(Resource):
             return {"message": "Item is already reserved."}, 400
 
         item.available = 0
+        is_user = Item.is_user()
+        if is_user:
+            item.reserved_by = g.user.username
+        else:
+            item.reserved_by = g.customer.username
 
         item.save_to_db()
 
@@ -197,8 +202,6 @@ class ItemCancelReservation(Resource):
     @jwt_required()
     def put(self, branch_name, name):
         is_user = Item.is_user()
-        if not is_user:
-            return {'message': 'You are not privileged to continue!'}, 400
 
         branch = BranchModel.find_by_name(branch_name)
         if not branch:
@@ -212,7 +215,24 @@ class ItemCancelReservation(Resource):
         if item.available == 1:
             return {"message": "Item is not reserved yet."}, 400
 
+        if not is_user:
+            if not g.customer.username == item.reserved_by:
+                return {'message': 'You are not privileged to continue!'}, 400
+
+        # branch = BranchModel.find_by_name(branch_name)
+        # if not branch:
+        #     return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
+        #
+        # item = ItemModel.find_by_name_in_branch(branch.id, name)
+
+        # if item is None:
+        #     return {'message': 'Item does not exist.'}
+        #
+        # if item.available == 1:
+        #     return {"message": "Item is not reserved yet."}, 400
+
         item.available = 1
+        item.reserved_by = None
 
         item.save_to_db()
 
