@@ -9,6 +9,7 @@ class CarModel(db.Model):
     price = db.Column(db.Float(precision=2))
 
     available = db.Column(db.Integer)
+    reserved_by = db.Column(db.String(40))
 
     year = db.Column(db.Integer)
     car_type = db.Column(db.String(20))
@@ -32,6 +33,7 @@ class CarModel(db.Model):
         self.price = price
 
         self.available = 1
+        self.reserved_by = None
 
         self.year = year
         # self.mileage
