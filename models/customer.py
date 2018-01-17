@@ -10,10 +10,20 @@ class CustomerModel(db.Model):
     username = db.Column(db.String(40))
     password_hash = db.Column(db.String(128))
 
-    def __init__(self, username, password):
+    first_name = db.Column(db.String(40))
+    last_name = db.Column(db.String(40))
+    email = db.Column(db.String(320))
+    phone = db.Column(db.String(40))
+
+    def __init__(self, username, password, first_name, last_name, email, phone):
         self.id = username
         self.username = username
         self.password_hash = self.hash_password(password)
+
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.phone = phone
 
     def hash_password(self, password):
         return pwd_context.encrypt(password)
