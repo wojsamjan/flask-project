@@ -40,7 +40,7 @@ class ItemModel(db.Model):
                 'model': self.model, 'branch_id': self.branch_id}
 
     def short_json(self):
-        return {'name': self.name, 'price': self.price, 'available': self.available, 'reserved_by': self.reserved_by,
+        return {'name': self.name, 'price': self.price, 'available': self.available,  # 'reserved_by': self.reserved_by,
                 'year': self.year, 'item_type': self.item_type, 'vendor': self.vendor, 'model': self.model}
 
     @classmethod
