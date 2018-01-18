@@ -298,6 +298,17 @@ class CarList(Resource):
             return {'message': 'Wrong parameters of request!'}, 400
 
 
+class CarReservedByList(Resource):
+    @jwt_required()
+    def get(self):
+        if Car.is_user():
+            user = g.user
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(reserved_by=user.username)]}
+        else:
+            customer = g.customer
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(reserved_by=customer.username)]}
+
+
 class CarListAdmin(Resource):
     @jwt_required()
     def get(self, param="", value_p=""):
