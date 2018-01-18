@@ -7,12 +7,12 @@ from flask_jwt import JWT
 from flask_cors import CORS
 
 from security import authenticate, identity
-from resources.user import UserRegister, UserChangePassword, UserDelete, UserList
+from resources.user import UserRegister, UserChangePassword, UserDelete, UserList, UserDetails
 from resources.item import Item, ItemList, ItemReserve, ItemCancelReservation, ItemListAdmin
 from resources.car import Car, CarList, CarReserve, CarCancelReservation, CarListAdmin
 from resources.branch import Branch, BranchList
 from resources.position import Position, PositionList
-from resources.customer import CustomerRegister, CustomerChangePassword, CustomerDelete, CustomerList
+from resources.customer import CustomerRegister, CustomerChangePassword, CustomerDelete, CustomerList, CustomerDetails
 from resources.auth import Continue, Dashboard
 
 app = Flask(__name__)
@@ -61,11 +61,13 @@ api.add_resource(PositionList, '/positions',
 api.add_resource(UserRegister, '/register-user')
 api.add_resource(UserChangePassword, '/change-password-user')
 api.add_resource(UserDelete, '/delete-user')
+api.add_resource(UserDetails, '/user-details/<string:user_name>')
 api.add_resource(UserList, '/users')
 
 api.add_resource(CustomerRegister, '/register')
 api.add_resource(CustomerChangePassword, '/change-password')
 api.add_resource(CustomerDelete, '/delete')
+api.add_resource(CustomerDetails, '/customer-details/<string:customer_name>')
 api.add_resource(CustomerList, '/customers')
 
 api.add_resource(Continue, '/continue')
