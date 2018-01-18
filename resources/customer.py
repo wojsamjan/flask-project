@@ -170,10 +170,10 @@ class CustomerList(Resource):
         if not is_user:
             return {'message': 'You are not privileged to continue!'}, 400
         else:
-            user = g.user
-            position = PositionModel.find_by_id(user.position_id)
-
-            if position.name != 'admin':
-                return {'message': "You are not privileged to list customers accounts!"}, 400
+            # user = g.user
+            # position = PositionModel.find_by_id(user.position_id)
+            #
+            # if position.name != 'admin':
+            #     return {'message': "You are not privileged to list customers accounts!"}, 400
 
             return {'customers': [customer.json() for customer in CustomerModel.query.all()]}
