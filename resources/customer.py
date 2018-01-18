@@ -117,6 +117,26 @@ class CustomerDelete(Resource):
         return {'message': 'Your account is deleted.'}
 
 
+class CustomerDetails(Resource):
+    @jwt_required()
+    def get(self, customer_name):
+        try:
+            if g.customer:
+                return {'message': 'You are not privileged to continue!'}, 400
+        except:
+            pass
+
+        # position = PositionModel.find_by_id(g.user.position_id)
+        # if position.name != 'admin':
+        #     return {'message': "You are not privileged to check user details!"}, 400
+
+        customer = CustomerModel.find_by_username(customer_name)
+        if customer:
+            return customer.json()
+
+        return {'message': "Customer '{}' not found.".format(customer_name)}, 404
+
+
 class CustomerList(Resource):
     @jwt_required()
     def get(self):
