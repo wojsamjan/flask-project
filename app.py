@@ -50,6 +50,7 @@ api.add_resource(CarListAdmin, '/cars',
 
 api.add_resource(CarReserve, '/<string:branch_name>/car/reserve/<string:name>')
 api.add_resource(CarCancelReservation, '/<string:branch_name>/car/cancel-reservation/<string:name>')
+api.add_resource(CarReservedByList, '/car-reserved-by-list')
 
 api.add_resource(Branch, '/branch/<string:name>')
 api.add_resource(BranchList, '/branches',
