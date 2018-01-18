@@ -259,6 +259,17 @@ class ItemList(Resource):
             # return {'items': list(map(lambda x: x.json(), ItemModel.query.all()))}  # lambda, map func() to elements
 
 
+class ItemReservedByList(Resource):
+    @jwt_required()
+    def get(self):
+        if Item.is_user():
+            user = g.user
+            return {'items': [item.short_json() for item in ItemModel.query.filter_by(reserved_by=user.username)]}
+        else:
+            customer = g.customer
+            return {'items': [item.short_json() for item in ItemModel.query.filter_by(reserved_by=customer.username)]}
+
+
 class ItemListAdmin(Resource):
     @jwt_required()
     def get(self, param="", value_p=""):
