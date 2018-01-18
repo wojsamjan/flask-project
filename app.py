@@ -12,7 +12,7 @@ from resources.item import Item, ItemList, ItemReserve, ItemCancelReservation, I
 from resources.car import Car, CarList, CarReserve, CarCancelReservation, CarListAdmin
 from resources.branch import Branch, BranchList
 from resources.position import Position, PositionList
-from resources.customer import CustomerRegister, CustomerChangePassword, CustomerDelete
+from resources.customer import CustomerRegister, CustomerChangePassword, CustomerDelete, CustomerList
 from resources.auth import Continue, Dashboard
 
 app = Flask(__name__)
@@ -66,6 +66,7 @@ api.add_resource(UserList, '/users')
 api.add_resource(CustomerRegister, '/register')
 api.add_resource(CustomerChangePassword, '/change-password')
 api.add_resource(CustomerDelete, '/delete')
+api.add_resource(CustomerList, '/customers')
 
 api.add_resource(Continue, '/continue')
 api.add_resource(Dashboard, '/dashboard')
