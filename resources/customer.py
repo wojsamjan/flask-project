@@ -18,6 +18,26 @@ class CustomerRegister(Resource):
         required=True,
         help="Every account needs a password!"
     )
+    parser.add_argument('first_name',
+        type=str,
+        required=True,
+        help="Every user needs a first_name!"
+    )
+    parser.add_argument('last_name',
+        type=str,
+        required=True,
+        help="Every user needs a last_name!"
+    )
+    parser.add_argument('email',
+        type=str,
+        required=True,
+        help="Every user needs a email!"
+    )
+    parser.add_argument('phone',
+        type=str,
+        required=True,
+        help="Every user needs a phone!"
+    )
 
     def post(self):
         data = CustomerRegister.parser.parse_args()
@@ -25,7 +45,7 @@ class CustomerRegister(Resource):
         if CustomerModel.find_by_username(data['username']) or UserModel.find_by_username(data['username']):
             return {"message": "An account with that username already exists"}, 400
 
-        customer = CustomerModel(**data)  # CustomerModel(data['username'], data['password'])
+        customer = CustomerModel(**data)  # CustomerModel(data['username'], data['password'] ...)
         customer.save_to_db()
 
         # return {'customer': customer.fake_json()}, 201
