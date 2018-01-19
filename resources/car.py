@@ -4,6 +4,8 @@ from flask import g
 from models.car import CarModel
 from models.branch import BranchModel
 from models.position import PositionModel
+from models.user import UserModel
+from models.customer import CustomerModel
 
 
 class Car(Resource):
@@ -315,9 +317,13 @@ class CarReservedListForAdmin(Resource):
         if not Car.is_user():
             return {'message': 'You are not privileged to continue!'}, 400
         else:
+            guest = UserModel.find_by_username(username) or CustomerModel.find_by_username(username)
+            if not guest:
+                return {'message': "Guest '{}' not found.".format(username)}, 404
+
             if Car.is_admin():
-                return {'cars': [car.json() for car in CarModel.query.filter_by(reserved_by=username)]}
-            return {'cars': [car.short_json() for car in CarModel.query.filter_by(reserved_by=username)]}
+                return {'cars': [car.json() for car in CarModel.query.filter_by(reserved_by=guest.username)]}
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(reserved_by=guest.username)]}
 
 
 class CarListAdmin(Resource):
