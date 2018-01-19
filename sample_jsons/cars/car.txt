@@ -67,8 +67,8 @@ car-ford-focus-mk2-2005-1
 	"branch_id": 1
 }
 
-car-audi-a6-c6-2005-1
 AUDI
+car-audi-a6-c6-2005-1
 {
 	"price": 120,
 	"year": 2005,
@@ -151,8 +151,8 @@ car-fiat-grande-punto-2006-1
 	"branch_id": 2
 }
 
-car-opel-vectra-c-2007-1
 OPEL
+car-opel-vectra-c-2007-1
 {
 	"price": 55,
 	"year": 2007,
