@@ -270,6 +270,17 @@ class ItemReservedByList(Resource):
             return {'items': [item.short_json() for item in ItemModel.query.filter_by(reserved_by=customer.username)]}
 
 
+class ItemReservedListForAdmin(Resource):
+    @jwt_required()
+    def get(self, username):
+        if not Item.is_user():
+            return {'message': 'You are not privileged to continue!'}, 400
+        else:
+            if Item.is_admin():
+                return {'cars': [car.json() for car in ItemModel.query.filter_by(reserved_by=username)]}
+            return {'cars': [car.short_json() for car in ItemModel.query.filter_by(reserved_by=username)]}
+
+
 class ItemListAdmin(Resource):
     @jwt_required()
     def get(self, param="", value_p=""):
