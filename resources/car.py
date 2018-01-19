@@ -309,6 +309,17 @@ class CarReservedByList(Resource):
             return {'cars': [car.short_json() for car in CarModel.query.filter_by(reserved_by=customer.username)]}
 
 
+class CarReservedListForAdmin(Resource):
+    @jwt_required()
+    def get(self, username):
+        if not Car.is_user():
+            return {'message': 'You are not privileged to continue!'}, 400
+        else:
+            if Car.is_admin():
+                return {'cars': [car.json() for car in CarModel.query.filter_by(reserved_by=username)]}
+            return {'cars': [car.short_json() for car in CarModel.query.filter_by(reserved_by=username)]}
+
+
 class CarListAdmin(Resource):
     @jwt_required()
     def get(self, param="", value_p=""):
