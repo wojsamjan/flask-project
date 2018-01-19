@@ -8,8 +8,10 @@ from flask_cors import CORS
 
 from security import authenticate, identity
 from resources.user import UserRegister, UserChangePassword, UserDelete, UserList, UserDetails
-from resources.item import Item, ItemList, ItemReserve, ItemCancelReservation, ItemListAdmin, ItemReservedByList
-from resources.car import Car, CarList, CarReserve, CarCancelReservation, CarListAdmin, CarReservedByList
+from resources.item import Item, ItemList, ItemReserve, ItemCancelReservation, ItemListAdmin, ItemReservedByList, \
+    ItemReservedListForAdmin
+from resources.car import Car, CarList, CarReserve, CarCancelReservation, CarListAdmin, CarReservedByList, \
+    CarReservedListForAdmin
 from resources.branch import Branch, BranchList
 from resources.position import Position, PositionList
 from resources.customer import CustomerRegister, CustomerChangePassword, CustomerDelete, CustomerList, CustomerDetails
@@ -41,6 +43,7 @@ api.add_resource(ItemListAdmin, '/items',
 api.add_resource(ItemReserve, '/<string:branch_name>/item/reserve/<string:name>')
 api.add_resource(ItemCancelReservation, '/<string:branch_name>/item/cancel-reservation/<string:name>')
 api.add_resource(ItemReservedByList, '/item-reserved-by-list')
+api.add_resource(ItemReservedListForAdmin, '/item-reserved-list')
 
 api.add_resource(Car, '/<string:branch_name>/car/<string:name>')
 api.add_resource(CarList, '/<string:branch_name>/cars',
@@ -51,6 +54,7 @@ api.add_resource(CarListAdmin, '/cars',
 api.add_resource(CarReserve, '/<string:branch_name>/car/reserve/<string:name>')
 api.add_resource(CarCancelReservation, '/<string:branch_name>/car/cancel-reservation/<string:name>')
 api.add_resource(CarReservedByList, '/car-reserved-by-list')
+api.add_resource(CarReservedListForAdmin, '/car-reserved-list')
 
 api.add_resource(Branch, '/branch/<string:name>')
 api.add_resource(BranchList, '/branches',
