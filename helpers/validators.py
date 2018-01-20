@@ -156,3 +156,13 @@ def price_validator(price):
 def year_validator(year):
     if year < 1900 or year > 2018:
         return {'validator message': 'Incorrect year.'}
+
+
+def item_type_validator(item_type):
+    if len(item_type) > 30:
+        return {'validator message': 'Incorrect item type length(30).'}
+
+
+def vendor_validator(vendor):
+    if len(vendor) > 30:
+        return {'validator message': 'Incorrect vendor length(30).'}
