@@ -8,3 +8,4 @@ data.db
 # /sample_jsons/**
 endpoints_info
 # docs/**
+/resources/devel_testing.py
