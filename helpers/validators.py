@@ -144,7 +144,6 @@ def salary_validator(salary):
 
     if salary < 0 or salary > 1000000:
         return {'validator message': 'Incorrect salary. It must be <0-1.000.000>.'}
-
     return {'validator message': 'OK'}
 
 
@@ -157,7 +156,6 @@ def price_validator(price):
 
     if price <= 0 or price >= 10000:
         return {'validator message': 'Incorrect price.'}
-
     return {'validator message': 'OK'}
 
 
@@ -169,7 +167,6 @@ def year_validator(year):
 
     if year < 1900 or year > 2018:
         return {'validator message': 'Incorrect year.'}
-
     return {'validator message': 'OK'}
 
 
@@ -216,10 +213,26 @@ def seats_validator(seats):
 
     if seats < 1 or seats > 120:
         return {'validator message': 'Incorrect seats number.'}
-    
     return {'validator message': 'OK'}
 
 
 def transmission_validator(transmission):
     if len(transmission) > 20:
         return {'validator message': 'Incorrect transmission length(20).'}
+
+    transmission_regex = letters + ' ' + '-'
+    for sign in transmission:
+        if sign not in transmission_regex:
+            return {'validator message': 'Incorrect transmission.'}
+    return {'validator message': 'OK'}
+
+
+def drive_validator(drive):
+    if len(drive) > 20:
+        return {'validator message': 'Incorrect drive length(20).'}
+
+    drive_regex = letters + digits + ' ' + '-'
+    for sign in drive:
+        if sign not in drive_regex:
+            return {'validator message': 'Incorrect drive.'}
+    return {'validator message': 'OK'}
