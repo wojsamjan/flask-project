@@ -39,3 +39,11 @@ def email_validator(email):
                     return False
             return False
     return {'validator message': 'OK'}
+
+
+def phone_validator(phone):
+    phone_regex = digits + ' ' + '-'
+    for sign in phone:
+        if phone not in phone_regex:
+            return {'validator message': 'Incorrect phone number.'}
+    return {'validator message': 'OK'}
