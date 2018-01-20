@@ -49,6 +49,9 @@ def street_validator(street):
 
 
 def email_validator(email):
+    if len(email) > 320:
+        return {'validator message': 'Incorrect email length(320).'}
+
     email_regex = letters + digits + '-' + '.'
     at_counter = 0
     for sign in email:
@@ -62,6 +65,9 @@ def email_validator(email):
 
 
 def phone_validator(phone):
+    if len(phone) > 40:
+        return {'validator message': 'Incorrect phone length(40).'}
+
     phone_regex = digits + ' ' + '-'
     for sign in phone:
         if phone not in phone_regex:
