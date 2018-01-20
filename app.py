@@ -16,6 +16,8 @@ from resources.branch import Branch, BranchList
 from resources.position import Position, PositionList
 from resources.customer import CustomerRegister, CustomerChangePassword, CustomerDelete, CustomerList, CustomerDetails
 from resources.auth import Continue, Dashboard
+# from resources.devel_testing import Devel
+
 
 app = Flask(__name__)
 CORS(app)
@@ -78,6 +80,8 @@ api.add_resource(CustomerList, '/customers')
 
 api.add_resource(Continue, '/continue')
 api.add_resource(Dashboard, '/dashboard')
+
+# api.add_resource(Devel, '/devel-testing/<string:fk_id>')
 
 
 if __name__ == '__main__':
