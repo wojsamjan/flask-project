@@ -2,6 +2,8 @@ from string import ascii_letters as letters
 # from string import ascii_lowercase as lowercase
 # from string import ascii_uppercase as uppercase
 from string import digits
+from models.position import PositionModel
+from models.branch import BranchModel
 
 
 # position
@@ -77,7 +79,7 @@ def phone_validator(phone):
     return {'validator message': 'OK'}
 
 
-# customer
+# customer PASSWORD ??
 def username_validator(username):
     if len(username) > 40:
         return {'validator message': 'Incorrect username length(40).'}
@@ -103,4 +105,31 @@ def last_name_validator(last_name):
     for sign in last_name:
         if sign not in last_name_regex:
             return {'validator message': 'Incorrect last name.'}
+    return {'validator message': 'OK'}
+
+
+# user TOO SMALL   TOO BIG
+def branch_id_validator(branch_id):
+    # branch_id = int(branch_id)
+    # min_branch = BranchModel.query.order_by(BranchModel.id.asc()).first()
+    # max_branch = BranchModel.query.order_by(BranchModel.id.desc()).first()
+    # # print(max_branch.name)
+    # if branch_id < 0:
+    #     return {'validator message': 'Incorrect branch index.'}
+    # elif min_branch.id > branch_id:
+    #     return {'validator message': 'Too small branch index.'}
+    # elif max_branch.id < branch_id:
+    #     return {'validator message': 'Too big branch index.'}
+    branch = BranchModel.query.filter_by(id=int(branch_id)).first()
+    # print(branch.id)
+    if not branch:
+        return {'validator message': 'Incorrect branch index.'}
+    return {'validator message': 'OK'}
+
+
+def position_id_validator(position_id):
+    position = PositionModel.query.filter_by(id=int(position_id)).first()
+    # print(position.id)
+    if not position:
+        return {'validator message': 'Incorrect position index.'}
     return {'validator message': 'OK'}
