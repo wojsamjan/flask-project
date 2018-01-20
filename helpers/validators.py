@@ -169,6 +169,7 @@ def year_validator(year):
 
     if year < 1900 or year > 2018:
         return {'validator message': 'Incorrect year.'}
+
     return {'validator message': 'OK'}
 
 
@@ -199,7 +200,6 @@ def car_type_validator(car_type):
 def colour_validator(colour):
     if len(colour) > 20:
         return {'validator message': 'Incorrect colour length(20).'}
-    return {'validator message': 'OK'}
 
     colour_regex = letters + ' ' + '-'
     for sign in colour:
@@ -216,4 +216,10 @@ def seats_validator(seats):
 
     if seats < 1 or seats > 120:
         return {'validator message': 'Incorrect seats number.'}
+    
     return {'validator message': 'OK'}
+
+
+def transmission_validator(transmission):
+    if len(transmission) > 20:
+        return {'validator message': 'Incorrect transmission length(20).'}
