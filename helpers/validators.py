@@ -136,51 +136,65 @@ def position_id_validator(position_id):
 
 
 def salary_validator(salary):
-    if salary < 0 or salary > 1000000:
-        return {'validator message': 'Incorrect salary. It must be <0-1.000.000>.'}
-
-    salary_regex = digits + ' ' + '-' + '.'
+    # salary_regex = digits + ' ' + '-' + '.'
+    salary_regex = digits + ' ' + '.'
     for digit in str(salary):
         if digit not in salary_regex:
             return {'validator message': 'Incorrect salary.'}
+
+    if salary < 0 or salary > 1000000:
+        return {'validator message': 'Incorrect salary. It must be <0-1.000.000>.'}
+
     return {'validator message': 'OK'}
 
 
 # item
 def price_validator(price):
+    price_regex = digits + ' ' + '.'
+    for digit in str(price):
+        if digit not in price_regex:
+            return {'validator message': 'Incorrect price.'}
+
     if price <= 0 or price >= 10000:
         return {'validator message': 'Incorrect price.'}
+
     return {'validator message': 'OK'}
 
 
 def year_validator(year):
     if year < 1900 or year > 2018:
         return {'validator message': 'Incorrect year.'}
+    return {'validator message': 'OK'}
 
 
 def item_type_validator(item_type):
     if len(item_type) > 30:
         return {'validator message': 'Incorrect item type length(30).'}
+    return {'validator message': 'OK'}
 
 
 def vendor_validator(vendor):
     if len(vendor) > 30:
         return {'validator message': 'Incorrect vendor length(30).'}
+    return {'validator message': 'OK'}
 
 
 def model_validator(model):
     if len(model) > 40:
         return {'validator message': 'Incorrect model length(40).'}
+    return {'validator message': 'OK'}
 
 
 def car_type_validator(car_type):
     if len(car_type) > 20:
         return {'validator message': 'Incorrect car type length(20).'}
+    return {'validator message': 'OK'}
 
 
 def colour_validator(colour):
     if len(colour) > 20:
         return {'validator message': 'Incorrect colour length(20).'}
+    return {'validator message': 'OK'}
 
     colour_regex = letters + ' ' + '-'
     for sign in colour:
@@ -192,6 +206,4 @@ def colour_validator(colour):
 def seats_validator(seats):
     if seats < 1 or seats > 120:
         return {'validator message': 'Incorrect seats number.'}
-
-
-
+    return {'validator message': 'OK'}
