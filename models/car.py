@@ -15,7 +15,7 @@ class CarModel(db.Model):
     year = db.Column(db.Integer)
     car_type = db.Column(db.String(20))
     vendor = db.Column(db.String(30))
-    model = db.Column(db.String(20))
+    model = db.Column(db.String(40))
     colour = db.Column(db.String(20))
     seats = db.Column(db.Integer)
     transmission = db.Column(db.String(20))
