@@ -1,9 +1,11 @@
 from string import ascii_letters as letters
-from string import ascii_lowercase as lowercase
-from string import ascii_uppercase as uppercase
+# from string import ascii_lowercase as lowercase
+# from string import ascii_uppercase as uppercase
 from string import digits
 
 
+# position
+# branch
 def country_validator(country):
     if len(country) > 40:
         return {'validator message': 'Incorrect country length(40).'}
@@ -70,6 +72,13 @@ def phone_validator(phone):
 
     phone_regex = digits + ' ' + '-'
     for sign in phone:
-        if phone not in phone_regex:
+        if sign not in phone_regex:
             return {'validator message': 'Incorrect phone number.'}
+    return {'validator message': 'OK'}
+
+
+# customer
+def username_validator(username):
+    if len(username) > 40:
+        return {'validator message': 'Incorrect username length(40).'}
     return {'validator message': 'OK'}
