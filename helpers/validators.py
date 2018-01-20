@@ -27,6 +27,9 @@ def city_validator(city):
 
 
 def postal_code_validator(postal_code):
+    if len(postal_code) > 16:
+        return {'validator message': 'Incorrect postal code length(16).'}
+
     postal_regex = digits + ' ' + '-'
     for sign in postal_code:
         if sign not in postal_regex:
@@ -35,6 +38,9 @@ def postal_code_validator(postal_code):
 
 
 def street_validator(street):
+    if len(street) > 40:
+        return {'validator message': 'Incorrect street length(40).'}
+
     street_regex = letters + digits + ' ' + '-'
     for sign in street:
         if sign not in street_regex:
