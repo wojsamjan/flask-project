@@ -176,3 +176,22 @@ def model_validator(model):
 def car_type_validator(car_type):
     if len(car_type) > 20:
         return {'validator message': 'Incorrect car type length(20).'}
+
+
+def colour_validator(colour):
+    if len(colour) > 20:
+        return {'validator message': 'Incorrect colour length(20).'}
+
+    colour_regex = letters + ' ' + '-'
+    for sign in colour:
+        if sign not in colour_regex:
+            return {'validator message': 'Incorrect colour.'}
+    return {'validator message': 'OK'}
+
+
+def seats_validator(seats):
+    if seats < 1 or seats > 120:
+        return {'validator message': 'Incorrect seats number.'}
+
+
+
