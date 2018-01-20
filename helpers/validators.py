@@ -166,3 +166,13 @@ def item_type_validator(item_type):
 def vendor_validator(vendor):
     if len(vendor) > 30:
         return {'validator message': 'Incorrect vendor length(30).'}
+
+
+def model_validator(model):
+    if len(model) > 40:
+        return {'validator message': 'Incorrect model length(40).'}
+
+
+def car_type_validator(car_type):
+    if len(car_type) > 20:
+        return {'validator message': 'Incorrect car type length(20).'}
