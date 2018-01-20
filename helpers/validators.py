@@ -133,3 +133,17 @@ def position_id_validator(position_id):
     if not position:
         return {'validator message': 'Incorrect position index.'}
     return {'validator message': 'OK'}
+
+
+def salary_validator(salary):
+    if salary < 0 or salary > 1000000:
+        return {'validator message': 'Incorrect salary. It must be <0-1.000.000>.'}
+
+    salary_regex = digits + ' ' + '-' + '.'
+    for digit in str(salary):
+        if digit not in salary_regex:
+            return {'validator message': 'Incorrect salary.'}
+    return {'validator message': 'OK'}
+
+
+# item
