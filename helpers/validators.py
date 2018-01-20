@@ -147,3 +147,12 @@ def salary_validator(salary):
 
 
 # item
+def price_validator(price):
+    if price <= 0 or price >= 10000:
+        return {'validator message': 'Incorrect price.'}
+    return {'validator message': 'OK'}
+
+
+def year_validator(year):
+    if year < 1900 or year > 2018:
+        return {'validator message': 'Incorrect year.'}
