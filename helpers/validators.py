@@ -4,11 +4,19 @@ from string import ascii_uppercase as uppercase
 from string import digits
 
 
-def country_city_validator(country):
-    country_city_regex = letters + ' ' + '-'
+def country_validator(country):
+    country_regex = letters + ' ' + '-'
     for sign in country:
-        if sign not in country_city_regex:
-            return {'validator message': 'Incorrect country and/or city name.'}
+        if sign not in country_regex:
+            return {'validator message': 'Incorrect country name.'}
+    return {'validator message': 'OK'}
+
+
+def city_validator(city):
+    city_regex = letters + ' ' + '-'
+    for sign in city:
+        if sign not in city_regex:
+            return {'validator message': 'Incorrect city name.'}
     return {'validator message': 'OK'}
 
 
