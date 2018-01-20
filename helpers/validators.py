@@ -26,3 +26,16 @@ def street_validator(street):
         if sign not in street_regex:
             return False
     return True
+
+
+def email_validator(email):
+    email_regex = letters + digits + '-' + '.'
+    at_counter = 0
+    for sign in email:
+        if sign not in email_regex:
+            if sign == '@':
+                at_counter += 1
+                if at_counter > 1:
+                    return False
+            return False
+    return True
