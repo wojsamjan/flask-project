@@ -236,3 +236,14 @@ def drive_validator(drive):
         if sign not in drive_regex:
             return {'validator message': 'Incorrect drive.'}
     return {'validator message': 'OK'}
+
+
+def fuel_validator(fuel):
+    if len(fuel) > 20:
+        return {'validator message': 'Incorrect fuel length(20).'}
+
+    fuel_regex = letters + digits + ' ' + '-'
+    for sign in fuel:
+        if sign not in fuel_regex:
+            return {'validator message': 'Incorrect fuel.'}
+    return {'validator message': 'OK'}
