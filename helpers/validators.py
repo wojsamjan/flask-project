@@ -5,6 +5,9 @@ from string import digits
 
 
 def country_validator(country):
+    if len(country) > 40:
+        return {'validator message': 'Incorrect country length(40).'}
+
     country_regex = letters + ' ' + '-'
     for sign in country:
         if sign not in country_regex:
@@ -13,6 +16,9 @@ def country_validator(country):
 
 
 def city_validator(city):
+    if len(city) > 40:
+        return {'validator message': 'Incorrect city length(40).'}
+
     city_regex = letters + ' ' + '-'
     for sign in city:
         if sign not in city_regex:
