@@ -10,3 +10,10 @@ def country_city_validator(country):
         if sign not in country_city_regex:
             return False
     return True
+
+def postal_code_validator(postal_code):
+    postal_regex = digits + ' ' + '-'
+    for sign in postal_code:
+        if sign not in postal_regex:
+            return False
+    return True
