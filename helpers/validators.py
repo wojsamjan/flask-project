@@ -213,7 +213,7 @@ def seats_validator(seats):
     for digit in str(seats):
         if digit not in seats_regex:
             return {'validator message': 'Incorrect seats.'}
-        
+
     if seats < 1 or seats > 120:
         return {'validator message': 'Incorrect seats number.'}
     return {'validator message': 'OK'}
