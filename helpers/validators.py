@@ -137,7 +137,7 @@ def position_id_validator(position_id):
 
 def salary_validator(salary):
     # salary_regex = digits + ' ' + '-' + '.'
-    salary_regex = digits + ' ' + '.'
+    salary_regex = digits
     for digit in str(salary):
         if digit not in salary_regex:
             return {'validator message': 'Incorrect salary.'}
@@ -150,7 +150,7 @@ def salary_validator(salary):
 
 # item
 def price_validator(price):
-    price_regex = digits + ' ' + '.'
+    price_regex = digits
     for digit in str(price):
         if digit not in price_regex:
             return {'validator message': 'Incorrect price.'}
@@ -162,6 +162,11 @@ def price_validator(price):
 
 
 def year_validator(year):
+    year_regex = digits
+    for digit in str(year):
+        if digit not in year_regex:
+            return {'validator message': 'Incorrect year.'}
+
     if year < 1900 or year > 2018:
         return {'validator message': 'Incorrect year.'}
     return {'validator message': 'OK'}
@@ -204,6 +209,11 @@ def colour_validator(colour):
 
 
 def seats_validator(seats):
+    seats_regex = digits
+    for digit in str(seats):
+        if digit not in seats_regex:
+            return {'validator message': 'Incorrect seats.'}
+        
     if seats < 1 or seats > 120:
         return {'validator message': 'Incorrect seats number.'}
     return {'validator message': 'OK'}
