@@ -82,3 +82,25 @@ def username_validator(username):
     if len(username) > 40:
         return {'validator message': 'Incorrect username length(40).'}
     return {'validator message': 'OK'}
+
+
+def first_name_validator(first_name):
+    if len(first_name) > 40:
+        return {'validator message': 'Incorrect first name length(40).'}
+
+    first_name_regex = letters + ' ' + '-'
+    for sign in first_name:
+        if sign not in first_name_regex:
+            return {'validator message': 'Incorrect first name.'}
+    return {'validator message': 'OK'}
+
+
+def last_name_validator(last_name):
+    if len(last_name) > 40:
+        return {'validator message': 'Incorrect last name length(40).'}
+
+    last_name_regex = letters + ' ' + '-'
+    for sign in last_name:
+        if sign not in last_name_regex:
+            return {'validator message': 'Incorrect last name.'}
+    return {'validator message': 'OK'}
