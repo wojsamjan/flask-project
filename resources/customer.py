@@ -4,6 +4,7 @@ from flask import g
 from models.customer import CustomerModel
 from models.user import UserModel
 from models.position import PositionModel
+import helpers.resource_validators as validators
 
 
 class CustomerRegister(Resource):
@@ -41,6 +42,7 @@ class CustomerRegister(Resource):
 
     def post(self):
         data = CustomerRegister.parser.parse_args()
+        validators.customer_register_validator(**data)
 
         if CustomerModel.find_by_username(data['username']) or UserModel.find_by_username(data['username']):
             return {"message": "An account with that username already exists"}, 400
@@ -75,6 +77,7 @@ class CustomerChangePassword(Resource):
             pass
 
         data = CustomerChangePassword.parser.parse_args()
+        validators.change_password_validator(**data)
         customer = g.customer
 
         if not customer.verify_password(data['old_password']):
@@ -109,6 +112,7 @@ class CustomerDelete(Resource):
             pass
 
         data = CustomerDelete.parser.parse_args()
+        validators.delete_validator(**data)
 
         if is_user:
             user = g.user

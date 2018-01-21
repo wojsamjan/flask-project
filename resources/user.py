@@ -4,6 +4,7 @@ from flask import g
 from models.user import UserModel
 from models.customer import CustomerModel
 from models.position import PositionModel
+import helpers.resource_validators as validators
 
 
 class UserRegister(Resource):
@@ -85,6 +86,8 @@ class UserRegister(Resource):
             return {'message': "You are not privileged to continue!"}, 400
 
         data = UserRegister.parser.parse_args()
+        validators.user_register_validator(**data)
+
         position = PositionModel.find_by_id(user.position_id)
 
         print(position)
@@ -107,6 +110,7 @@ class UserRegister(Resource):
 
     # def post(self):
     #     data = UserRegister.parser.parse_args()
+    #     validators.user_register_validator(**data)
     #
     #     if UserModel.find_by_username(data['username']):
     #         return {"message": "A user with that username already exists."}, 400
@@ -144,6 +148,8 @@ class UserChangePassword(Resource):
             pass
 
         data = UserChangePassword.parser.parse_args()
+        validators.change_password_validator(**data)
+
         user = g.user
 
         if not user.verify_password(data['old_password']):
@@ -177,6 +183,7 @@ class UserDelete(Resource):
             pass
 
         data = UserDelete.parser.parse_args()
+        validators.delete_validator(**data)
 
         user = g.user
         position = PositionModel.find_by_id(user.position_id)
