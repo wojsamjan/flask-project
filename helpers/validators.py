@@ -86,6 +86,11 @@ def username_validator(username):
     return {'validator message': 'OK'}
 
 
+def password_validator(password):
+    if len(password) > 24:
+        return {'validator message': 'Incorrect password length(24).'}
+
+
 def first_name_validator(first_name):
     if len(first_name) > 40:
         return {'validator message': 'Incorrect first name length(40).'}
