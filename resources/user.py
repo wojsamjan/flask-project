@@ -162,7 +162,7 @@ class UserDelete(Resource):
         required=True,
         help="To delete an account you need to type the username!"
     )
-    parser.add_argument('password',  # user.password or [admin]user.password
+    parser.add_argument('password',  # user.password or [ADMIN]user.password
         type=str,
         required=True,
         help="To delete an account you need to type the password!"
