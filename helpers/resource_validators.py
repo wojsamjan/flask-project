@@ -57,7 +57,7 @@ def change_password_validator(old_password, new_password):
     return {'error results': error_results}
 
 
-def customer_delete_validator(username, password):
+def delete_validator(username, password):
     args = [username, password]
     validators = [hv.username_validator, hv.password_validator]
 
