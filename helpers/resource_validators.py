@@ -5,10 +5,9 @@ def validator(args, validators, source):
     if len(args) != len(validators):
         return {source: 'Incorrect number of passed arguments.'}
 
-    validator_results = [validator(arg) for validator in validators for arg in args]
-    # print(list(filter(lambda x: x != 13, my_list)))
-    # [y for y in a if y not in b]
+    validator_results = list(map(lambda validator, arg: validator(arg), validators, args))
     error_results = [result for result in validator_results if len(result['validation message']) > 2]
+    print(error_results)
 
     return {'error validation': error_results}
 
@@ -22,6 +21,7 @@ def position_validator(password):
 
 def branch_validator(country, city, postal_code, street, email, phone):
     args = [country, city, postal_code, street, email, phone]
+    print(args)
     validators = [hv.country_validator, hv.city_validator, hv.postal_code_validator, hv.street_validator,
                   hv.email_validator, hv.phone_validator]
 
