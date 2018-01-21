@@ -44,7 +44,7 @@ def customer_register_validator(username, password, first_name, last_name, email
     return {'error results': error_results}
 
 
-def customer_change_password_validator(old_password, new_password):
+def change_password_validator(old_password, new_password):
     args = [old_password, new_password]
     validators = [hv.password_validator, hv.password_validator]
 
@@ -70,7 +70,7 @@ def customer_delete_validator(username, password):
     return {'error results': error_results}
 
 
-def user_validator(username, password, first_name, last_name, country, city, postal_code, street, email,
+def user_register_validator(username, password, first_name, last_name, country, city, postal_code, street, email,
                    phone, branch_id, position_id, salary):
     args = [username, password, first_name, last_name, country, city, postal_code, street, email, phone, branch_id,
             position_id, salary]
