@@ -75,7 +75,6 @@ class Position(Resource):
 
         data = Position.parser.parse_args()
         validators.position_validator(**data)
-
         user = g.user  # this
 
         # start
@@ -121,7 +120,6 @@ class Position(Resource):
 
         data = Position.parser.parse_args()
         validators.position_validator(**data)
-
         user = g.user
 
         if not user.verify_password(data['password']):
