@@ -70,14 +70,14 @@ def customer_delete_validator(username, password):
     return {'error results': error_results}
 
 
-# password
-def user_validator(username, first_name, last_name, country, city, postal_code, street, email, phone, branch_id,
-                   position_id, salary):
-    args = [username, first_name, last_name, country, city, postal_code, street, email, phone, branch_id,
+def user_validator(username, password, first_name, last_name, country, city, postal_code, street, email,
+                   phone, branch_id, position_id, salary):
+    args = [username, password, first_name, last_name, country, city, postal_code, street, email, phone, branch_id,
             position_id, salary]
-    validators = [hv.username_validator, hv.first_name_validator, hv.last_name_validator, hv.country_validator,
-                  hv.city_validator, hv.postal_code_validator, hv.street_validator, hv.email_validator,
-                  hv.phone_validator, hv.branch_id_validator, hv.position_id_validator, hv.salary_validator]
+    validators = [hv.username_validator, hv.password_validator, hv.first_name_validator, hv.last_name_validator,
+                  hv.country_validator, hv.city_validator, hv.postal_code_validator, hv.street_validator,
+                  hv.email_validator, hv.phone_validator, hv.branch_id_validator, hv.position_id_validator,
+                  hv.salary_validator]
 
     if len(args) != len(validators):
         return {'branch validator': 'Incorrect number of passed arguments.'}
