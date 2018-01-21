@@ -11,7 +11,7 @@ def country_validator(country):
         return {'validation message': 'Incorrect country length(40).'}
 
     country_regex = letters + ' ' + '-'
-    print(country_regex)  #
+    # print(country_regex)  #
     for sign in country:
         if sign not in country_regex:
             print("COUNTRY error")  #
@@ -45,7 +45,7 @@ def street_validator(street):
     if len(street) > 40:
         return {'validation message': 'Incorrect street length(40).'}
 
-    street_regex = letters + digits + ' ' + '-'
+    street_regex = letters + digits + ' ' + '-' + '.'
     for sign in street:
         if sign not in street_regex:
             return {'validation message': 'Incorrect street name.'}
@@ -117,6 +117,7 @@ def last_name_validator(last_name):
     return {'validation message': 'OK'}
 
 
+# user
 def branch_id_validator(branch_id):
     branch = BranchModel.query.filter_by(id=int(branch_id)).first()
     # print(branch.id)
