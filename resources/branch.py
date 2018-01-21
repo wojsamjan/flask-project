@@ -4,6 +4,7 @@ from flask_jwt import jwt_required
 from flask import g
 from models.branch import BranchModel
 from models.position import PositionModel
+import helpers.resource_validators as validators
 
 
 class Branch(Resource):
@@ -80,6 +81,7 @@ class Branch(Resource):
             return {'message': "A branch with name '{} already exists.".format(name)}, 400
 
         data = Branch.parser.parse_args()
+        validators.branch_validator(**data)
 
         branch = BranchModel(name, **data)
 
@@ -109,6 +111,7 @@ class Branch(Resource):
             return {'message': 'You are not privileged to continue!'}, 400
 
         data = Branch.parser.parse_args()
+        validators.branch_validator(**data)
 
         branch = BranchModel.find_by_name(name)
 
