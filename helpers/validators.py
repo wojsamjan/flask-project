@@ -247,3 +247,14 @@ def fuel_validator(fuel):
         if sign not in fuel_regex:
             return {'validator message': 'Incorrect fuel.'}
     return {'validator message': 'OK'}
+
+
+def engine_power_validator(engine_power):
+    engine_power_regex = digits
+    for digit in str(engine_power):
+        if digit not in engine_power_regex:
+            return {'validator message': 'Incorrect engine power.'}
+
+    if engine_power < 1 or engine_power > 2500:
+        return {'validator message': 'Incorrect engine power.'}
+    return {'validator message': 'OK'}
