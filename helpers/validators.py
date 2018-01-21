@@ -1,6 +1,4 @@
 from string import ascii_letters as letters
-# from string import ascii_lowercase as lowercase
-# from string import ascii_uppercase as uppercase
 from string import digits
 from models.position import PositionModel
 from models.branch import BranchModel
@@ -13,8 +11,10 @@ def country_validator(country):
         return {'validation message': 'Incorrect country length(40).'}
 
     country_regex = letters + ' ' + '-'
+    print(country_regex)  #
     for sign in country:
         if sign not in country_regex:
+            print("COUNTRY error")  #
             return {'validation message': 'Incorrect country name.'}
     return {'validation message': 'OK'}
 
@@ -114,18 +114,7 @@ def last_name_validator(last_name):
     return {'validation message': 'OK'}
 
 
-# user TOO SMALL   TOO BIG
 def branch_id_validator(branch_id):
-    # branch_id = int(branch_id)
-    # min_branch = BranchModel.query.order_by(BranchModel.id.asc()).first()
-    # max_branch = BranchModel.query.order_by(BranchModel.id.desc()).first()
-    # # print(max_branch.name)
-    # if branch_id < 0:
-    #     return {'validation message': 'Incorrect branch index.'}
-    # elif min_branch.id > branch_id:
-    #     return {'validation message': 'Too small branch index.'}
-    # elif max_branch.id < branch_id:
-    #     return {'validation message': 'Too big branch index.'}
     branch = BranchModel.query.filter_by(id=int(branch_id)).first()
     # print(branch.id)
     if not branch:
