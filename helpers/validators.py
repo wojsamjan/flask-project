@@ -148,7 +148,7 @@ def salary_validator(salary):
 
 # item
 def price_validator(price):
-    price_regex = digits
+    price_regex = digits + '.'
     for digit in str(price):
         if digit not in price_regex:
             return {'validation message': 'Incorrect price.'}
@@ -208,6 +208,7 @@ def colour_validator(colour):
 def seats_validator(seats):
     seats_regex = digits
     for digit in str(seats):
+        print(str(seats))
         if digit not in seats_regex:
             return {'validation message': 'Incorrect seats.'}
 
