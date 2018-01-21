@@ -6,6 +6,7 @@ from models.branch import BranchModel
 from models.position import PositionModel
 from models.user import UserModel
 from models.customer import CustomerModel
+import helpers.resource_validators as validators
 
 
 class Car(Resource):
@@ -139,6 +140,7 @@ class Car(Resource):
             return {'message': 'You are not privileged to continue!'}, 400
 
         data = Car.parser.parse_args()
+        validators.car_validator(**data)
 
         if branch.id != data['branch_id']:
             return {'message': "Branch: '{}' and id: '{}' does not suit with each other.".format(branch_name, data['branch_id'])}
@@ -184,6 +186,7 @@ class Car(Resource):
             return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
 
         data = Car.parser.parse_args()
+        validators.car_validator(**data)
         car = CarModel.find_by_name_in_branch(branch.id, name)
 
         if car is None:
