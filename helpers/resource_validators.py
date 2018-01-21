@@ -88,7 +88,6 @@ def user_register_validator(username, password, first_name, last_name, country, 
     return {'error results': error_results}
 
 
-# item: price, year, item_type, vendor, model, branch_id
 def item_validator(price, year, item_type, vendor, model, branch_id):
     args = [price, year, item_type, vendor, model, branch_id]
     validators = [hv.price_validator, hv.year_validator, hv.item_type_validator, hv.vendor_validator,
@@ -98,11 +97,22 @@ def item_validator(price, year, item_type, vendor, model, branch_id):
         return {'branch validator': 'Incorrect number of passed arguments.'}
 
     validator_results = [validator(arg) for validator in validators for arg in args]
-    # print(list(filter(lambda x: x != 13, my_list)))
-    # [y for y in a if y not in b]
     error_results = [result for result in validator_results if len(result['validator message']) > 2]
 
     return {'error results': error_results}
 
 
-# car: price, year, car_type, vendor, model, colour, seats, transmission, drive, fuel, engine_power, branch_id
+def car_validator(price, year, car_type, vendor, model, colour, seats, transmission, drive, fuel, engine_power,
+                  branch_id):
+    args = [price, year, car_type, vendor, model, colour, seats, transmission, drive, fuel, engine_power, branch_id]
+    validators = [hv.price_validator, hv.year_validator, hv.car_type_validator, hv.vendor_validator,
+                  hv.model_validator, hv.colour_validator, hv.seats_validator, hv.transmission_validator,
+                  hv.drive_validator, hv.fuel_validator, hv.engine_power_validator, hv.branch_id_validator]
+
+    if len(args) != len(validators):
+        return {'branch validator': 'Incorrect number of passed arguments.'}
+
+    validator_results = [validator(arg) for validator in validators for arg in args]
+    error_results = [result for result in validator_results if len(result['validator message']) > 2]
+
+    return {'error results': error_results}
