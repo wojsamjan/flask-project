@@ -44,7 +44,6 @@ def customer_register_validator(username, password, first_name, last_name, email
     return {'error results': error_results}
 
 
-# customer change password
 def customer_change_password_validator(old_password, new_password):
     args = [old_password, new_password]
     validators = [hv.password_validator, hv.password_validator]
@@ -58,10 +57,9 @@ def customer_change_password_validator(old_password, new_password):
     return {'error results': error_results}
 
 
-# password
-def customer_delete_validator(username):
-    args = [username]
-    validators = [hv.username_validator]
+def customer_delete_validator(username, password):
+    args = [username, password]
+    validators = [hv.username_validator, hv.password_validator]
 
     if len(args) != len(validators):
         return {'customer validator': 'Incorrect number of passed arguments.'}
