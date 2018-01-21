@@ -63,8 +63,8 @@ def email_validator(email):
             if sign == '@':
                 at_counter += 1
                 if at_counter > 1:
-                    return False
-            return False
+                    return {'validation message': 'Incorrect email name.'}
+            return {'validation message': 'Incorrect email name.'}
     return {'validation message': 'OK'}
 
 
