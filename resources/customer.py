@@ -42,7 +42,9 @@ class CustomerRegister(Resource):
 
     def post(self):
         data = CustomerRegister.parser.parse_args()
-        validators.customer_register_validator(**data)
+        error_validation = validators.customer_register_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
 
         if CustomerModel.find_by_username(data['username']) or UserModel.find_by_username(data['username']):
             return {"message": "An account with that username already exists"}, 400
@@ -77,7 +79,10 @@ class CustomerChangePassword(Resource):
             pass
 
         data = CustomerChangePassword.parser.parse_args()
-        validators.change_password_validator(**data)
+        error_validation = validators.change_password_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
+
         customer = g.customer
 
         if not customer.verify_password(data['old_password']):
@@ -112,7 +117,9 @@ class CustomerDelete(Resource):
             pass
 
         data = CustomerDelete.parser.parse_args()
-        validators.delete_validator(**data)
+        error_validation = validators.delete_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
 
         if is_user:
             user = g.user

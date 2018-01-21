@@ -86,7 +86,9 @@ class UserRegister(Resource):
             return {'message': "You are not privileged to continue!"}, 400
 
         data = UserRegister.parser.parse_args()
-        validators.user_register_validator(**data)
+        error_validation = validators.user_register_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
 
         position = PositionModel.find_by_id(user.position_id)
 
@@ -108,22 +110,24 @@ class UserRegister(Resource):
         # return {'users': [user.short_json() for user in UserModel.query.all()]}, 201
         return {"message": "User created successfully."}, 201
 
-    # def post(self):
-    #     data = UserRegister.parser.parse_args()
-    #     validators.user_register_validator(**data)
-    #
-    #     if UserModel.find_by_username(data['username']):
-    #         return {"message": "A user with that username already exists."}, 400
-    #
-    #     if CustomerModel.find_by_username(data['username']):
-    #         return {"message": "A customer with that username already exists."}, 400
-    #
-    #     user = UserModel(**data)
-    #     user.save_to_db()
-    #
-    #     # return {'user': user.fake_json()}, 201
-    #     # return {'users': [user.short_json() for user in UserModel.query.all()]}, 201
-    #     return {"message": "User created successfully."}, 201
+    def post(self):
+        data = UserRegister.parser.parse_args()
+        error_validation = validators.user_register_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
+
+        if UserModel.find_by_username(data['username']):
+            return {"message": "A user with that username already exists."}, 400
+
+        if CustomerModel.find_by_username(data['username']):
+            return {"message": "A customer with that username already exists."}, 400
+
+        user = UserModel(**data)
+        user.save_to_db()
+
+        # return {'user': user.fake_json()}, 201
+        # return {'users': [user.short_json() for user in UserModel.query.all()]}, 201
+        return {"message": "User created successfully."}, 201
 
 
 class UserChangePassword(Resource):
@@ -148,7 +152,9 @@ class UserChangePassword(Resource):
             pass
 
         data = UserChangePassword.parser.parse_args()
-        validators.change_password_validator(**data)
+        error_validation = validators.change_password_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
 
         user = g.user
 
@@ -183,7 +189,9 @@ class UserDelete(Resource):
             pass
 
         data = UserDelete.parser.parse_args()
-        validators.delete_validator(**data)
+        error_validation = validators.delete_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
 
         user = g.user
         position = PositionModel.find_by_id(user.position_id)
