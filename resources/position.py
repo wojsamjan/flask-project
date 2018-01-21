@@ -4,6 +4,7 @@ from flask import g
 from models.position import PositionModel
 from models.branch import BranchModel
 from models.user import UserModel
+import helpers.resource_validators as validators
 
 
 class Position(Resource):
@@ -73,6 +74,8 @@ class Position(Resource):
         # end
 
         data = Position.parser.parse_args()
+        validators.position_validator(**data)
+
         user = g.user  # this
 
         # start
@@ -117,6 +120,8 @@ class Position(Resource):
             return {'message': 'You are not privileged to continue!'}, 400
 
         data = Position.parser.parse_args()
+        validators.position_validator(**data)
+
         user = g.user
 
         if not user.verify_password(data['password']):
