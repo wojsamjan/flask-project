@@ -2,6 +2,17 @@ import helpers.validators as hv
 
 
 # position password
+def position_validator(password):
+    args = [password]
+    validators = [hv.password_validator]
+
+    if len(args) != len(validators):
+        return {'customer validator': 'Incorrect number of passed arguments.'}
+
+    validator_results = [validator(arg) for validator in validators for arg in args]
+    error_results = [result for result in validator_results if len(result['validator message']) > 2]
+
+    return {'error results': error_results}
 
 
 def branch_validator(country, city, postal_code, street, email, phone):
