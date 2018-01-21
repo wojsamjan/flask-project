@@ -110,7 +110,9 @@ class Item(Resource):
             return {'message': 'You are not privileged to continue!'}, 400
 
         data = Item.parser.parse_args()
-        validators.item_validator(**data)
+        error_validation = validators.item_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
 
         if branch.id != data['branch_id']:
             return {'message': "Branch: '{}' and id: '{}' does not suit with each other.".format(branch_name, data['branch_id'])}
@@ -156,7 +158,10 @@ class Item(Resource):
             return {'message': "Branch '{}' does not exist.".format(branch_name)}, 400
 
         data = Item.parser.parse_args()
-        validators.item_validator(**data)
+        error_validation = validators.item_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
+
         item = ItemModel.find_by_name_in_branch(branch.id, name)
 
         if item is None:
