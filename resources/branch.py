@@ -81,7 +81,9 @@ class Branch(Resource):
             return {'message': "A branch with name '{} already exists.".format(name)}, 400
 
         data = Branch.parser.parse_args()
-        validators.branch_validator(**data)
+        error_validation = validators.branch_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
 
         branch = BranchModel(name, **data)
 
@@ -111,7 +113,9 @@ class Branch(Resource):
             return {'message': 'You are not privileged to continue!'}, 400
 
         data = Branch.parser.parse_args()
-        validators.branch_validator(**data)
+        error_validation = validators.branch_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
 
         branch = BranchModel.find_by_name(name)
 

@@ -74,7 +74,10 @@ class Position(Resource):
         # end
 
         data = Position.parser.parse_args()
-        validators.position_validator(**data)
+        error_validation = validators.position_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
+
         user = g.user  # this
 
         # start
@@ -119,7 +122,10 @@ class Position(Resource):
             return {'message': 'You are not privileged to continue!'}, 400
 
         data = Position.parser.parse_args()
-        validators.position_validator(**data)
+        error_validation = validators.position_validator(**data)
+        if error_validation['error validation']:
+            return error_validation
+
         user = g.user
 
         if not user.verify_password(data['password']):
