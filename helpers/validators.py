@@ -193,6 +193,7 @@ def model_validator(model):
     return {'validator message': 'OK'}
 
 
+# model
 def car_type_validator(car_type):
     if len(car_type) > 20:
         return {'validator message': 'Incorrect car type length(20).'}
