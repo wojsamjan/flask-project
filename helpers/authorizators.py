@@ -2,7 +2,7 @@ from flask import g
 from models.position import PositionModel
 
 
-# resources/item.py
+# [base]: resources/item.py   [usage]: resources/log.py
 admin = 'admin'
 manager = 'manager'
 
