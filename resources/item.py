@@ -6,6 +6,7 @@ from models.branch import BranchModel
 from models.position import PositionModel
 from models.user import UserModel
 from models.customer import CustomerModel
+from models.log import LogModel
 import helpers.resource_validators as validators
 
 
@@ -121,9 +122,14 @@ class Item(Resource):
             return {'message': "An item with name '{}' already exists.".format(name)}, 400
 
         item = ItemModel(name, **data)  # data['price'], ..., data['branch_id']
+        if not is_admin:
+            log = LogModel("add item '{}'".format(name), g.user.username, Item.manager)
+        else:
+            log = LogModel("add item '{}'".format(name), g.user.username, Item.admin)
 
         try:
             item.save_to_db()
+            log.save_to_db()
         except:
             return {"message": "An error occurred inserting the item."}, 500  # Internal Server Error
 
@@ -143,7 +149,9 @@ class Item(Resource):
 
         item = ItemModel.find_by_name_in_branch(branch.id, name)
         if item:
+            log = LogModel("remove item '{}'".format(name), g.user.username, Item.admin)
             item.delete_from_db()
+            log.save_to_db()
 
         return {'message': 'Item deleted.'}
 
@@ -163,6 +171,7 @@ class Item(Resource):
             return error_validation
 
         item = ItemModel.find_by_name_in_branch(branch.id, name)
+        log = LogModel("update item '{}'".format(name), g.user.username, Item.admin)
 
         if item is None:
             item = ItemModel(name, **data)
@@ -176,6 +185,7 @@ class Item(Resource):
             item.branch_id = data['branch_id']
 
         item.save_to_db()
+        log.save_to_db()
 
         return item.json()
 
