@@ -4,6 +4,7 @@ from flask_jwt import jwt_required
 from flask import g
 from models.branch import BranchModel
 from models.position import PositionModel
+from models.log import LogModel
 import helpers.resource_validators as validators
 
 
@@ -78,7 +79,7 @@ class Branch(Resource):
         # end
 
         if BranchModel.find_by_name(name):
-            return {'message': "A branch with name '{} already exists.".format(name)}, 400
+            return {'message': "A branch with name '{}' already exists.".format(name)}, 400
 
         data = Branch.parser.parse_args()
         error_validation = validators.branch_validator(**data)
@@ -86,9 +87,11 @@ class Branch(Resource):
             return error_validation
 
         branch = BranchModel(name, **data)
+        log = LogModel("add branch '{}'".format(name), g.user.username, Branch.admin)
 
         try:
             branch.save_to_db()
+            log.save_to_db()
         except:
             return {'message': 'An error occurred inserting the branch.'}, 500  # Internal Server Error
 
@@ -102,7 +105,9 @@ class Branch(Resource):
 
         branch = BranchModel.find_by_name(name)
         if branch:
+            log = LogModel("remove branch '{}'".format(name), g.user.username, Branch.admin)
             branch.delete_from_db()
+            log.save_to_db()
 
         return {'message': 'Branch deleted.'}
 
@@ -118,6 +123,7 @@ class Branch(Resource):
             return error_validation
 
         branch = BranchModel.find_by_name(name)
+        log = LogModel("update branch '{}'".format(name), g.user.username, Branch.admin)
 
         if branch is None:
             branch = BranchModel(name, **data)
@@ -130,6 +136,7 @@ class Branch(Resource):
             branch.phone = data['phone']
 
         branch.save_to_db()
+        log.save_to_db()
 
         return branch.json()
 
