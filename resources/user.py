@@ -211,13 +211,16 @@ class UserDelete(Resource):
 
         user = g.user
         position = PositionModel.find_by_id(user.position_id)
-        if position.name == 'admin':
+        if position.name == auth.admin:
             if not user.verify_password(data['password']):
                 return {'message': "You are not privileged to delete user's account!"}, 400
 
             user_delete = UserModel.find_by_username(data['username'])
             if user_delete:
+                log = LogModel("remove user '{}'".format(data['username']), g.user.username, auth.admin)
                 user_delete.delete_from_db()
+                log.save_to_db()
+
                 return {'message': "User's account deleted."}
 
             return {'message': "User '{}' account does not exist.".format(data['username'])}
@@ -229,7 +232,9 @@ class UserDelete(Resource):
             if not user.verify_password(data['password']):
                 return {'message': 'You can not delete your account because you have typed wrong password!'}, 400
 
+        log = LogModel("remove user '{}'".format(data['username']), g.user.username, auth.admin)
         user.delete_from_db()
+        log.save_to_db()
 
         return {'message': 'Your account is deleted.'}
 
