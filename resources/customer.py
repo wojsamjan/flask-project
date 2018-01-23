@@ -4,7 +4,9 @@ from flask import g
 from models.customer import CustomerModel
 from models.user import UserModel
 from models.position import PositionModel
+from models.log import LogModel
 import helpers.resource_validators as validators
+import helpers.authorizators as auth
 
 
 class CustomerRegister(Resource):
@@ -130,7 +132,10 @@ class CustomerDelete(Resource):
 
             customer = CustomerModel.find_by_username(data['username'])
             if customer:
+                log = LogModel("remove customer '{}'".format(data['username']), g.user.username, auth.admin)
                 customer.delete_from_db()
+                log.save_to_db()
+
                 return {'message': "Customer's account deleted."}
 
             return {'message': "Customer '{}' account does not exist.".format(data['username'])}
@@ -143,7 +148,9 @@ class CustomerDelete(Resource):
             if not customer.verify_password(data['password']):
                 return {'message': 'You can not delete your account because you have typed wrong password!'}, 400
 
+        log = LogModel("remove customer '{}'".format(data['username']), g.customer.username, auth.customer)
         customer.delete_from_db()
+        log.save_to_db()
 
         return {'message': 'Your account is deleted.'}
 
