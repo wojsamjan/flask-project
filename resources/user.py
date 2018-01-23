@@ -4,7 +4,9 @@ from flask import g
 from models.user import UserModel
 from models.customer import CustomerModel
 from models.position import PositionModel
+from models.log import LogModel
 import helpers.resource_validators as validators
+import helpers.authorizators as auth
 
 
 class UserRegister(Resource):
@@ -104,30 +106,44 @@ class UserRegister(Resource):
             return {"message": "A customer with that username already exists."}, 400
 
         user = UserModel(**data)
-        user.save_to_db()
+        # user.save_to_db()
+        log = LogModel("add user '{}'".format(data['username']), g.user.username, auth.admin)
+
+        try:
+            user.save_to_db()
+            log.save_to_db()
+        except:
+            return {'message': 'An error occurred inserting the user.'}, 500  # Internal Server Error
 
         # return {'user': user.fake_json()}, 201
         # return {'users': [user.short_json() for user in UserModel.query.all()]}, 201
         return {"message": "User created successfully."}, 201
 
-    def post(self):
-        data = UserRegister.parser.parse_args()
-        error_validation = validators.user_register_validator(**data)
-        if error_validation['error validation']:
-            return error_validation
-
-        if UserModel.find_by_username(data['username']):
-            return {"message": "A user with that username already exists."}, 400
-
-        if CustomerModel.find_by_username(data['username']):
-            return {"message": "A customer with that username already exists."}, 400
-
-        user = UserModel(**data)
-        user.save_to_db()
-
-        # return {'user': user.fake_json()}, 201
-        # return {'users': [user.short_json() for user in UserModel.query.all()]}, 201
-        return {"message": "User created successfully."}, 201
+    # def post(self):
+    #     data = UserRegister.parser.parse_args()
+    #     error_validation = validators.user_register_validator(**data)
+    #     if error_validation['error validation']:
+    #         return error_validation
+    #
+    #     if UserModel.find_by_username(data['username']):
+    #         return {"message": "A user with that username already exists."}, 400
+    #
+    #     if CustomerModel.find_by_username(data['username']):
+    #         return {"message": "A customer with that username already exists."}, 400
+    #
+    #     user = UserModel(**data)
+    #     # user.save_to_db()
+    #     log = LogModel("add user '{}'".format(data['username']), g.user.username, auth.admin)
+    #
+    #     try:
+    #         user.save_to_db()
+    #         log.save_to_db()
+    #     except:
+    #         return {'message': 'An error occurred inserting the user.'}, 500  # Internal Server Error
+    #
+    #     # return {'user': user.fake_json()}, 201
+    #     # return {'users': [user.short_json() for user in UserModel.query.all()]}, 201
+    #     return {"message": "User created successfully."}, 201
 
 
 class UserChangePassword(Resource):
