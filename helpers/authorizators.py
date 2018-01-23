@@ -5,6 +5,7 @@ from models.position import PositionModel
 # [base]: resources/item.py   [usage]: resources/log.py
 admin = 'admin'
 manager = 'manager'
+customer = 'customer'
 
 
 def is_employee():
