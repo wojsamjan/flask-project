@@ -23,7 +23,9 @@ class LogModel(db.Model):
         self.creator_role = creator_role
 
     def json(self):
-        return {'id': self.id, 'action_name': self.action_name, 'action_date': self.action_date}
+        return {'id': self.id, 'action_name': self.action_name,
+                'action_date': self.action_date.strftime("%Y-%m-%d %H:%M:%S"), 'action_creator': self.action_creator,
+                'creator_role': self.creator_role}
 
     @classmethod
     def find_by_id(cls, _id):
