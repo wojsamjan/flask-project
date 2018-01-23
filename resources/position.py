@@ -4,6 +4,7 @@ from flask import g
 from models.position import PositionModel
 from models.branch import BranchModel
 from models.user import UserModel
+from models.log import LogModel
 import helpers.resource_validators as validators
 
 
@@ -89,9 +90,11 @@ class Position(Resource):
             return {'message': "A position with name '{}' already exists.".format(name)}, 400
 
         position = PositionModel(name)
+        log = LogModel("add position '{}'".format(name), g.user.username, Position.admin)
 
         try:
             position.save_to_db()
+            log.save_to_db()
         except:
             return {'message': 'An error occurred while creating the position.'}, 500
 
@@ -111,7 +114,9 @@ class Position(Resource):
 
         position = PositionModel.find_by_name(name)
         if position:
+            log = LogModel("remove position '{}'".format(name), g.user.username, Position.admin)
             position.delete_from_db()
+            log.save_to_db()
 
         return {'message': 'Position deleted.'}
 
@@ -132,6 +137,7 @@ class Position(Resource):
             return {'message': 'You can not update a position because you have typed a wrong password!'}, 400
 
         position = PositionModel.find_by_name(name)
+        log = LogModel("update position '{}'".format(name), g.user.username, Position.admin)
 
         if position is None:
             position = PositionModel(name)
@@ -139,6 +145,7 @@ class Position(Resource):
         #     position.name = name
 
         position.save_to_db()
+        log.save_to_db()
 
         return position.json()
 
