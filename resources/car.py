@@ -6,6 +6,7 @@ from models.branch import BranchModel
 from models.position import PositionModel
 from models.user import UserModel
 from models.customer import CustomerModel
+from models.log import LogModel
 import helpers.resource_validators as validators
 
 
@@ -151,9 +152,14 @@ class Car(Resource):
             return {'message': "A car with name '{}' already exists.".format(name)}, 400
 
         car = CarModel(name, **data)
+        if not is_admin:
+            log = LogModel("add car '{}'".format(name), g.user.username, Car.manager)
+        else:
+            log = LogModel("add car '{}'".format(name), g.user.username, Car.admin)
 
         try:
             car.save_to_db()
+            log.save_to_db()
         except:
             return {"message": "An error occurred inserting the car."}, 500  # Internal Server Error
 
@@ -173,7 +179,9 @@ class Car(Resource):
 
         car = CarModel.find_by_name_in_branch(branch.id, name)
         if car:
+            log = LogModel("remove car '{}'".format(name), g.user.username, Car.admin)
             car.delete_from_db()
+            log.save_to_db()
 
         return {'message': 'Car deleted.'}
 
@@ -193,6 +201,7 @@ class Car(Resource):
             return error_validation
 
         car = CarModel.find_by_name_in_branch(branch.id, name)
+        log = LogModel("update car '{}'".format(name), g.user.username, Car.admin)
 
         if car is None:
             car = CarModel(name, **data)
@@ -212,6 +221,7 @@ class Car(Resource):
             car.branch_id = data['branch_id']
 
         car.save_to_db()
+        log.save_to_db()
 
         return car.json()
 
