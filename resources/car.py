@@ -8,6 +8,7 @@ from models.user import UserModel
 from models.customer import CustomerModel
 from models.log import LogModel
 import helpers.resource_validators as validators
+import helpers.authorizators as auth
 
 
 class Car(Resource):
@@ -244,11 +245,15 @@ class CarReserve(Resource):
         car.available = 0
         is_user = Car.is_user()
         if is_user:
+            position = (PositionModel.find_by_id(g.user.position_id)).name
             car.reserved_by = g.user.username
+            log = LogModel("reserve car '{}'".format(name), g.user.username, position)
         else:
             car.reserved_by = g.customer.username
+            log = LogModel("reserve car '{}'".format(name), g.customer.username, auth.customer)
 
         car.save_to_db()
+        log.save_to_db()
 
         # return car.short_json()
         return {"message": "Car reserved."}
@@ -288,9 +293,16 @@ class CarCancelReservation(Resource):
         #     return {"message": "Car is not reserved yet."}, 400
 
         car.available = 1
+        if is_user:
+            position = (PositionModel.find_by_id(g.user.position_id)).name
+            log = LogModel("Cancelled  car '{}' reservation".format(name), g.user.username, position)
+        else:
+            log = LogModel("Cancelled  car '{}' reservation".format(name), g.customer.username, auth.customer)
+
         car.reserved_by = None
 
         car.save_to_db()
+        log.save_to_db()
 
         # return car.short_json()
         return {'message': 'Car reservation canceled.'}
