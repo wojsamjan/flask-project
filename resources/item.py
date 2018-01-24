@@ -8,6 +8,7 @@ from models.user import UserModel
 from models.customer import CustomerModel
 from models.log import LogModel
 import helpers.resource_validators as validators
+import helpers.authorizators as auth
 
 
 class Item(Resource):
@@ -208,11 +209,15 @@ class ItemReserve(Resource):
         item.available = 0
         is_user = Item.is_user()
         if is_user:
+            position = (PositionModel.find_by_id(g.user.position_id)).name
             item.reserved_by = g.user.username
+            log = LogModel("reserve item '{}'".format(name), g.user.username, position)
         else:
             item.reserved_by = g.customer.username
+            log = LogModel("reserve item '{}'".format(name), g.customer.username, auth.customer)
 
         item.save_to_db()
+        log.save_to_db()
 
         # return item.short_json()
         return {"message": "Item reserved."}
@@ -252,9 +257,16 @@ class ItemCancelReservation(Resource):
         #     return {"message": "Item is not reserved yet."}, 400
 
         item.available = 1
+        if is_user:
+            position = (PositionModel.find_by_id(g.user.position_id)).name
+            log = LogModel("Cancelled  item '{}' reservation".format(name), g.user.username, position)
+        else:
+            log = LogModel("Cancelled  item '{}' reservation".format(name), g.customer.username, auth.customer)
+
         item.reserved_by = None
 
         item.save_to_db()
+        log.save_to_db()
 
         # return item.short_json()
         return {'message': 'Item reservation canceled.'}
