@@ -1,9 +1,12 @@
 from db import db
 import datetime
+import time
 
 
 def _get_date():
     return datetime.datetime.now()
+    # return datetime.datetime.now(datetime.timezone.utc)
+    # return time
 
 
 class LogModel(db.Model):
@@ -24,7 +27,7 @@ class LogModel(db.Model):
 
     def json(self):
         return {'id': self.id, 'action_name': self.action_name,
-                'action_date': self.action_date.strftime("%Y-%m-%d %H:%M:%S"), 'action_creator': self.action_creator,
+                'action_date': self.action_date.strftime("%Y-%m-%d"), 'action_creator': self.action_creator,
                 'creator_role': self.creator_role}
 
     @classmethod
