@@ -121,9 +121,9 @@ class UserRegister(Resource):
 
     # def post(self):
     #     data = UserRegister.parser.parse_args()
-    #     error_validation = validators.user_register_validator(**data)
-    #     if error_validation['error validation']:
-    #         return error_validation
+    #     # error_validation = validators.user_register_validator(**data)
+    #     # if error_validation['error validation']:
+    #     #     return error_validation
     #
     #     if UserModel.find_by_username(data['username']):
     #         return {"message": "A user with that username already exists."}, 400
@@ -133,11 +133,11 @@ class UserRegister(Resource):
     #
     #     user = UserModel(**data)
     #     # user.save_to_db()
-    #     log = LogModel("add user '{}'".format(data['username']), g.user.username, auth.admin)
+    #     # log = LogModel("add user '{}'".format(data['username']), g.user.username, auth.admin)
     #
     #     try:
     #         user.save_to_db()
-    #         log.save_to_db()
+    #         # log.save_to_db()
     #     except:
     #         return {'message': 'An error occurred inserting the user.'}, 500  # Internal Server Error
     #
