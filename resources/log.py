@@ -7,7 +7,7 @@ from models.log import LogModel
 class Log(Resource):
     @jwt_required()
     def get(self, _id):
-        log = LogModel.find_by_id(_id)
+        log = LogModel.find_by_id(int(_id))
         is_admin = auth.is_admin()
 
         if log:
@@ -19,7 +19,7 @@ class Log(Resource):
 
     @jwt_required()
     def delete(self, _id):
-        log = LogModel.find_by_id(_id)
+        log = LogModel.find_by_id(int(_id))
         is_admin = auth.is_admin()
 
         if log:
