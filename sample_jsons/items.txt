@@ -1,4 +1,8 @@
-bike-trek-marlin-7-1
+BIKE   SKI   SNOWBOARD   SURFING-BOARD   PEDALO   ROLLERBLADES   LONGBOARD
+TENT   SLEEPING-BAG   GPS   CARAVAN   COOL-BOX   RUCKSACK
+
+GDANSK
+gdansk-bike-trek-marlin-7-1
 {
 	"price": 9.99,
 	"year": 2016,
@@ -8,6 +12,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
+gdansk-bike-trek-procaliber-9.8-1
 {
 	"price": 6.99,
 	"year": 2015,
@@ -17,168 +22,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
-{
-	"price": 6.99,
-	"year": 2012,
-	"item_type": "bike",
-	"vendor": "trek",
-	"model": "skye sl",
-	"branch_id": 1
-}
-
-{
-	"price": 8.99,
-	"year": 2013,
-	"item_type": "bike",
-	"vendor": "trek",
-	"model": "x-caliber 7",
-	"branch_id": 1
-}
-
-{
-	"price": 15.00,
-	"year": 2017,
-	"item_type": "bike",
-	"vendor": "trek",
-	"model": "top fuel 9.9",
-	"branch_id": 1
-}
-
-{
-	"price": 9.00,
-	"year": 2017,
-	"item_type": "pedalo",
-	"vendor": "la noria",
-	"model": "hidrobeetle",
-	"branch_id": 1
-}
-
-{
-	"price": 19.00,
-	"year": 2015,
-	"item_type": "pedalo",
-	"vendor": "la noria",
-	"model": "hidrosolar",
-	"branch_id": 1
-}
-
-{
-	"price": 11.00,
-	"year": 2016,
-	"item_type": "pdalo",
-	"vendor": "la noria",
-	"model": "hidroferrari",
-	"branch_id": 1
-}
-
-{
-	"price": 6.00,
-	"year": 2011,
-	"item_type": "pedalo",
-	"vendor": "la noria",
-	"model": "flamenco",
-	"branch_id": 1
-}
-
-{
-	"price": 12.00,
-	"year": 2017,
-	"item_type": "pedalo",
-	"vendor": "la noria",
-	"model": "gran pedal cisne",
-	"branch_id": 1
-}
-
-{
-	"price": 11.00,
-	"year": 2017,
-	"item_type": "ski",
-	"vendor": "atomic",
-	"model": "punx",
-	"branch_id": 1
-}
-
-{
-	"price": 13.00,
-	"year": 2016,
-	"item_type": "ski",
-	"vendor": "atomic",
-	"model": "backland bent chetler",
-	"branch_id": 1
-}
-
-{
-	"price": 5.00,
-	"year": 2013,
-	"item_type": "ski",
-	"vendor": "atomic",
-	"model": "backland 102",
-	"branch_id": 1
-}
-
-{
-	"price": 14.00,
-	"year": 2015,
-	"item_type": "ski",
-	"vendor": "atomic",
-	"model": "vantage x 83",
-	"branch_id": 1
-}
-
-{
-	"price": 9.50,
-	"year": 2013,
-	"item_type": "ski",
-	"vendor": "atomic",
-	"model": "redster s7",
-	"branch_id": 1
-}
-
-{
-	"price": 15.00,
-	"year": 2016,
-	"item_type": "snowboard",
-	"vendor": "burton",
-	"model": "flight attendant",
-	"branch_id": 1
-}
-
-{
-	"price": 13.00,
-	"year": 2017,
-	"item_type": "snowboard",
-	"vendor": "burton",
-	"model": "custom flying v",
-	"branch_id": 1
-}
-
-{
-	"price": 15.00,
-	"year": 2016,
-	"item_type": "snowboard",
-	"vendor": "burton",
-	"model": "process of axis",
-	"branch_id": 1
-}
-
-{
-	"price": 11.00,
-	"year": 2015,
-	"item_type": "snowboard",
-	"vendor": "burton",
-	"model": "fish",
-	"branch_id": 1
-}
-
-{
-	"price": 10.00,
-	"year": 2014,
-	"item_type": "snowboard",
-	"vendor": "burton",
-	"model": "trick pony",
-	"branch_id": 1
-}
-
+gdansk-surfing-board-dick-brewer-shortboard-1
 {
 	"price": 15.00,
 	"year": 2011,
@@ -188,6 +32,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
+gdansk-surfing-board-dick-brewer-fish-1
 {
 	"price": 12.00,
 	"year": 2012,
@@ -197,6 +42,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
+gdansk-surfing-board-dick-brewer-funboard-1
 {
 	"price": 13.00,
 	"year": 2015,
@@ -206,6 +52,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
+gdansk-surfing-board-dick-brewer-hybrid-1
 {
 	"price": 18.00,
 	"year": 2016,
@@ -215,6 +62,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
+gdansk-surfing-board-dick-brewer-gun-1
 {
 	"price": 19.00,
 	"year": 2011,
@@ -224,6 +72,57 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
+gdansk-pedalo-la-noria-hidrobeetle-1
+{
+	"price": 9.00,
+	"year": 2017,
+	"item_type": "pedalo",
+	"vendor": "la noria",
+	"model": "hidrobeetle",
+	"branch_id": 1
+}
+
+gdansk-pedalo-la-noria-hidrosolar-1
+{
+	"price": 19.00,
+	"year": 2015,
+	"item_type": "pedalo",
+	"vendor": "la noria",
+	"model": "hidrosolar",
+	"branch_id": 1
+}
+
+gdansk-pedalo-la-noria-hidroferrari-1
+{
+	"price": 11.00,
+	"year": 2016,
+	"item_type": "pedalo",
+	"vendor": "la noria",
+	"model": "hidroferrari",
+	"branch_id": 1
+}
+
+gdansk-pedalo-la-noria-flamenco-1
+{
+	"price": 6.00,
+	"year": 2011,
+	"item_type": "pedalo",
+	"vendor": "la noria",
+	"model": "flamenco",
+	"branch_id": 1
+}
+
+gdansk-pedalo-la-noria-gran-pedal-cisne-1
+{
+	"price": 12.00,
+	"year": 2017,
+	"item_type": "pedalo",
+	"vendor": "la noria",
+	"model": "gran pedal cisne",
+	"branch_id": 1
+}
+
+gdansk-rollerblades-bauer-recreational-1
 {
 	"price": 4.00,
 	"year": 2011,
@@ -233,6 +132,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
+gdansk-rollerblades-bauer-firness-1
 {
 	"price": 6.00,
 	"year": 2015,
@@ -242,32 +142,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
-{
-	"price": 7.00,
-	"year": 2017,
-	"item_type": "rollerblades",
-	"vendor": "bauer",
-	"model": "hockey",
-	"branch_id": 1
-}
-
-{
-	"price": 5.00,
-	"year": 2016,
-	"item_type": "rollerblades",
-	"vendor": "bauer",
-	"model": "urban",
-	"branch_id": 1
-}
-{
-	"price": 9.00,
-	"year": 2017,
-	"item_type": "rollerblades",
-	"vendor": "bauer",
-	"model": "racing",
-	"branch_id": 1
-}
-
+gdansk-longboard-apeman-downhill-1
 {
 	"price": 7.00,
 	"year": 2016,
@@ -277,6 +152,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
+gdansk-longboard-apeman-drop-through-1
 {
 	"price": 6.00,
 	"year": 2016,
@@ -286,33 +162,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
-{
-	"price": 7.00,
-	"year": 2014,
-	"item_type": "longboard",
-	"vendor": "apeman",
-	"model": "carving",
-	"branch_id": 1
-}
-
-{
-	"price": 9.00,
-	"year": 2015,
-	"item_type": "longboard",
-	"vendor": "apeman",
-	"model": "cruising",
-	"branch_id": 1
-}
-
-{
-	"price": 4.00,
-	"year": 2016,
-	"item_type": "longboard",
-	"vendor": "apeman",
-	"model": "bamboo",
-	"branch_id": 1
-}
-
+gdansk-tent-fjord-nansen-lima-1
 {
 	"price": 25.00,
 	"year": 2016,
@@ -322,42 +172,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
-{
-	"price": 28.00,
-	"year": 2013,
-	"item_type": "tent",
-	"vendor": "fjord nansen",
-	"model": "andy 2",
-	"branch_id": 1
-}
-
-{
-	"price": 54.00,
-	"year": 2016,
-	"item_type": "tent",
-	"vendor": "fjord nansen",
-	"model": "lima",
-	"branch_id": 1
-}
-
-{
-	"price": 34.00,
-	"year": 2015,
-	"item_type": "tent",
-	"vendor": "fjord nansen",
-	"model": "malaga",
-	"branch_id": 1
-}
-
-{
-	"price": 42.00,
-	"year": 2016,
-	"item_type": "tent",
-	"vendor": "fjord nansen",
-	"model": "split vi",
-	"branch_id": 1
-}
-
+gdansk-sleeping-bag-fjord-nansen-tokk-mid-1
 {
 	"price": 5.00,
 	"year": 2016,
@@ -367,42 +182,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
-{
-	"price": 7.00,
-	"year": 2013,
-	"item_type": "sleeping-bag",
-	"vendor": "fjord nansen",
-	"model": "torget xl",
-	"branch_id": 1
-}
-
-{
-	"price": 10.00,
-	"year": 2017,
-	"item_type": "sleeping-bag",
-	"vendor": "fjord nansen",
-	"model": "tokk l",
-	"branch_id": 1
-}
-
-{
-	"price": 5.00,
-	"year": 2016,
-	"item_type": "sleeping-bag",
-	"vendor": "fjord nansen",
-	"model": "floro",
-	"branch_id": 1
-}
-
-{
-	"price": 3.00,
-	"year": 2015,
-	"item_type": "sleeping-bag",
-	"vendor": "fjord nansen",
-	"model": "moss",
-	"branch_id": 1
-}
-
+gdansk-gps-tomtom-start-42-1
 {
 	"price": 5.00,
 	"year": 2015,
@@ -412,6 +192,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
+gdansk-gps-tomtom-via-53-1
 {
 	"price": 6.00,
 	"year": 2015,
@@ -421,33 +202,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
-{
-	"price": 7.00,
-	"year": 2015,
-	"item_type": "gps",
-	"vendor": "tomtom",
-	"model": "go 520",
-	"branch_id": 1
-}
-
-{
-	"price": 8.00,
-	"year": 2015,
-	"item_type": "gps",
-	"vendor": "tomtom",
-	"model": "go 620",
-	"branch_id": 1
-}
-
-{
-	"price": 10.00,
-	"year": 2016,
-	"item_type": "gps",
-	"vendor": "tomtom",
-	"model": "go 5200",
-	"branch_id": 1
-}
-
+gdansk-caravan-jayco-hummingbird-1
 {
 	"price": 60.00,
 	"year": 2015,
@@ -457,6 +212,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
+gdansk-caravan-jayco-jay-feather-7-1
 {
 	"price": 65.00,
 	"year": 2017,
@@ -466,33 +222,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
-{
-	"price":80.00,
-	"year": 2017,
-	"item_type": "caravan",
-	"vendor": "jayco",
-	"model": "white hawk",
-	"branch_id": 1
-}
-
-{
-	"price": 90.00,
-	"year": 2016,
-	"item_type": "caravan",
-	"vendor": "jayco",
-	"model": "jay flight slx 7",
-	"branch_id": 1
-}
-
-{
-	"price": 120.00,
-	"year": 2015,
-	"item_type": "caravan",
-	"vendor": "jayco",
-	"model": "eagle travel",
-	"branch_id": 1
-}
-
+gdansk-cool-box-mobicool-t08-dc-1
 {
 	"price": 2.00,
 	"year": 2015,
@@ -502,42 +232,7 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
-{
-	"price": 4.00,
-	"year": 2017,
-	"item_type": "cool-box",
-	"vendor": "mobicool",
-	"model": "t26 dc",
-	"branch_id": 1
-}
-
-{
-	"price": 3.00,
-	"year": 2015,
-	"item_type": "cool-box",
-	"vendor": "mobicool",
-	"model": "t30 dc",
-	"branch_id": 1
-}
-
-{
-	"price": 4.00,
-	"year": 2017,
-	"item_type": "cool-box",
-	"vendor": "mobicool",
-	"model": "t35 dc",
-	"branch_id": 1
-}
-
-{
-	"price": 5.00,
-	"year": 2017,
-	"item_type": "cool-box",
-	"vendor": "mobicool",
-	"model": "t38 dc",
-	"branch_id": 1
-}
-
+gdansk-rucksack-goruck-gr2-1
 {
 	"price": 2.00,
 	"year": 2015,
@@ -547,38 +242,406 @@ bike-trek-marlin-7-1
 	"branch_id": 1
 }
 
+
+KRAKOW
+krakow-bike-trek-skye-sl-1
+{
+	"price": 6.99,
+	"year": 2012,
+	"item_type": "bike",
+	"vendor": "trek",
+	"model": "skye sl",
+	"branch_id": 1
+}
+
+krakow-ski-atomic-punx-1
+{
+	"price": 11.00,
+	"year": 2017,
+	"item_type": "ski",
+	"vendor": "atomic",
+	"model": "punx",
+	"branch_id": 2
+}
+
+krakow-ski-atomic-backland-bent-chetler-1
+{
+	"price": 13.00,
+	"year": 2016,
+	"item_type": "ski",
+	"vendor": "atomic",
+	"model": "backland bent chetler",
+	"branch_id": 2
+}
+
+krakow-snowboard-burton-flight-attendant-1
+{
+	"price": 15.00,
+	"year": 2016,
+	"item_type": "snowboard",
+	"vendor": "burton",
+	"model": "flight attendant",
+	"branch_id": 2
+}
+
+krakow-snowboard-burton-custom-flying-v-1
+{
+	"price": 13.00,
+	"year": 2017,
+	"item_type": "snowboard",
+	"vendor": "burton",
+	"model": "custom flying v",
+	"branch_id": 2
+}
+
+krakow-snowboard-burton-process-of-axis-1
+{
+	"price": 15.00,
+	"year": 2016,
+	"item_type": "snowboard",
+	"vendor": "burton",
+	"model": "process of axis",
+	"branch_id": 2
+}
+
+krakow-rollerblades-bauer-hockey-1
+{
+	"price": 7.00,
+	"year": 2017,
+	"item_type": "rollerblades",
+	"vendor": "bauer",
+	"model": "hockey",
+	"branch_id": 2
+}
+
+krakow-rollerblades-bauer-urban-1
+{
+	"price": 5.00,
+	"year": 2016,
+	"item_type": "rollerblades",
+	"vendor": "bauer",
+	"model": "urban",
+	"branch_id": 2
+}
+
+krakow-longboard-apeman-carving-1
+{
+	"price": 7.00,
+	"year": 2014,
+	"item_type": "longboard",
+	"vendor": "apeman",
+	"model": "carving",
+	"branch_id": 2
+}
+
+krakow-longboard-apeman-cruising-1
+{
+	"price": 9.00,
+	"year": 2015,
+	"item_type": "longboard",
+	"vendor": "apeman",
+	"model": "cruising",
+	"branch_id": 2
+}
+
+krakow-tent-fjord-nansen-andy-2-1
+{
+	"price": 28.00,
+	"year": 2013,
+	"item_type": "tent",
+	"vendor": "fjord nansen",
+	"model": "andy 2",
+	"branch_id": 2
+}
+
+krakow-tent-fjord-nansen-malaga-1
+{
+	"price": 34.00,
+	"year": 2015,
+	"item_type": "tent",
+	"vendor": "fjord nansen",
+	"model": "malaga",
+	"branch_id": 2
+}
+
+krakow-sleeping-bag-fjord-nansen-torget-xl-1
+{
+	"price": 7.00,
+	"year": 2013,
+	"item_type": "sleeping-bag",
+	"vendor": "fjord nansen",
+	"model": "torget xl",
+	"branch_id": 2
+}
+
+krakow-sleeping-bag-fjord-nansen-tokk-l-1
+{
+	"price": 10.00,
+	"year": 2017,
+	"item_type": "sleeping-bag",
+	"vendor": "fjord nansen",
+	"model": "tokk l",
+	"branch_id": 2
+}
+
+krakow-gps-tomtom-go-520-1
+{
+	"price": 7.00,
+	"year": 2015,
+	"item_type": "gps",
+	"vendor": "tomtom",
+	"model": "go 520",
+	"branch_id": 2
+}
+
+krakow-gps-tomtom-go-620-1
+{
+	"price": 8.00,
+	"year": 2015,
+	"item_type": "gps",
+	"vendor": "tomtom",
+	"model": "go 620",
+	"branch_id": 2
+}
+
+krakow-caravan-jayco-white-hawk-1
+{
+	"price":80.00,
+	"year": 2017,
+	"item_type": "caravan",
+	"vendor": "jayco",
+	"model": "white hawk",
+	"branch_id": 2
+}
+
+krakow-caravan-jayco-jay-flight-slx-7-1
+{
+	"price": 90.00,
+	"year": 2016,
+	"item_type": "caravan",
+	"vendor": "jayco",
+	"model": "jay flight slx 7",
+	"branch_id": 2
+}
+
+krakow-cool-box-mobicool-t26-dc-1
+{
+	"price": 4.00,
+	"year": 2017,
+	"item_type": "cool-box",
+	"vendor": "mobicool",
+	"model": "t26 dc",
+	"branch_id": 2
+}
+
+krakow-cool-box-mobicool-t30-dc-1
+{
+	"price": 3.00,
+	"year": 2015,
+	"item_type": "cool-box",
+	"vendor": "mobicool",
+	"model": "t30 dc",
+	"branch_id": 2
+}
+
+krakow-rucksack-goruck-gr3-1
 {
 	"price": 6.00,
 	"year": 2014,
 	"item_type": "rucksack",
 	"vendor": "goruck",
 	"model": "gr3",
-	"branch_id": 1
+	"branch_id": 2
 }
 
+krakow-rucksack-goruck-bullet-ruck-1
 {
 	"price": 7.00,
 	"year": 2017,
 	"item_type": "rucksack",
 	"vendor": "goruck",
 	"model": "bullet ruck",
-	"branch_id": 1
+	"branch_id": 2
 }
 
+
+PRAGA
+praga-bike-trek-x-caliber-7-1
+{
+	"price": 8.99,
+	"year": 2013,
+	"item_type": "bike",
+	"vendor": "trek",
+	"model": "x-caliber 7",
+	"branch_id": 3
+}
+
+praga-bike-trek-top-fuel-9.9-1
+{
+	"price": 15.00,
+	"year": 2017,
+	"item_type": "bike",
+	"vendor": "trek",
+	"model": "top fuel 9.9",
+	"branch_id": 3
+}
+
+praga-ski-atomic-backland-102-1
+{
+	"price": 5.00,
+	"year": 2013,
+	"item_type": "ski",
+	"vendor": "atomic",
+	"model": "backland 102",
+	"branch_id": 3
+}
+
+praga-ski-atomic-vantage-x-83-1
+{
+	"price": 14.00,
+	"year": 2015,
+	"item_type": "ski",
+	"vendor": "atomic",
+	"model": "vantage x 83",
+	"branch_id": 3
+}
+
+praga-ski-atomic-redster-s7-1
+{
+	"price": 9.50,
+	"year": 2013,
+	"item_type": "ski",
+	"vendor": "atomic",
+	"model": "redster s7",
+	"branch_id": 3
+}
+
+praga-snowboard-burton-fish-1
+{
+	"price": 11.00,
+	"year": 2015,
+	"item_type": "snowboard",
+	"vendor": "burton",
+	"model": "fish",
+	"branch_id": 3
+}
+
+praga-snowboard-burton-trick-pony-1
+{
+	"price": 10.00,
+	"year": 2014,
+	"item_type": "snowboard",
+	"vendor": "burton",
+	"model": "trick pony",
+	"branch_id": 3
+}
+
+praga-rollerblades-bauer-racing-1
+{
+	"price": 9.00,
+	"year": 2017,
+	"item_type": "rollerblades",
+	"vendor": "bauer",
+	"model": "racing",
+	"branch_id": 3
+}
+
+praga-longboard-apeman-bamboo-1
+{
+	"price": 4.00,
+	"year": 2016,
+	"item_type": "longboard",
+	"vendor": "apeman",
+	"model": "bamboo",
+	"branch_id": 3
+}
+
+praga-tent-fjord-nansen-split-vi-1
+{
+	"price": 42.00,
+	"year": 2016,
+	"item_type": "tent",
+	"vendor": "fjord nansen",
+	"model": "split vi",
+	"branch_id": 3
+}
+
+praga-sleeping-bag-fjord-nansen-floro-1
+{
+	"price": 5.00,
+	"year": 2016,
+	"item_type": "sleeping-bag",
+	"vendor": "fjord nansen",
+	"model": "floro",
+	"branch_id": 3
+}
+
+praga-sleeping-bag-fjord-nansen-moss-1
+{
+	"price": 3.00,
+	"year": 2015,
+	"item_type": "sleeping-bag",
+	"vendor": "fjord nansen",
+	"model": "moss",
+	"branch_id": 3
+}
+
+praga-gps-tomtom-go-5200-1
+{
+	"price": 10.00,
+	"year": 2016,
+	"item_type": "gps",
+	"vendor": "tomtom",
+	"model": "go 5200",
+	"branch_id": 3
+}
+
+praga-caravan-jayco-eagle-travel-1
+{
+	"price": 120.00,
+	"year": 2015,
+	"item_type": "caravan",
+	"vendor": "jayco",
+	"model": "eagle travel",
+	"branch_id": 3
+}
+
+praga-cool-box-mobicool-t35-dc-1
+{
+	"price": 4.00,
+	"year": 2017,
+	"item_type": "cool-box",
+	"vendor": "mobicool",
+	"model": "t35 dc",
+	"branch_id": 3
+}
+
+praga-cool-box-mobicool-t38-dc-1
+{
+	"price": 5.00,
+	"year": 2017,
+	"item_type": "cool-box",
+	"vendor": "mobicool",
+	"model": "t38 dc",
+	"branch_id": 3
+}
+
+praga-rucksack-goruck-echo-1
 {
 	"price": 4.00,
 	"year": 2016,
 	"item_type": "rucksack",
 	"vendor": "goruck",
 	"model": "echo",
-	"branch_id": 1
+	"branch_id": 3
 }
 
+praga-rucksack-goruck-rucker-1
 {
 	"price": 6.00,
 	"year": 2015,
 	"item_type": "rucksack",
 	"vendor": "goruck",
 	"model": "rucker",
-	"branch_id": 1
+	"branch_id": 3
 }
