@@ -65,19 +65,19 @@ class CarModel(db.Model):
 
     def short_json(self):
         return {
-                'name': self.name, 'price': self.price, 'available': self.available,  # 'reserved_by': self.reserved_by,
-                'year': self.year, 'car_type': self.car_type, 'vendor': self.vendor, 'model': self.model,
-                'seats': self.seats, 'transmission': self.transmission, 'drive': self.drive, 'fuel': self.fuel,
-                'branch': (BranchModel.find_by_id(self.branch_id)).name
-                }
-
-    def user_json(self):
-        return {
                 'name': self.name, 'price': self.price, 'available': self.available, 'reserved_by': self.reserved_by,
                 'year': self.year, 'car_type': self.car_type, 'vendor': self.vendor, 'model': self.model,
                 'seats': self.seats, 'transmission': self.transmission, 'drive': self.drive, 'fuel': self.fuel,
                 'branch': (BranchModel.find_by_id(self.branch_id)).name
                 }
+
+    # def user_json(self):
+    #     return {
+    #             'name': self.name, 'price': self.price, 'available': self.available, 'reserved_by': self.reserved_by,
+    #             'year': self.year, 'car_type': self.car_type, 'vendor': self.vendor, 'model': self.model,
+    #             'seats': self.seats, 'transmission': self.transmission, 'drive': self.drive, 'fuel': self.fuel,
+    #             'branch': (BranchModel.find_by_id(self.branch_id)).name
+    #             }
 
     @classmethod
     def find_by_name(cls, name):
