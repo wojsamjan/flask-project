@@ -41,14 +41,14 @@ class ItemModel(db.Model):
                 'model': self.model, 'branch_id': self.branch_id}
 
     def short_json(self):
-        return {'name': self.name, 'price': self.price, 'available': self.available,  # 'reserved_by': self.reserved_by,
-                'year': self.year, 'item_type': self.item_type, 'vendor': self.vendor, 'model': self.model,
-                'branch': (BranchModel.find_by_id(self.branch_id)).name}
-
-    def user_json(self):
         return {'name': self.name, 'price': self.price, 'available': self.available, 'reserved_by': self.reserved_by,
                 'year': self.year, 'item_type': self.item_type, 'vendor': self.vendor, 'model': self.model,
                 'branch': (BranchModel.find_by_id(self.branch_id)).name}
+
+    # def user_json(self):
+    #     return {'name': self.name, 'price': self.price, 'available': self.available, 'reserved_by': self.reserved_by,
+    #             'year': self.year, 'item_type': self.item_type, 'vendor': self.vendor, 'model': self.model,
+    #             'branch': (BranchModel.find_by_id(self.branch_id)).name}
 
     @classmethod
     def find_by_name(cls, name):
